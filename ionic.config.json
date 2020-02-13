@@ -1,0 +1,7 @@
+{
+  "name": "Memry",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
