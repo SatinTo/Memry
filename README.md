@@ -85,3 +85,19 @@ on typos fixed.
 Reviewed-by: Z
 Refs #133
 ```
+
+## PR Conventions
+1. The PR should always have descriptive summary of the content
+2. The PR should have detailed PR Description of its content
+
+### PR Description format
+
+```md
+#### What does this PR do?
+#### Description of Task to be completed?
+#### How should this be manually tested?
+#### Any background context you want to provide?
+#### What are the relevant pivotal tracker stories?
+#### Screenshots (if appropriate)
+#### Questions:
+```
