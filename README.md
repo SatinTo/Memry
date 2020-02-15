@@ -101,3 +101,6 @@ Refs #133
 #### Screenshots (if appropriate)
 #### Questions:
 ```
+
+## License
+This project is licensed under the CC0-1.0 - see the [LICENSE](LICENSE) file for details.
