@@ -102,5 +102,9 @@ Refs #133
 #### Questions:
 ```
 
+## File Strucutre
+The file structure follows the basic [ReactJS File structure](https://reactjs.org/docs/faq-structure.html).
+Any customization will be documented here in the future.
+
 ## License
 This project is licensed under the CC0-1.0 - see the [LICENSE](LICENSE) file for details.
