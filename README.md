@@ -1,6 +1,9 @@
 # Memry
 Flash Card, Quiz based cross-platform app created by ReactJS on top on Ionic + Capacitor Framework
 
+## Project Status
+*Comming soon*
+
 ## Setup and Contribution Guidelines
 The following are the rules and guidelines to follow when contributing to this project.
 
@@ -30,6 +33,7 @@ Additional types are not mandated by the conventional commits specification, and
 
 
 ## Commit Conventions
+You can also use tool such as [Commitizen](https://github.com/commitizen/cz-cli) for generate the commit for you need. Commitizen is a tool that enables to enforce a commit message format using the command line:
 
 ### Format of commit message
 ```html
