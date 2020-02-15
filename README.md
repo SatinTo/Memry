@@ -1,6 +1,18 @@
 # Memry
 Flash Card, Quiz based cross-platform app created by ReactJS on top on Ionic + Capacitor Framework
 
+## Setup and Contribution Guidelines
+The following are the rules and guidelines to follow when contributing to this project.
+
+1. Create your own branch or fork.
+2. Do not directly commit to the basic branches of the projects namely, `master`, `dev`, `unit`.
+3. PRs should be merge to the `dev` branch.
+4. To avoid conflict when a new feature has to be added to the pre-approved branch, compile it as an issue.
+5. Automate the closing of a project card by adding `Closes #[Issue no.]` footer on a commit.
+6. Use `dev` branch as the base branch for your new branch when using `git checkout`
+7. Do not forget to `git pull origin dev` before submitting a PR or re-executes when a conflict occur to fix it on your local machine.
+8. Do not fix conflicts on github platform. Practice doing it on your local machine.
+
 
 ## Versioning Guideline
 The versioning will be generated automatically. This section is for reference only.
