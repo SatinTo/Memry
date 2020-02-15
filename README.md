@@ -1,6 +1,33 @@
 # Memry
 Flash Card, Quiz based cross-platform app created by ReactJS on top on Ionic + Capacitor Framework
 
+## Project Status
+*Comming soon*
+
+## Table of contents
+1. [Setup and Contribution Guidelines](#setup-and-contribution-guidelines)
+2. [Versioning Guidelines](#versioning-guidelines)
+3. [Commit Conventions](#commit-conventions)
+	1. [Format of commit message](#format-of-commit-message)
+	2. [Definitions](#definitions)
+	3. [Examples](#examples)
+4. [PR Conventions](#pr-conventions)
+	1. [PR Description format](#pr-description-format)
+5. [File structure](#file-structure)
+6. [License](#license)
+
+## Setup and Contribution Guidelines
+The following are the rules and guidelines to follow when contributing to this project.
+
+1. Create your own branch or fork.
+2. Do not directly commit to the basic branches of the projects namely, `master`, `dev`, `unit`.
+3. PRs should be merge to the `dev` branch.
+4. To avoid conflict when a new feature has to be added to the pre-approved branch, compile it as an issue.
+5. Automate the closing of a project card by adding `Closes #[Issue no.]` footer on a commit.
+6. Use `dev` branch as the base branch for your new branch when using `git checkout`
+7. Do not forget to `git pull origin dev` before submitting a PR or re-executes when a conflict occur to fix it on your local machine.
+8. Do not fix conflicts on github platform. Practice doing it on your local machine.
+
 
 ## Versioning Guideline
 The versioning will be generated automatically. This section is for reference only.
@@ -18,6 +45,7 @@ Additional types are not mandated by the conventional commits specification, and
 
 
 ## Commit Conventions
+You can also use tool such as [Commitizen](https://github.com/commitizen/cz-cli) for generate the commit for you need. Commitizen is a tool that enables to enforce a commit message format using the command line:
 
 ### Format of commit message
 ```html
@@ -85,3 +113,26 @@ on typos fixed.
 Reviewed-by: Z
 Refs #133
 ```
+
+## PR Conventions
+1. The PR should always have descriptive summary of the content
+2. The PR should have detailed PR Description of its content
+
+### PR Description format
+
+```md
+#### What does this PR do?
+#### Description of Task to be completed?
+#### How should this be manually tested?
+#### Any background context you want to provide?
+#### What are the relevant pivotal tracker stories?
+#### Screenshots (if appropriate)
+#### Questions:
+```
+
+## File Strucutre
+The file structure follows the basic [ReactJS File structure](https://reactjs.org/docs/faq-structure.html).
+Any customization will be documented here in the future.
+
+## License
+This project is licensed under the CC0-1.0 - see the [LICENSE](LICENSE) file for details.
