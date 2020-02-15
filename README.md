@@ -5,16 +5,16 @@ Flash Card, Quiz based cross-platform app created by ReactJS on top on Ionic + C
 *Comming soon*
 
 ## Table of contents
-1. [Setup and Contribution Guidelines](#)
-2. [Versioning Guidelines](#)
-3. [Commit Conventions](#)
-	1. [Format of commit message](#)
-	2. [Definitions](#)
-	3. [Examples](#)
-4. [PR Conventions](#)
-	1. [PR Description format](#)
-5. [File structure](#)
-6. [License](#)
+1. [Setup and Contribution Guidelines](#setup-and-contribution-guidelines)
+2. [Versioning Guidelines](#versioning-guidelines)
+3. [Commit Conventions](#commit-conventions)
+	1. [Format of commit message](#format-of-commit-message)
+	2. [Definitions](#definitions)
+	3. [Examples](#examples)
+4. [PR Conventions](#pr-conventions)
+	1. [PR Description format](#pr-description-format)
+5. [File structure](#file-structure)
+6. [License](#license)
 
 ## Setup and Contribution Guidelines
 The following are the rules and guidelines to follow when contributing to this project.
