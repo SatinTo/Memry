@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupConfig } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -25,6 +25,11 @@ import './theme/variables.css';
 
 /* Global CSS */
 import './global.css';
+
+// Setup config
+setupConfig({
+	mode: 'ios'
+});
 
 const App: React.FC = () => (
   <IonApp>
