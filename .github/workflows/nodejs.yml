@@ -1,6 +1,12 @@
-name: ReactJS Automate Test - NodeJS
-on: [push]
+name: ReactJS Automated Test
 
+# The event condition
+on: 
+  pull_request:
+    branches:
+      - dev # Pull request only for PR for dev
+
+# The automation
 jobs:
   build:
     runs-on: ubuntu-latest
