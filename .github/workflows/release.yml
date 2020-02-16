@@ -15,7 +15,8 @@ jobs:
     - uses: actions/checkout@v2
       
     - name: Get the release version
-    - uses: cycjimmy/semantic-release-action@v2with:
+    - uses: cycjimmy/semantic-release-action@v2
+      with:
         # You can specify specifying version range for the extra plugins if you prefer.
         extra_plugins: |
           @semantic-release/changelog@3.0.0
