@@ -1,0 +1,32 @@
+name: Auto-publish Release
+
+# Event to only execute when a push on master branch has occured.
+on: 
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - uses: codfish/semantic-release-action@master
+      id: semantic 
+    - name: Get the release version
+    - run: echo ${{ steps.semantic.outputs.release-version }}
+    - run: echo "$OUTPUTS"  
+    - name: docker push version
+      if: steps.semantic.outputs.new-release-published == 'true'
+      run: |
+        docker tag some-image some-image:$TAG
+        docker push some-image:$TAG
+
+    # Environment Variables
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      OUTPUTS: ${{ toJson(steps.semantic.outputs) }}
+      TAG: v$RELEASE_VERSION
