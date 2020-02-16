@@ -11,22 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
     - uses: actions/checkout@v2
       
-    - uses: codfish/semantic-release-action@master
-      id: semantic 
     - name: Get the release version
+    - uses: cycjimmy/semantic-release-action@v2with:
+        # You can specify specifying version range for the extra plugins if you prefer.
+        extra_plugins: |
+          @semantic-release/changelog@3.0.0
+          @semantic-release/git
+      id: semantic 
     - run: echo ${{ steps.semantic.outputs.release-version }}
     - run: echo "$OUTPUTS"  
-    - name: docker push version
-      if: steps.semantic.outputs.new-release-published == 'true'
-      run: |
-        docker tag some-image some-image:$TAG
-        docker push some-image:$TAG
 
-    # Environment Variables
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      OUTPUTS: ${{ toJson(steps.semantic.outputs) }}
-      TAG: v$RELEASE_VERSION
+      # Environment Variables
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # OUTPUTS: ${{ toJson(steps.semantic.outputs) }}
+        # TAG: v$RELEASE_VERSION
+        
+    - name: Do something when a new release published
+      if: steps.semantic.outputs.new_release_published == 'true'
+      run: echo ${{ steps.semantic.outputs.new_release_version }}
