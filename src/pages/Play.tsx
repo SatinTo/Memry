@@ -1,8 +1,12 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonItem, IonIcon, IonLabel, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonButton, IonButtons, IonBackButton } from '@ionic/react';
-import React from 'react';
+import React, {useState} from 'react';
 import {arrowBackOutline} from 'ionicons/icons';
+import './Play.css';
 
 const Play = () => {
+
+	const [flipped, setFlip] = useState(false);
+
 	return (
 	<IonPage>
 		<IonToolbar style={{ marginTop: 10, paddingLeft: 10}}>
@@ -16,10 +20,19 @@ const Play = () => {
 		</IonToolbar>
 		<IonContent scrollEvents={false}>
 			<div className="container">
-				<IonCard style={{backgroundColor: "#b7b0ff", height: "80vh"}}>
-					<IonCardContent>
-						<IonCardTitle>Card Title asda sdas da sdsa da sd asd as das das da sd asd as das das da sd asd as das ds ad asd asd asd</IonCardTitle>
-					</IonCardContent>	
+				<IonCard style={{height: "80vh", boxShadow: "none"}}>
+					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setFlip(!flipped)}>
+						<div className="card__face card__face--front">
+							<IonCardContent className="container">
+								<IonCardTitle>This is the question mother fucker</IonCardTitle>
+							</IonCardContent>	
+						</div>
+						<div className="card__face card__face--back">
+							<IonCardContent className="container">
+								<IonCardTitle>This is the answer negga</IonCardTitle>
+							</IonCardContent>	
+						</div>	
+					</div>
 				</IonCard>
 			</div>
 		</IonContent>
