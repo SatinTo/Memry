@@ -1,15 +1,20 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonItem, IonIcon, IonLabel, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonButton, IonButtons, IonBackButton } from '@ionic/react';
+import { IonContent, IonFabButton, IonPage, IonFabList, IonToolbar, IonCard, IonItem, IonIcon, IonLabel, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonButton, IonButtons, IonBackButton, IonFooter } from '@ionic/react';
 import React, {useState} from 'react';
-import {arrowBackOutline} from 'ionicons/icons';
+import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
 import './Play.css';
 
 const Play = () => {
 
 	const [flipped, setFlip] = useState(false);
 
+	// Function to flip the card
+	function flipCard() {
+		setFlip(!flipped)
+	}
+
 	return (
 	<IonPage>
-		<IonToolbar style={{ marginTop: 10, paddingLeft: 10}}>
+		<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
 			<IonButtons style={{display: "inline-block"}}>
 				<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} />
 			</IonButtons>
@@ -21,7 +26,7 @@ const Play = () => {
 		<IonContent scrollEvents={false}>
 			<div className="container">
 				<IonCard style={{height: "80vh", boxShadow: "none"}}>
-					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setFlip(!flipped)}>
+					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={flipCard}>
 						<div className="card__face card__face--front">
 							<IonCardContent className="container">
 								<IonCardTitle>This is the question mother fucker</IonCardTitle>
@@ -36,6 +41,16 @@ const Play = () => {
 				</IonCard>
 			</div>
 		</IonContent>
+		<IonFooter>
+			<div style={{width: "fit-content", margin: "20px auto"}}>
+				<IonFabButton color="success" style={{display: "inline-block", marginRight: 15}}>
+					<IonIcon icon={refreshOutline} />
+				</IonFabButton>
+				<IonFabButton style={{display: "inline-block"}}>
+					<IonIcon icon={checkmarkDoneOutline} />
+				</IonFabButton>
+			</div>
+		</IonFooter>
 	</IonPage>
 	);
 };
