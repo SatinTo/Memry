@@ -43,7 +43,7 @@ const Play = () => {
 		</IonContent>
 		<IonFooter>
 			<div style={{width: "fit-content", margin: "20px auto"}}>
-				<IonFabButton color="success" style={{display: "inline-block", marginRight: 15}}>
+				<IonFabButton color="success" style={{display: "inline-block", marginRight: 15}} onClick={flipCard}>
 					<IonIcon icon={refreshOutline} />
 				</IonFabButton>
 				<IonFabButton style={{display: "inline-block"}}>
