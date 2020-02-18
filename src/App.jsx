@@ -33,7 +33,7 @@ setupConfig({
 	mode: 'ios'
 });
 
-const App: React.FC = () => (
+const App = () => (
 	<IonApp>
 		<IonReactRouter>
 			<IonRouterOutlet>
