@@ -2,9 +2,10 @@ name: Auto-publish Release
 
 # Event to only execute when a push on master branch has occured.
 on: 
-  push:
+  pull_request:
     branches: 
       - master
+    types: [closed]  
 
 jobs:
   build:
@@ -12,8 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      
     - name: Get the release version
+      if: github.event.pull_request.merged
       uses: cycjimmy/semantic-release-action@v2
       id: semantic 
       # Environment Variables
