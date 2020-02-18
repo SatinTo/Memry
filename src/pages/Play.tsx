@@ -1,10 +1,10 @@
 import { IonContent, IonFabButton, IonPage, IonFabList, IonToolbar, IonCard, IonItem, IonIcon, IonLabel, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonButton, IonButtons, IonBackButton, IonFooter } from '@ionic/react';
 import React, {useState} from 'react';
 import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
+import { Link } from 'react-router-dom';
 import './Play.css';
 
-const Play = () => {
-
+const Play = (props: any) => {
 	const [flipped, setFlip] = useState(false);
 
 	// Function to flip the card
@@ -41,16 +41,16 @@ const Play = () => {
 				</IonCard>
 			</div>
 		</IonContent>
-		<IonFooter>
+		<IonToolbar>
 			<div style={{width: "fit-content", margin: "20px auto"}}>
-				<IonFabButton color="success" style={{display: "inline-block", marginRight: 15}} onClick={flipCard}>
+				<IonFabButton color="success" style={{display: "inline-block", marginRight: 15}} onClick={() => props.history.push("/completed")}>
 					<IonIcon icon={refreshOutline} />
 				</IonFabButton>
-				<IonFabButton style={{display: "inline-block"}}>
+				<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/completed")}>
 					<IonIcon icon={checkmarkDoneOutline} />
 				</IonFabButton>
 			</div>
-		</IonFooter>
+		</IonToolbar>
 	</IonPage>
 	);
 };
