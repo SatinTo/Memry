@@ -1,10 +1,9 @@
-import { IonContent, IonFabButton, IonPage, IonFabList, IonToolbar, IonCard, IonItem, IonIcon, IonLabel, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonButton, IonButtons, IonBackButton, IonFooter } from '@ionic/react';
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton } from '@ionic/react';
 import React, {useState} from 'react';
 import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
-import { Link } from 'react-router-dom';
 import './Play.css';
 
-const Play = (props: any) => {
+const Play = (props) => {
 	const [flipped, setFlip] = useState(false);
 
 	// Function to flip the card
