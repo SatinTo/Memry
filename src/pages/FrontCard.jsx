@@ -63,12 +63,12 @@ const Play = (props) => {
 		<IonAlert
 			isOpen={isPromptVisible}
 			onDidDismiss={() => setPromptVisible(false)}
-			header={'Question!'}
+			header={(flipped) ? "Answer!" : "Question!"}
 			inputs={[
 				{
 					name: 'Question',
 					type: 'text',
-					placeholder: 'Enter your Question here...'
+					placeholder: `Enter your ${(flipped) ? "Answer" : "Question"} here...`
 				}
 			]}
 			buttons={[
