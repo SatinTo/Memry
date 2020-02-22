@@ -8,8 +8,7 @@ on:
     types: [closed]  
 
   push:
-    branches: 
-      - [dev, master]
+    branches: [dev, master]
     
 jobs:
   release:
