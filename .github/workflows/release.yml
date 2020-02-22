@@ -2,13 +2,12 @@ name: Auto-publish Release
 
 # Event to only execute when a push on master branch has occured.
 on: 
+  push:
+    branches: 
+      - dev
   pull_request:
     branches: 
-      - master
-    types: [closed]  
-
-  push:
-    branches: [dev, master]
+      - dev
     
 jobs:
   release:
