@@ -16,7 +16,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Get the release version
-      if: github.event.pull_request.merged
       uses: cycjimmy/semantic-release-action@v2
       id: semantic 
       # Environment Variables
