@@ -9,17 +9,26 @@ import {
 import React from "react";
 import "./Home.css";
 
+const headerCss = {
+	color: "#63a0fc",
+	fontSize: "2.3em"
+}
+
 const Home = () => {
   return (
 	<IonPage>
 		<IonContent scrollEvents={false}>
 			<div className="container">
-				<h1>Memry</h1>
+				<h1 style={headerCss}><b>M</b>emry</h1>
 				<div>
-					<IonButton>Play</IonButton>
-					<IonButton fill="outline">Set Items</IonButton>
+					<IonButton>
+						<span style={{padding:"10px 20px", fontSize: "1.2em"}}>Play</span>
+					</IonButton>
+					<IonButton fill="outline">
+						<span style={{fontSize: "1.2em"}}>Set Items</span>
+					</IonButton>
 				</div>
-			</div>
+			</div>	
 		</IonContent>
 	</IonPage>
   );
