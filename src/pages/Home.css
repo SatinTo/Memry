@@ -26,3 +26,7 @@ ion-content ion-toolbar {
 .container a {
 	text-decoration: none;
 }
+
+.textButton {
+	font-size: 1.2em
+}
