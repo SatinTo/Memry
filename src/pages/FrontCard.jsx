@@ -1,4 +1,4 @@
-import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton } from '@ionic/react';
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert } from '@ionic/react';
 import React, {useState} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
 import './FrontCard.css';
@@ -6,6 +6,7 @@ import './Play.css';
 
 const Play = (props) => {
 	const [flipped, setFlip] = useState(false);
+	const [isPromptVisible, setPromptVisible] = useState(false);
 
 	// Function to flip the card
 	function flipCard() {
@@ -28,7 +29,7 @@ const Play = (props) => {
 		<IonContent scrollEvents={false}>
 			<div className="container">
 				<IonCard style={{height: "80vh", boxShadow: "none"}}>
-					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={flipCard}>
+					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setPromptVisible(true)}>
 						<div className="card__face card__face--front">
 							<IonCardContent className="container">
 								<IonCardTitle>This is the question mother fucker</IonCardTitle>
@@ -59,6 +60,34 @@ const Play = (props) => {
 				</IonFabButton>
 			</div>
 		</IonToolbar>
+		<IonAlert
+			isOpen={isPromptVisible}
+			onDidDismiss={() => setPromptVisible(false)}
+			header={'Question!'}
+			inputs={[
+				{
+					name: 'Question',
+					type: 'text',
+					placeholder: 'Enter your Question here...'
+				}
+			]}
+			buttons={[
+				{
+					text: 'Cancel',
+					role: 'cancel',
+					cssClass: 'secondary',
+					handler: () => {
+						console.log('Confirm Cancel');
+					}
+				},
+					{
+					text: 'Ok',
+					handler: () => {
+						console.log('Confirm Ok');
+					}
+				}
+			]}
+		/>
 	</IonPage>
 	);
 };
