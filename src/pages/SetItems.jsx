@@ -11,7 +11,6 @@ import {
 } from "@ionic/react";
 import React from "react";
 import {arrowBackOutline, addOutline} from 'ionicons/icons';
-import "./SetItems.css";
   
 const SetItems = (props) => {
 	return (
