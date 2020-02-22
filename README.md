@@ -54,13 +54,11 @@ You can also use tool such as [Commitizen](https://github.com/commitizen/cz-cli)
 ### Format of commit message
 
 ```html
-<type
-  >(<scope
-    >):
-    <subject>
-      <body>
-        <footer></footer></body></subject></scope
-></type>
+<type />(<scope />): <subject />
+
+<body />
+
+<footer />
 ```
 
 ### Definitions
