@@ -8,7 +8,7 @@ const Play = (props) => {
 	const [flipped, setFlip] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const [frontCardText, setFrontCardText ] = useState(null);
-	const [backCardText, setBackCardText ] = useState("This is the Answer!");
+	const [backCardText, setBackCardText ] = useState(null);
 
 	// Function to flip the card
 	function flipCard() {
@@ -37,11 +37,11 @@ const Play = (props) => {
 								<IonCardTitle>
 									{(frontCardText === null) ? <i>Put Question!</i> : frontCardText}
 								</IonCardTitle>
-							</IonCardContent>	
+							</IonCardContent>
 						</div>
 						<div className="card__face card__face--back">
 							<IonCardContent className="container">
-								<IonCardTitle>This is the answer negga</IonCardTitle>
+								<IonCardTitle>{(backCardText === null) ? <i>Put Answer!</i> : backCardText}</IonCardTitle>
 							</IonCardContent>	
 						</div>	
 					</div>
@@ -70,7 +70,7 @@ const Play = (props) => {
 			header={(flipped) ? "Answer!" : "Question!"}
 			inputs={[
 				{
-					name: 'Question',
+					name: `${(flipped) ? "Answer" : "Question"}`,
 					type: 'text',
 					placeholder: `Enter your ${(flipped) ? "Answer" : "Question"} here...`
 				}
@@ -87,7 +87,10 @@ const Play = (props) => {
 					{
 					text: 'Ok',
 					handler: (data) => {
-						setFrontCardText(data.Question);
+						// setFrontCardText(data.Question)
+						if (data.name === "Question"){
+							console.log(data);
+						}
 					}
 				}
 			]}
