@@ -7,7 +7,7 @@ import './Play.css';
 const Play = (props) => {
 	const [flipped, setFlip] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
-	const [frontCardText, setFrontCardText ] = useState("This is a Question!");
+	const [frontCardText, setFrontCardText ] = useState(null);
 	const [backCardText, setBackCardText ] = useState("This is the Answer!");
 
 	// Function to flip the card
@@ -34,7 +34,9 @@ const Play = (props) => {
 					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setPromptVisible(true)}>
 						<div className="card__face card__face--front">
 							<IonCardContent className="container">
-								<IonCardTitle>{frontCardText}</IonCardTitle>
+								<IonCardTitle>
+									{(frontCardText === null) ? <i>Put Question!</i> : frontCardText}
+								</IonCardTitle>
 							</IonCardContent>	
 						</div>
 						<div className="card__face card__face--back">
