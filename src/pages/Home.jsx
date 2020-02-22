@@ -11,7 +11,7 @@ import React from "react";
 import "./Home.css";
 
 
-const Home = () => {
+const Home = (props) => {
 	const currentYear = new Date().getFullYear();
 
 	return (
@@ -21,7 +21,13 @@ const Home = () => {
 					<h1 style={{color: "#63a0fc", fontSize: "2.3em"}}><b>M</b>emry</h1>
 					<div>
 						<IonButton>
-							<span style={{padding:"10px 20px"}} className="textButton">Play</span>
+							<span 
+								style={{padding:"10px 20px"}} 
+								className="textButton" 
+								onClick={() => props.history.push("/play")}
+							>
+								Play
+							</span>
 						</IonButton>
 						<IonButton fill="outline">
 							<span className="textButton">Set Items</span>
@@ -30,7 +36,9 @@ const Home = () => {
 				</div>	
 			</IonContent>
 			<IonFooter>
-				<IonToolbar style={{textAlign:"center", color:"#9f9f9f"}}>DatosAnalyticos &copy; {currentYear}</IonToolbar>
+				<IonToolbar style={{textAlign:"center", color:"#9f9f9f"}}>
+					DatosAnalyticos &copy; {currentYear}
+				</IonToolbar>
 			</IonFooter>
 		</IonPage>
 	);
