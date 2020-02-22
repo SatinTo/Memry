@@ -2,15 +2,15 @@ import {
 	IonContent,
 	IonPage,
 	IonToolbar,
-	IonButton,
-	IonFooter,
 	IonButtons,
 	IonBackButton,
 	IonCardTitle,
-	IonCardSubtitle
+	IonCardSubtitle,
+	IonFabButton,
+	IonIcon
 } from "@ionic/react";
 import React from "react";
-import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
+import {arrowBackOutline, addOutline} from 'ionicons/icons';
 import "./SetItems.css";
   
 const SetItems = (props) => {
@@ -19,7 +19,7 @@ const SetItems = (props) => {
 			<IonContent scrollEvents={false}>
 				<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
 					<IonButtons style={{display: "inline-block"}}>
-						<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} />
+						<IonBackButton defaultHref="home" text="" icon={arrowBackOutline}/>
 					</IonButtons>
 					<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
 						<IonCardTitle style={{fontSize: "1.2em"}}>Set of Cards</IonCardTitle>
@@ -32,8 +32,13 @@ const SetItems = (props) => {
 					<span style={{color: "#c1c1c1"}}>No Available Item</span>	
 				</div>
 			</IonContent>
-			<IonFooter>
-			</IonFooter>
+			<IonToolbar>
+				<div style={{width: "fit-content", margin: "20px", float: "right"}}>
+					<IonFabButton style={{display: "inline-block"}}>
+						<IonIcon icon={addOutline} />
+					</IonFabButton>
+				</div>
+			</IonToolbar>
 		</IonPage>
 	);	
 };
