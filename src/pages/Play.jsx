@@ -20,7 +20,7 @@ const Play = (props) => {
 			<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
 				<IonCardTitle style={{fontSize: "1.2em"}}>Total Cards (100/100)</IonCardTitle>
 				<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>Finish all cards or press back to reshuffle</IonCardSubtitle>
-			</div>
+			</div>	
 		</IonToolbar>
 		<IonContent scrollEvents={false}>
 			<div className="container">

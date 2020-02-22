@@ -4,6 +4,7 @@ import { IonApp, IonRouterOutlet, setupConfig } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import Play from './pages/Play';
+import SetItems from './pages/SetItems';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -39,6 +40,7 @@ const App = () => (
 			<IonRouterOutlet>
 			<Route path="/home" component={Home} exact={true} />
 			<Route path="/play" component={Play} exact={true} />
+			<Route path="/setItems" component={SetItems} exact={true} />
 			<Route path="/completed" component={Completed} exact={true} />
 			<Route exact path="/" render={() => <Redirect to="/home" />} />
 			</IonRouterOutlet>

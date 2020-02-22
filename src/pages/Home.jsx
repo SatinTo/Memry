@@ -30,7 +30,12 @@ const Home = (props) => {
 							</span>
 						</IonButton>
 						<IonButton fill="outline">
-							<span className="textButton">Set Items</span>
+							<span 
+								className="textButton"
+								onClick={() => props.history.push("/setItems")}
+								>
+								Set Items
+							</span>
 						</IonButton>
 					</div>
 				</div>	
