@@ -19,9 +19,9 @@ const Play = (props) => {
 				<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} />
 			</IonButtons>
 			<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
-				<IonCardTitle style={{fontSize: "1.2em"}}>Front Card</IonCardTitle>
+				<IonCardTitle style={{fontSize: "1.2em"}}>{(flipped) ? "Back" : "Front"} Card</IonCardTitle>
 				<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>
-					Serve as a question in an item
+					Serve as a {(flipped) ? "answer" : "question"} in an item
 				</IonCardSubtitle>
 			</div>	
 		</IonToolbar>
