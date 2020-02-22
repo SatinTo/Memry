@@ -4,7 +4,8 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  IonButton
+  IonButton,
+  IonFooter
 } from "@ionic/react";
 import React from "react";
 import "./Home.css";
@@ -25,6 +26,9 @@ const Home = () => {
 				</div>
 			</div>	
 		</IonContent>
+		<IonFooter>
+			<IonToolbar style={{textAlign:"center", color:"#9f9f9f"}}>DatosAnalyticos &copy; 2020</IonToolbar>
+		</IonFooter>
 	</IonPage>
   );
 };
