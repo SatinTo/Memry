@@ -51,7 +51,7 @@
 		"@semantic-release/npm": "^7.0.3",
 		"@semantic-release/release-notes-generator": "^9.0.0",
 		"jsdoc": "^3.6.3",
-		"semantic-release": "^17.0.3"
+		"semantic-release": "^15.8.0"
 	},
 	"description": "Flash Card, Quiz based cross-platform app created by ReactJS on top on Ionic + Capacitor Framework"
 }
