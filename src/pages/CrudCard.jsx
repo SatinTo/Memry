@@ -59,7 +59,8 @@ const Play = (props) => {
 			visible: true,
 			message: "The Items are successfully saved."
 		});
-
+		setFrontCardText(null);
+		setBackCardText(null);
 		props.history.push("/setItems");
 	}
 
@@ -94,7 +95,6 @@ const Play = (props) => {
 			}
 		]
 	}
-
 
 	return (
 	<IonPage>
