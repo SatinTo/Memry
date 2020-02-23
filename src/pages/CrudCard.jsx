@@ -31,9 +31,7 @@ const Play = (props) => {
 				text: 'Cancel',
 				role: 'cancel',
 				cssClass: 'secondary',
-				handler: () => {
-					console.log('Confirm Cancel');
-				}
+				handler: () => setPromptVisible(false)
 			},
 			{
 				text: 'Ok',
