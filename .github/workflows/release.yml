@@ -2,19 +2,20 @@ name: Auto-publish Release
 
 # Event to only execute when a push on master branch has occured.
 on: 
+  push:
+    branches: 
+      - master
   pull_request:
     branches: 
       - master
-    types: [closed]  
-
+    
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Get the release version
-      if: github.event.pull_request.merged
       uses: cycjimmy/semantic-release-action@v2
       id: semantic 
       # Environment Variables
@@ -25,7 +26,6 @@ jobs:
       with:
         # You can specify specifying version range for the extra plugins if you prefer.
         extra_plugins: |
-          @semantic-release/changelog@3.0.0
           @semantic-release/git
     - run: echo ${{ steps.semantic.outputs.release-version }}
     - run: echo "$OUTPUTS"  
