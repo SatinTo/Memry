@@ -87,9 +87,10 @@ const Play = (props) => {
 					{
 					text: 'Ok',
 					handler: (data) => {
-						// setFrontCardText(data.Question)
-						if (data.name === "Question"){
-							console.log(data);
+						if (flipped) {
+							setBackCardText(data.Answer);
+						} else {
+							setFrontCardText(data.Question);
 						}
 					}
 				}
