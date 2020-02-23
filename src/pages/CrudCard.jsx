@@ -1,4 +1,4 @@
-import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonHeader } from '@ionic/react';
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast } from '@ionic/react';
 import React, {useState} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
@@ -14,10 +14,47 @@ const Play = (props) => {
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const [frontCardText, setFrontCardText ] = useState(null);
 	const [backCardText, setBackCardText ] = useState(null);
-
+	const [toastState, setToastState] = useState({
+		visible: false,
+		message: null
+	});
 	// Function to flip the card
 	function flipCard() {
 		setFlip(!flipped)
+	}
+
+	async function insertItem() {
+
+		if (!frontCardText){
+			setToastState({
+				visible: true,
+				message: "The front card is empty. Do not forget."
+			});
+			return;
+		}
+
+		if (!backCardText) {
+			setToastState({
+				visible: true,
+				message: "The back card is empty. Do not forget."
+			});
+			return;
+		}
+
+		await Storage.set({
+			key: 'items',
+			value: JSON.stringify({
+				front: frontCardText,
+				back: backCardText
+			})
+		});
+		
+		setToastState({
+			visible: true,
+			message: "The Items are successfully saved."
+		});
+
+		props.history.push("/setItems");
 	}
 
 	const alertProps = {
@@ -86,7 +123,7 @@ const Play = (props) => {
 				</IonCard>
 				<IonToolbar>
 					<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
-						<IonFabButton style={{display: "inline-block",  marginBottom: 20}}>
+						<IonFabButton style={{display: "inline-block",  marginBottom: 20}} onClick={insertItem}>
 							<IonIcon icon={addOutline} />
 						</IonFabButton>
 						<IonFabButton 
@@ -105,6 +142,12 @@ const Play = (props) => {
 		</IonContent>
 		
 		<IonAlert {...alertProps} />
+		<IonToast
+			isOpen={toastState.visible}
+			onDidDismiss={() => setToastState({visible: false, message: null})}
+			message={toastState.message}
+			duration={500}
+		/>
 	</IonPage>
 	);
 };
