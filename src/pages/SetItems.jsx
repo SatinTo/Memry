@@ -7,7 +7,8 @@ import {
 	IonCardTitle,
 	IonCardSubtitle,
 	IonFabButton,
-	IonIcon
+	IonIcon,
+	IonFooter
 } from "@ionic/react";
 import React from "react";
 import {arrowBackOutline, addOutline} from 'ionicons/icons';
@@ -30,14 +31,12 @@ const SetItems = (props) => {
 				<div className="container">
 					<span style={{color: "#c1c1c1"}}>No Available Item</span>	
 				</div>
-			</IonContent>
-			<IonToolbar>
-				<div style={{width: "fit-content", margin: "20px", float: "right"}}>
+				<div style={{width: "fit-content", position: "absolute", bottom: 10, right: 10}}>
 					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
 					</IonFabButton>
 				</div>
-			</IonToolbar>
+			</IonContent>
 		</IonPage>
 	);	
 };

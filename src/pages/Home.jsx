@@ -36,7 +36,7 @@ const Home = (props) => {
 							</span>
 						</IonButton>
 					</div>
-				</div>	
+				</div>
 			</IonContent>
 			<IonFooter>
 				<IonToolbar style={{textAlign:"center", color:"#9f9f9f"}}>
