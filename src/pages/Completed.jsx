@@ -18,7 +18,7 @@ const Completed = (props) => {
 			</div>
 			<IonToolbar style={{ position: "absolute", bottom: 0 }}>
 				<div style={{width: "fit-content", margin: "20px auto"}}>
-					<IonFabButton style={{display: "inline-block", marginRight: 15}} onClick={() => props.history.push("/")}>
+					<IonFabButton style={{display: "inline-block", marginRight: 15}} onClick={() => props.history.push("/home")}>
 						<IonIcon icon={exitOutline} style={{transform: "rotate(180deg)"}} />
 					</IonFabButton>
 					<IonFabButton color="success" style={{display: "inline-block"}} onClick={() => props.history.push("/play")} >

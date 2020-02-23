@@ -40,7 +40,7 @@ const Play = (props) => {
 				</IonCard>
 				<IonToolbar>
 					<div style={{width: "fit-content", margin: "20px auto"}}>
-						<IonFabButton color="success" style={{display: "inline-block", marginRight: 15}} onClick={() => props.history.push("/completed")}>
+						<IonFabButton color="success" style={{display: "inline-block", marginRight: 15}} onClick={flipCard}>
 							<IonIcon icon={refreshOutline} />
 						</IonFabButton>
 						<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/completed")}>

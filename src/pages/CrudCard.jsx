@@ -1,8 +1,13 @@
 import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonHeader } from '@ionic/react';
 import React, {useState} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
+import { Plugins } from '@capacitor/core';
+
 import './CrudCard.css';
 import './Play.css';
+
+const { Storage } = Plugins;
+
 
 const Play = (props) => {
 	const [flipped, setFlip] = useState(false);
@@ -50,7 +55,6 @@ const Play = (props) => {
 
 	return (
 	<IonPage>
-		
 		<IonContent scrollEvents={false}>
 			<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
 				<IonButtons style={{display: "inline-block"}}>
