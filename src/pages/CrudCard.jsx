@@ -15,6 +15,41 @@ const Play = (props) => {
 		setFlip(!flipped)
 	}
 
+	const alertProps = {
+		isOpen: isPromptVisible,
+		onDidDismiss: () => setPromptVisible(false),
+		header: (flipped) ? "Answer!" : "Question!",
+		inputs: [
+			{
+				name: `${(flipped) ? "Answer" : "Question"}`,
+				type: 'text',
+				placeholder: `Enter your ${(flipped) ? "Answer" : "Question"} here...`
+			}
+		],
+		buttons: [
+			{
+				text: 'Cancel',
+				role: 'cancel',
+				cssClass: 'secondary',
+				handler: () => {
+					console.log('Confirm Cancel');
+				}
+			},
+			{
+				text: 'Ok',
+				handler: (data) => {
+					if (flipped) {
+						setBackCardText(data.Answer);
+						return;
+					} 
+
+					setFrontCardText(data.Question);
+				}
+			}
+		]
+	}
+
+
 	return (
 	<IonPage>
 		<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
@@ -64,38 +99,7 @@ const Play = (props) => {
 				</IonFabButton>
 			</div>
 		</IonToolbar>
-		<IonAlert
-			isOpen={isPromptVisible}
-			onDidDismiss={() => setPromptVisible(false)}
-			header={(flipped) ? "Answer!" : "Question!"}
-			inputs={[
-				{
-					name: `${(flipped) ? "Answer" : "Question"}`,
-					type: 'text',
-					placeholder: `Enter your ${(flipped) ? "Answer" : "Question"} here...`
-				}
-			]}
-			buttons={[
-				{
-					text: 'Cancel',
-					role: 'cancel',
-					cssClass: 'secondary',
-					handler: () => {
-						console.log('Confirm Cancel');
-					}
-				},
-					{
-					text: 'Ok',
-					handler: (data) => {
-						if (flipped) {
-							setBackCardText(data.Answer);
-						} else {
-							setFrontCardText(data.Question);
-						}
-					}
-				}
-			]}
-		/>
+		<IonAlert {...alertProps} />
 	</IonPage>
 	);
 };
