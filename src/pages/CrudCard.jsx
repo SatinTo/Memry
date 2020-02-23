@@ -40,13 +40,19 @@ const Play = (props) => {
 			});
 			return;
 		}
+		const oldItems = await Storage.get({ key: 'items' });
+		const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+		const newItems = [ 
+			{
+				front: frontCardText,
+				back: backCardText
+			},
+			...oldItemsJSON
+		];
 
 		await Storage.set({
 			key: 'items',
-			value: JSON.stringify({
-				front: frontCardText,
-				back: backCardText
-			})
+			value: JSON.stringify(newItems)
 		});
 		
 		setToastState({
