@@ -13,18 +13,18 @@ const Play = (props) => {
 
 	return (
 	<IonPage>
-		<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
-			<IonButtons style={{display: "inline-block"}}>
-				<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} />
-			</IonButtons>
-			<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
-				<IonCardTitle style={{fontSize: "1.2em"}}>Total Cards (100/100)</IonCardTitle>
-				<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>Finish all cards or press back to reshuffle</IonCardSubtitle>
-			</div>	
-		</IonToolbar>
 		<IonContent scrollEvents={false}>
-			<div className="container">
-				<IonCard style={{height: "80vh", boxShadow: "none"}}>
+			<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
+				<IonButtons style={{display: "inline-block"}}>
+					<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} />
+				</IonButtons>
+				<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
+					<IonCardTitle style={{fontSize: "1.2em"}}>Total Cards (100/100)</IonCardTitle>
+					<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>Finish all cards or press back to reshuffle</IonCardSubtitle>
+				</div>	
+			</IonToolbar>
+			<div className="container" style={{ paddingTop: "8vh"}}>
+				<IonCard style={{height: "64vh", boxShadow: "none"}}>
 					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={flipCard}>
 						<div className="card__face card__face--front">
 							<IonCardContent className="container">
@@ -38,18 +38,18 @@ const Play = (props) => {
 						</div>	
 					</div>
 				</IonCard>
+				<IonToolbar>
+					<div style={{width: "fit-content", margin: "20px auto"}}>
+						<IonFabButton color="success" style={{display: "inline-block", marginRight: 15}} onClick={() => props.history.push("/completed")}>
+							<IonIcon icon={refreshOutline} />
+						</IonFabButton>
+						<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/completed")}>
+							<IonIcon icon={checkmarkDoneOutline} />
+						</IonFabButton>
+					</div>
+				</IonToolbar>
 			</div>
 		</IonContent>
-		<IonToolbar>
-			<div style={{width: "fit-content", margin: "20px auto"}}>
-				<IonFabButton color="success" style={{display: "inline-block", marginRight: 15}} onClick={() => props.history.push("/completed")}>
-					<IonIcon icon={refreshOutline} />
-				</IonFabButton>
-				<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/completed")}>
-					<IonIcon icon={checkmarkDoneOutline} />
-				</IonFabButton>
-			</div>
-		</IonToolbar>
 	</IonPage>
 	);
 };
