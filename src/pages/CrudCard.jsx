@@ -1,7 +1,7 @@
 import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert } from '@ionic/react';
 import React, {useState} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
-import './FrontCard.css';
+import './CrudCard.css';
 import './Play.css';
 
 const Play = (props) => {

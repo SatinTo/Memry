@@ -33,7 +33,7 @@ const SetItems = (props) => {
 			</IonContent>
 			<IonToolbar>
 				<div style={{width: "fit-content", margin: "20px", float: "right"}}>
-					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/frontCard")}>
+					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
 					</IonFabButton>
 				</div>
