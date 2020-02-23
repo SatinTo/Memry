@@ -16,17 +16,17 @@ const Completed = (props) => {
 				</IonToolbar>
 				<div style={{color: "#aaaaaa"}}>You either reshuffle or exit</div>
 			</div>
+			<IonToolbar style={{ position: "absolute", bottom: 0 }}>
+				<div style={{width: "fit-content", margin: "20px auto"}}>
+					<IonFabButton style={{display: "inline-block", marginRight: 15}} onClick={() => props.history.push("/")}>
+						<IonIcon icon={exitOutline} style={{transform: "rotate(180deg)"}} />
+					</IonFabButton>
+					<IonFabButton color="success" style={{display: "inline-block"}} onClick={() => props.history.push("/play")} >
+						<IonIcon icon={shuffleOutline} />
+					</IonFabButton>
+				</div>
+			</IonToolbar>
 		</IonContent>
-		<IonToolbar>
-			<div style={{width: "fit-content", margin: "20px auto"}}>
-				<IonFabButton style={{display: "inline-block", marginRight: 15}} onClick={() => props.history.push("/")}>
-					<IonIcon icon={exitOutline} style={{transform: "rotate(180deg)"}} />
-				</IonFabButton>
-				<IonFabButton color="success" style={{display: "inline-block"}} onClick={() => props.history.push("/play")} >
-					<IonIcon icon={shuffleOutline} />
-				</IonFabButton>
-			</div>
-		</IonToolbar>
 	</IonPage>
 	);
 };
