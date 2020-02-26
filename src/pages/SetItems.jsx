@@ -8,7 +8,9 @@ import {
 	IonCardSubtitle,
 	IonFabButton,
 	IonIcon,
-	IonFooter
+	IonCardContent,
+	IonGrid,
+	IonCol
 } from "@ionic/react";
 import React from "react";
 import {arrowBackOutline, addOutline} from 'ionicons/icons';
@@ -26,11 +28,24 @@ const SetItems = (props) => {
 						<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>
 							Available Cards
 						</IonCardSubtitle>
-					</div>	
+					</div>
 				</IonToolbar>
-				<div className="container">
-					<span style={{color: "#c1c1c1"}}>No Available Item</span>	
-				</div>
+				<IonGrid>
+					<IonCol>
+						<div className="card__face--front" style={{ height: "235px", width: "135px", margin: "0 15px", borderRadius: "5px"}}>
+							{/* <IonCardContent>
+								<IonCardTitle></IonCardTitle>
+							</IonCardContent> */}
+						</div>
+					</IonCol>
+					<IonCol>
+						<div className="card__face--front" style={{ height: "235px", width: "135px", margin: "0 15px", borderRadius: "5px"}}>
+							{/* <IonCardContent>
+								<IonCardTitle></IonCardTitle>
+							</IonCardContent> */}
+						</div>
+					</IonCol>
+				</IonGrid>
 				<div style={{width: "fit-content", position: "absolute", bottom: 10, right: 10}}>
 					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
@@ -38,6 +53,6 @@ const SetItems = (props) => {
 				</div>
 			</IonContent>
 		</IonPage>
-	);	
+	);
 };
 export default SetItems;
