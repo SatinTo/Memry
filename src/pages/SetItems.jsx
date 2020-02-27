@@ -31,15 +31,15 @@ const SetItems = (props) => {
 					</div>
 				</IonToolbar>
 				<IonGrid>
-					<IonCol>
-						<div className="card__face--front" style={{ height: "235px", width: "135px", margin: "0 15px", borderRadius: "5px"}}>
+					<IonCol size="6">
+						<div className="card__face--front" style={{ height: "235px", width: "135px", borderRadius: "5px"}}>
 							{/* <IonCardContent>
 								<IonCardTitle></IonCardTitle>
 							</IonCardContent> */}
 						</div>
 					</IonCol>
-					<IonCol>
-						<div className="card__face--front" style={{ height: "235px", width: "135px", margin: "0 15px", borderRadius: "5px"}}>
+					<IonCol size="6">
+						<div className="card__face--front" style={{ height: "235px", width: "135px", borderRadius: "5px"}}>
 							{/* <IonCardContent>
 								<IonCardTitle></IonCardTitle>
 							</IonCardContent> */}
