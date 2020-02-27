@@ -14,12 +14,20 @@ import {
 } from "@ionic/react";
 import React from "react";
 import {arrowBackOutline, addOutline} from 'ionicons/icons';
-  
+
+const cardStyle = {
+	height: 210,
+	width: 130,
+	borderRadius: 5,
+	margin:"0 0 5px 15px",
+	display: "inline-block"
+}
+
 const SetItems = (props) => {
 	return (
 		<IonPage>
 			<IonContent scrollEvents={false}>
-				<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
+				<IonToolbar style={{ marginTop: 10, paddingLeft: 10}}>
 					<IonButtons style={{display: "inline-block"}}>
 						<IonBackButton defaultHref="home" text="" icon={arrowBackOutline}/>
 					</IonButtons>
@@ -30,22 +38,16 @@ const SetItems = (props) => {
 						</IonCardSubtitle>
 					</div>
 				</IonToolbar>
-				<IonGrid>
-					<IonCol size="6">
-						<div className="card__face--front" style={{ height: "235px", width: "135px", borderRadius: "5px"}}>
-							{/* <IonCardContent>
-								<IonCardTitle></IonCardTitle>
-							</IonCardContent> */}
-						</div>
-					</IonCol>
-					<IonCol size="6">
-						<div className="card__face--front" style={{ height: "235px", width: "135px", borderRadius: "5px"}}>
-							{/* <IonCardContent>
-								<IonCardTitle></IonCardTitle>
-							</IonCardContent> */}
-						</div>
-					</IonCol>
-				</IonGrid>
+				<div className="card__face--front" style={cardStyle}>
+					{/* <IonCardContent>
+						<IonCardTitle></IonCardTitle>
+					</IonCardContent> */}
+				</div>
+				<div className="card__face--front" style={cardStyle}>
+					{/* <IonCardContent>
+						<IonCardTitle></IonCardTitle>
+					</IonCardContent> */}
+				</div>
 				<div style={{width: "fit-content", position: "absolute", bottom: 10, right: 10}}>
 					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
