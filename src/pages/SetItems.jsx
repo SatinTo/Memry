@@ -39,14 +39,14 @@ const SetItems = (props) => {
 					</div>
 				</IonToolbar>
 				<div className="card__face--front" style={cardStyle}>
-					{/* <IonCardContent>
-						<IonCardTitle></IonCardTitle>
-					</IonCardContent> */}
+					<IonCardContent>
+						<IonCardTitle>The Question fucker!</IonCardTitle>
+					</IonCardContent>
 				</div>
 				<div className="card__face--front" style={cardStyle}>
-					{/* <IonCardContent>
-						<IonCardTitle></IonCardTitle>
-					</IonCardContent> */}
+					<IonCardContent>
+						<IonCardTitle>The Question fucker!</IonCardTitle>
+					</IonCardContent>
 				</div>
 				<div style={{width: "fit-content", position: "absolute", bottom: 10, right: 10}}>
 					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/crudCard")}>
