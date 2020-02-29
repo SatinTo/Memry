@@ -9,10 +9,9 @@ import {
 	IonFabButton,
 	IonIcon,
 	IonCardContent,
-	IonGrid,
-	IonCol
+	IonCard,
 } from "@ionic/react";
-import React from "react";
+import React, {useState} from "react";
 import {arrowBackOutline, addOutline} from 'ionicons/icons';
 
 const cardStyle = {
@@ -24,6 +23,13 @@ const cardStyle = {
 }
 
 const SetItems = (props) => {
+	const [flipped, setFlip] = useState(false);
+
+	// Function to flip the card
+	function flipCard() {
+		setFlip(!flipped)
+	}
+	
 	return (
 		<IonPage>
 			<IonContent scrollEvents={false}>
@@ -38,16 +44,18 @@ const SetItems = (props) => {
 						</IonCardSubtitle>
 					</div>
 				</IonToolbar>
-				<div className="card__face--front" style={cardStyle}>
-					<IonCardContent>
-						<IonCardTitle>The Question fucker!</IonCardTitle>
-					</IonCardContent>
-				</div>
-				<div className="card__face--front" style={cardStyle}>
-					<IonCardContent>
-						<IonCardTitle>The Question fucker!</IonCardTitle>
-					</IonCardContent>
-				</div>
+				<IonCard style={{height: "64vh", boxShadow: "none", marginTop: "5px"}}>
+					<div className="card__face card__face--front" style={{ width: "50%", height: "60%",borderRadius: "10px", display: "inline-block"}}>
+						<IonCardContent className="container">
+							<IonCardTitle style={{fontSize: "10px"}}>This is the question mother fucker</IonCardTitle>
+						</IonCardContent>	
+					</div>
+					<div className="card__face card__face--front" style={{ width: "50%", height: "60%",borderRadius: "10px", display: "inline-block"}}>
+						<IonCardContent className="container">
+							<IonCardTitle style={{fontSize: "10px"}}>This is the question mother fucker</IonCardTitle>
+						</IonCardContent>	
+					</div>
+				</IonCard>
 				<div style={{width: "fit-content", position: "absolute", bottom: 10, right: 10}}>
 					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
