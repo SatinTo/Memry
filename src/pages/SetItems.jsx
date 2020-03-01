@@ -10,6 +10,9 @@ import {
 	IonIcon,
 	IonCardContent,
 	IonCard,
+	IonRow,
+	IonCol,
+	IonGrid
 } from "@ionic/react";
 import React, {useState} from "react";
 import {arrowBackOutline, addOutline} from 'ionicons/icons';
@@ -44,18 +47,50 @@ const SetItems = (props) => {
 						</IonCardSubtitle>
 					</div>
 				</IonToolbar>
-				<IonCard style={{height: "64vh", boxShadow: "none", marginTop: "5px"}}>
-					<div className="card__face card__face--front" style={{ width: "50%", height: "60%",borderRadius: "10px", display: "inline-block"}}>
-						<IonCardContent className="container">
-							<IonCardTitle style={{fontSize: "10px"}}>This is the question mother fucker</IonCardTitle>
-						</IonCardContent>	
-					</div>
-					<div className="card__face card__face--front" style={{ width: "50%", height: "60%",borderRadius: "10px", display: "inline-block"}}>
-						<IonCardContent className="container">
-							<IonCardTitle style={{fontSize: "10px"}}>This is the question mother fucker</IonCardTitle>
-						</IonCardContent>	
-					</div>
-				</IonCard>
+				<IonGrid>
+					<IonRow>
+						<IonCol size="6">
+							<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}>
+								<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
+									<IonCardContent className="container">
+										<IonCardTitle style={{fontSize: "10px"}}>
+											This is the question mother fucker
+										</IonCardTitle>
+									</IonCardContent>
+								</div>
+							</IonCard>
+						</IonCol>
+						<IonCol size="6">
+							<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}>
+								<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
+									<IonCardContent className="container">
+										<IonCardTitle style={{fontSize: "10px"}}>This is the question mother fucker</IonCardTitle>
+									</IonCardContent>	
+								</div>
+							</IonCard>
+						</IonCol>
+						<IonCol size="6">
+							<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}>
+								<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
+									<IonCardContent className="container">
+										<IonCardTitle style={{fontSize: "10px"}}>
+											This is the question mother fucker
+										</IonCardTitle>
+									</IonCardContent>
+								</div>
+							</IonCard>
+						</IonCol>
+						<IonCol size="6">
+							<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}>
+								<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
+									<IonCardContent className="container">
+										<IonCardTitle style={{fontSize: "10px"}}>This is the question mother fucker</IonCardTitle>
+									</IonCardContent>	
+								</div>
+							</IonCard>
+						</IonCol>
+					</IonRow>
+				</IonGrid>
 				<div style={{width: "fit-content", position: "absolute", bottom: 10, right: 10}}>
 					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
