@@ -15,7 +15,7 @@ import {
 	IonGrid
 } from "@ionic/react";
 import React, {useState} from "react";
-import {arrowBackOutline, addOutline} from 'ionicons/icons';
+import {arrowBackOutline, addOutline, closeOutline} from 'ionicons/icons';
 
 const cardStyle = {
 	height: 210,
@@ -91,7 +91,11 @@ const SetItems = (props) => {
 						</IonCol>
 					</IonRow>
 				</IonGrid>
-				<div style={{width: "fit-content", position: "absolute", bottom: 10, right: 10}}>
+				<div style={{width: "70px", position: "absolute", bottom: 10, right: 10, textAlign: "right"}}>
+					<IonFabButton style={{display: "inline-block"}} color="danger"  
+					onClick={() => props.history.push("/crudCard")}>
+						<IonIcon icon={closeOutline} />
+					</IonFabButton>
 					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
 					</IonFabButton>
