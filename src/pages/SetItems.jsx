@@ -14,8 +14,11 @@ import {
 	IonCol,
 	IonGrid
 } from "@ionic/react";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {arrowBackOutline, addOutline, closeOutline} from 'ionicons/icons';
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
 
 const cardStyle = {
 	height: 210,
@@ -23,6 +26,44 @@ const cardStyle = {
 	borderRadius: 5,
 	margin:"0 0 5px 15px",
 	display: "inline-block"
+}
+
+const Item = ({data}) => {
+	return (
+		<IonCol size="6">
+			<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}>
+				<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
+					<IonCardContent className="container">
+						<IonCardTitle style={{fontSize: "10px"}}>
+							{data.front}
+						</IonCardTitle>
+					</IonCardContent>
+				</div>
+			</IonCard>
+		</IonCol>
+	);
+}
+
+
+
+const RenderItems = () => {
+	const [items, setItems] = useState([]);
+
+	useEffect(() => {
+		(async function(){
+			const oldItems = await Storage.get({ key: 'items' });
+			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+			setItems(oldItemsJSON);
+		})();
+		
+	}, [items, setItems])
+
+	return <>
+		{items.map((data, index) => {
+			console.log("Test");
+			return <Item key={index} data={data}/>
+		})}
+	</>
 }
 
 const SetItems = (props) => {
@@ -49,46 +90,7 @@ const SetItems = (props) => {
 				</IonToolbar>
 				<IonGrid>
 					<IonRow>
-						<IonCol size="6">
-							<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}>
-								<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
-									<IonCardContent className="container">
-										<IonCardTitle style={{fontSize: "10px"}}>
-											This is the question mother fucker
-										</IonCardTitle>
-									</IonCardContent>
-								</div>
-							</IonCard>
-						</IonCol>
-						<IonCol size="6">
-							<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}>
-								<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
-									<IonCardContent className="container">
-										<IonCardTitle style={{fontSize: "10px"}}>This is the question mother fucker</IonCardTitle>
-									</IonCardContent>	
-								</div>
-							</IonCard>
-						</IonCol>
-						<IonCol size="6">
-							<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}>
-								<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
-									<IonCardContent className="container">
-										<IonCardTitle style={{fontSize: "10px"}}>
-											This is the question mother fucker
-										</IonCardTitle>
-									</IonCardContent>
-								</div>
-							</IonCard>
-						</IonCol>
-						<IonCol size="6">
-							<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}>
-								<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
-									<IonCardContent className="container">
-										<IonCardTitle style={{fontSize: "10px"}}>This is the question mother fucker</IonCardTitle>
-									</IonCardContent>	
-								</div>
-							</IonCard>
-						</IonCol>
+						<RenderItems />
 					</IonRow>
 				</IonGrid>
 				<div style={{width: "70px", position: "absolute", bottom: 10, right: 10, textAlign: "right"}}>
