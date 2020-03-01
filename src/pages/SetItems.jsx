@@ -17,6 +17,7 @@ import {
 import React, {useState, useEffect} from "react";
 import {arrowBackOutline, addOutline, closeOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
+import { useHistory } from "react-router-dom";
 
 const { Storage } = Plugins;
 
@@ -28,7 +29,9 @@ const cardStyle = {
 	display: "inline-block"
 }
 
-const Item = ({id, data, history}) => {
+const Item = ({id, data}) => {
+	const history = useHistory();
+
 	return (
 		<IonCol size="6">
 			<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}
@@ -45,17 +48,18 @@ const Item = ({id, data, history}) => {
 	);
 }
 
-const RenderItems = (props) => {
+const RenderItems = () => {
 	const [items, setItems] = useState([]);
 
 	useEffect(() => {
-		if (items.length < 1) {
-			(async function(){
-				const oldItems = await Storage.get({ key: 'items' });
-				const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+		(async function(){
+			const oldItems = await Storage.get({ key: 'items' });
+			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
 				setItems(oldItemsJSON);
-			})();
-		}
+				console.log(oldItemsJSON, items);
+			}
+		})();
 	}, [items])
 
 	if (items.length < 1) {
@@ -64,14 +68,15 @@ const RenderItems = (props) => {
 	return <>
 		{
 		items.map((data, index) => {
-			console.log("test");
-			return <Item key={index} data={data} history={props.history} id={index}/>
+			// console.log("test");
+			return <Item key={index} data={data} id={index}/>
 		})}
 	</>
 }
 
-const SetItems = (props) => {
+const SetItems = () => {
 	const [flipped, setFlip] = useState(false);
+	const history = useHistory();
 
 	// Function to flip the card
 	function flipCard() {
@@ -94,15 +99,15 @@ const SetItems = (props) => {
 				</IonToolbar>
 				<IonGrid>
 					<IonRow>
-						<RenderItems history={props.history}/>
+						<RenderItems />
 					</IonRow>
 				</IonGrid>
 				<div style={{width: "70px", position: "absolute", bottom: 10, right: 10, textAlign: "right"}}>
 					<IonFabButton style={{display: "inline-block"}} color="danger"  
-					onClick={() => props.history.push("/crudCard")}>
+					onClick={() => history.push("/crudCard")}>
 						<IonIcon icon={closeOutline} />
 					</IonFabButton>
-					<IonFabButton style={{display: "inline-block"}} onClick={() => props.history.push("/crudCard")}>
+					<IonFabButton style={{display: "inline-block"}} onClick={() => history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
 					</IonFabButton>
 				</div>

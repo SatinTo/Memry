@@ -27,6 +27,10 @@ const Play = (props) => {
 			setFrontCardText(oldItemsJSON[id].front);
 			setBackCardText(oldItemsJSON[id].back);
 		})();
+
+		return () => {
+			console.log("crudcard");
+		};
 	}, [id])
 
 	// Function to flip the card
@@ -53,14 +57,20 @@ const Play = (props) => {
 		}
 		const oldItems = await Storage.get({ key: 'items' });
 		const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
-		const newItems = [ 
-			{
-				front: frontCardText,
-				back: backCardText
-			},
-			...oldItemsJSON
-		];
-
+		let newItems;
+		if (typeof id === "undefined"){
+			newItems = [ 
+				{
+					front: frontCardText,
+					back: backCardText
+				},
+				...oldItemsJSON
+			];
+		} else {
+			oldItemsJSON[id].front = frontCardText;
+			oldItemsJSON[id].back = backCardText;
+			newItems = oldItemsJSON;
+		}
 		await Storage.set({
 			key: 'items',
 			value: JSON.stringify(newItems)
@@ -70,9 +80,13 @@ const Play = (props) => {
 			visible: true,
 			message: "The Items are successfully saved."
 		});
-		setFrontCardText(null);
-		setBackCardText(null);
 		props.history.push("/setItems");
+
+		if (typeof id === "undefined"){
+			setFrontCardText(false);
+			setBackCardText(false);
+		}
+		setFlip(false);
 	}
 
 	const alertProps = {
