@@ -1,5 +1,5 @@
 import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast } from '@ionic/react';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 
@@ -7,7 +7,6 @@ import './CrudCard.css';
 import './Play.css';
 
 const { Storage } = Plugins;
-
 
 const Play = (props) => {
 	const [flipped, setFlip] = useState(false);
@@ -18,6 +17,18 @@ const Play = (props) => {
 		visible: false,
 		message: null
 	});
+
+	const {id} = props.match.params
+
+	useEffect(() => {
+		(async function(){
+			const oldItems = await Storage.get({ key: 'items' });
+			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+			setFrontCardText(oldItemsJSON[id].front);
+			setBackCardText(oldItemsJSON[id].back);
+		})();
+	}, [id])
+
 	// Function to flip the card
 	function flipCard() {
 		setFlip(!flipped)

@@ -44,6 +44,7 @@ const App = () => (
 			<Route path="/setItems" component={SetItems} exact={true} />
 			<Route path="/completed" component={Completed} exact={true} />
 			<Route path="/crudCard" component={CrudCard} exact={true} />
+			<Route path="/crudCard/:id" component={CrudCard}/>
 			<Route exact path="/" render={() => <Redirect to="/home" />} />
 			</IonRouterOutlet>
 		</IonReactRouter>
