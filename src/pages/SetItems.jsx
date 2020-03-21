@@ -98,11 +98,11 @@ const SetItems = () => {
 					</div>
 				</IonToolbar>
 				<IonGrid>
-					<IonRow>
-						<RenderItems />
+					<IonRow >
+						<RenderItems/>
 					</IonRow>
 				</IonGrid>
-				<div style={{width: "70px", position: "absolute", bottom: 10, right: 10, textAlign: "right"}}>
+				<div style={{width: "70px", position: "fixed", bottom: 10, right: 10, textAlign: "right"}}>
 					<IonFabButton style={{display: "inline-block"}} color="danger"  
 					onClick={() => history.push("/crudCard")}>
 						<IonIcon icon={closeOutline} />
