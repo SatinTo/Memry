@@ -1,6 +1,6 @@
 import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast } from '@ionic/react';
 import React, {useState, useEffect} from 'react';
-import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
+import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline, returnUpBackOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 
 import './CrudCard.css';
@@ -24,6 +24,10 @@ const Play = (props) => {
 		(async function(){
 			const oldItems = await Storage.get({ key: 'items' });
 			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+
+			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id) || !oldItemsJSON[id].hasOwnProperty("front") || !oldItemsJSON[id].hasOwnProperty("back")){
+				return;
+			}
 			setFrontCardText(oldItemsJSON[id].front);
 			setBackCardText(oldItemsJSON[id].back);
 		})();

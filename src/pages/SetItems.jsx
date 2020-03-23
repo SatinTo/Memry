@@ -50,17 +50,24 @@ const Item = ({id, data}) => {
 
 const RenderItems = () => {
 	const [items, setItems] = useState([]);
+	const [initialized, setInitialized] = useState(false);
 
 	useEffect(() => {
 		(async function(){
+			if (initialized)
+				return;
+
 			const oldItems = await Storage.get({ key: 'items' });
 			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+			
 			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
 				setItems(oldItemsJSON);
 				console.log(oldItemsJSON, items);
 			}
+
+			setInitialized(true);
 		})();
-	}, [items])
+	}, [items, initialized])
 
 	if (items.length < 1) {
 		return <></>;
