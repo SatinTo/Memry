@@ -8,8 +8,6 @@ import {
   IonFooter
 } from "@ionic/react";
 import React from "react";
-import "./Home.css";
-
 
 const Home = (props) => {
 	const currentYear = new Date().getFullYear();
@@ -30,10 +28,15 @@ const Home = (props) => {
 							</span>
 						</IonButton>
 						<IonButton fill="outline">
-							<span className="textButton">Set Items</span>
+							<span 
+								className="textButton"
+								onClick={() => props.history.push("/setItems")}
+								>
+								Set Items
+							</span>
 						</IonButton>
 					</div>
-				</div>	
+				</div>
 			</IonContent>
 			<IonFooter>
 				<IonToolbar style={{textAlign:"center", color:"#9f9f9f"}}>
