@@ -22,14 +22,6 @@ import { ItemsContext } from "../ItemsStore";
 
 const { Storage } = Plugins;
 
-const cardStyle = {
-	height: 210,
-	width: 130,
-	borderRadius: 5,
-	margin:"0 0 5px 15px",
-	display: "inline-block"
-}
-
 const Item = ({id, data}) => {
 	const history = useHistory();
 
@@ -68,7 +60,7 @@ const RenderItems = () => {
 
 			setInitialized(true);
 		})();
-	}, [items, initialized])
+	}, [items, initialized, dispatch])
 
 	if (items.length < 1) {
 		return <></>;
@@ -82,13 +74,7 @@ const RenderItems = () => {
 }
 
 const SetItems = () => {
-	const [flipped, setFlip] = useState(false);
 	const history = useHistory();
-
-	// Function to flip the card
-	function flipCard() {
-		setFlip(!flipped)
-	}
 	
 	return (
 		<IonPage>

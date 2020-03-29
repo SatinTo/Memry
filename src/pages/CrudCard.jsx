@@ -1,6 +1,6 @@
 import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast } from '@ionic/react';
 import React, {useState, useEffect, useContext} from 'react';
-import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline, returnUpBackOutline} from 'ionicons/icons';
+import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
 import { ItemsContext } from "../ItemsStore";
 import { Plugins } from '@capacitor/core';
 
