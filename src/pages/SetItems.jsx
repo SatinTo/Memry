@@ -14,10 +14,11 @@ import {
 	IonCol,
 	IonGrid
 } from "@ionic/react";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {arrowBackOutline, addOutline, closeOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
+import { ItemsContext } from "../ItemsStore";
 
 const { Storage } = Plugins;
 
@@ -49,7 +50,7 @@ const Item = ({id, data}) => {
 }
 
 const RenderItems = () => {
-	const [items, setItems] = useState([]);
+	const {state: {items}, dispatch} = useContext(ItemsContext);
 	const [initialized, setInitialized] = useState(false);
 
 	useEffect(() => {
@@ -61,7 +62,7 @@ const RenderItems = () => {
 			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
 			
 			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
-				setItems(oldItemsJSON);
+				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
 				console.log(oldItemsJSON, items);
 			}
 
@@ -75,7 +76,6 @@ const RenderItems = () => {
 	return <>
 		{
 		items.map((data, index) => {
-			// console.log("test");
 			return <Item key={index} data={data} id={index}/>
 		})}
 	</>
