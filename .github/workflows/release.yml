@@ -5,10 +5,7 @@ on:
   push:
     branches: 
       - master
-  pull_request:
-    branches: 
-      - master
-    
+
 jobs:
   release:
     runs-on: ubuntu-latest
