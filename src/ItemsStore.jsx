@@ -13,8 +13,8 @@ function itemReducer(state, action) {
 
 export default function ItemsStore(props){
 	const [state, dispatch] = useReducer(itemReducer, {
-        items: []
-    });
+		items: []
+	});
 
 	return (
 		<ItemsContext.Provider value={{state, dispatch}}>{props.children}</ItemsContext.Provider>

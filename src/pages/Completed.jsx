@@ -1,5 +1,5 @@
-import { IonContent, IonFabButton, IonPage, IonFabList, IonToolbar, IonCard, IonItem, IonIcon, IonLabel, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonButton, IonButtons, IonBackButton, IonFooter, IonTitle } from '@ionic/react';
-import React, {useState} from 'react';
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonIcon, IonTitle } from '@ionic/react';
+import React from 'react';
 import {shuffleOutline, exitOutline} from 'ionicons/icons';
 
 const Completed = (props) => {
