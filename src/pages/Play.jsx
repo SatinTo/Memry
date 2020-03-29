@@ -45,7 +45,6 @@ const Play = () => {
 
 	// Makesure not to cache the items
 	useIonViewWillEnter(() => {
-		console.log("here we go again");
 		Storage.get({ key: 'items' }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
 
