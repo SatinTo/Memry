@@ -33,10 +33,6 @@ const Play = (props) => {
 			setFrontCardText(oldItemsJSON[id].front);
 			setBackCardText(oldItemsJSON[id].back);
 		})();
-
-		return () => {
-			console.log("crudcard");
-		};
 	}, [id])
 
 	// Function to flip the card

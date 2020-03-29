@@ -55,7 +55,6 @@ const RenderItems = () => {
 			
 			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
 				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
-				console.log(oldItemsJSON, items);
 			}
 
 			setInitialized(true);

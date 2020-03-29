@@ -41,13 +41,13 @@ const App = () => (
 		<IonApp>
 			<IonReactRouter>
 				<IonRouterOutlet>
-						<Route path="/home" component={Home} exact={true} />
-						<Route path="/play" component={Play} exact={true} />
-						<Route path="/setItems" component={SetItems} exact={true} />
-						<Route path="/completed" component={Completed} exact={true} />
-						<Route path="/crudCard" component={CrudCard} exact={true} />
-						<Route path="/crudCard/:id" component={CrudCard}/>
-						<Route exact path="/" render={() => <Redirect to="/home" />} />
+					<Route path="/home" component={Home} exact={true} />
+					<Route path="/play" component={Play} exact={true} />
+					<Route path="/setItems" component={SetItems} exact={true} />
+					<Route path="/completed/:count" component={Completed} exact={true} />
+					<Route path="/crudCard" component={CrudCard} exact={true} />
+					<Route path="/crudCard/:id" component={CrudCard}/>
+					<Route exact path="/" render={() => <Redirect to="/home" />} />
 				</IonRouterOutlet>
 			</IonReactRouter>
 		</IonApp>
