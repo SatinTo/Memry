@@ -29,6 +29,7 @@ import './theme/variables.css';
 /* Global CSS */
 import './global.css';
 import Completed from './pages/Completed';
+import ItemsStore from './ItemsStore';
 
 // Setup config
 setupConfig({
@@ -36,19 +37,21 @@ setupConfig({
 });
 
 const App = () => (
-	<IonApp>
-		<IonReactRouter>
-			<IonRouterOutlet>
-			<Route path="/home" component={Home} exact={true} />
-			<Route path="/play" component={Play} exact={true} />
-			<Route path="/setItems" component={SetItems} exact={true} />
-			<Route path="/completed" component={Completed} exact={true} />
-			<Route path="/crudCard" component={CrudCard} exact={true} />
-			<Route path="/crudCard/:id" component={CrudCard}/>
-			<Route exact path="/" render={() => <Redirect to="/home" />} />
-			</IonRouterOutlet>
-		</IonReactRouter>
-	</IonApp>
+	<ItemsStore>
+		<IonApp>
+			<IonReactRouter>
+				<IonRouterOutlet>
+						<Route path="/home" component={Home} exact={true} />
+						<Route path="/play" component={Play} exact={true} />
+						<Route path="/setItems" component={SetItems} exact={true} />
+						<Route path="/completed" component={Completed} exact={true} />
+						<Route path="/crudCard" component={CrudCard} exact={true} />
+						<Route path="/crudCard/:id" component={CrudCard}/>
+						<Route exact path="/" render={() => <Redirect to="/home" />} />
+				</IonRouterOutlet>
+			</IonReactRouter>
+		</IonApp>
+	</ItemsStore>
 );
 
 export default App;

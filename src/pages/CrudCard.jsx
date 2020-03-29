@@ -1,6 +1,7 @@
 import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast } from '@ionic/react';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline, returnUpBackOutline} from 'ionicons/icons';
+import { ItemsContext } from "../ItemsStore";
 import { Plugins } from '@capacitor/core';
 
 import './CrudCard.css';
@@ -9,6 +10,7 @@ import './Play.css';
 const { Storage } = Plugins;
 
 const Play = (props) => {
+	const {dispatch} = useContext(ItemsContext);
 	const [flipped, setFlip] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const [frontCardText, setFrontCardText ] = useState(null);
@@ -79,6 +81,8 @@ const Play = (props) => {
 			key: 'items',
 			value: JSON.stringify(newItems)
 		});
+
+		dispatch({type: "SET_ITEMS", value: newItems});
 		
 		setToastState({
 			visible: true,
