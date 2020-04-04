@@ -7,8 +7,6 @@ function itemReducer(state, action) {
 	switch (action.type) {
 		case "SET_ITEMS":
 			return { ...state, items: action.value};
-		case "DELETE_ALL":
-			return { ...state, items: window.localStorage.clear()}
 		default:
 			return state;
 	}

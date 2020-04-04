@@ -25,7 +25,7 @@ const Play = (props) => {
 	useEffect(() => {
 		(async function(){
 			const oldItems = await Storage.get({ key: 'items' });
-			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 
 			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id) || !oldItemsJSON[id].hasOwnProperty("front") || !oldItemsJSON[id].hasOwnProperty("back")){
 				return;
@@ -58,7 +58,7 @@ const Play = (props) => {
 			return;
 		}
 		const oldItems = await Storage.get({ key: 'items' });
-		const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+		const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 		let newItems;
 		if (typeof id === "undefined"){
 			newItems = [ 
