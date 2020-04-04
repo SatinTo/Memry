@@ -21,12 +21,11 @@ const Play = (props) => {
 	});
 
 	const {id} = props.match.params
-
+	// Ini ang nag kukua kang data from localStorage
 	useEffect(() => {
 		(async function(){
 			const oldItems = await Storage.get({ key: 'items' });
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
-
 			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id) || !oldItemsJSON[id].hasOwnProperty("front") || !oldItemsJSON[id].hasOwnProperty("back")){
 				return;
 			}
@@ -38,6 +37,24 @@ const Play = (props) => {
 	// Function to flip the card
 	function flipCard() {
 		setFlip(!flipped)
+	}
+
+	// Delete a selected item
+	async function deleteItem(id) {
+		const oldItems = await Storage.get({ key:'items'});
+		const newItemsJson = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty)? [] : JSON.parse(oldItems.value);
+		const filteredItems = newItemsJson.filter((element, index) => String(index) !== String(id));
+		// Update the Storage by setting the filteredItems
+		await Storage.set({key: 'items', value: JSON.stringify(filteredItems)});
+		//  Update the ItemsStore context;
+		dispatch({type: "SET_ITEMS", value: filteredItems});
+		// Print a success message
+		setToastState({
+			visible: true,
+			message: "The Item is successfully removed."
+		});
+		// Route back the page to setItems
+		props.history.push("/setItems");
 	}
 
 	async function insertItem() {
@@ -168,12 +185,11 @@ const Play = (props) => {
 							<IonIcon icon={refreshOutline} />
 						</IonFabButton>
 						<IonFabButton style={{display: "inline-block", marginBottom: 20}}>
-							<IonIcon icon={trashBinOutline} />
+							<IonIcon icon={trashBinOutline} onClick={() => {deleteItem(id)}} />
 						</IonFabButton>
 					</div>
 				</IonToolbar>
 			</div>
-			
 		</IonContent>
 		
 		<IonAlert {...alertProps} />
