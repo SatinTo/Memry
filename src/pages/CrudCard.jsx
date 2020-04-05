@@ -156,9 +156,7 @@ const Play = (props) => {
 			},
 			{
 				text: 'Okay',
-				handler: () => {
-					console.log('Confirm Okay');
-				}
+				handler: () => {deleteItem(id)}
 			}
 		]
 	}
@@ -207,7 +205,7 @@ const Play = (props) => {
 						</IonFabButton>
 						<IonFabButton style={{display: "inline-block", marginBottom: 20}}>
 							<IonIcon icon={trashBinOutline} onClick={() => {setPromptVisible(true)}} />
-							{/* onClick={() => {deleteItem(id)}} */}
+							{/* onClick={} */}
 						</IonFabButton>
 					</div>
 				</IonToolbar>
