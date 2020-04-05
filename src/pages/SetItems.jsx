@@ -15,12 +15,13 @@ import {
 	IonGrid
 } from "@ionic/react";
 import React, {useState, useEffect, useContext} from "react";
-import {arrowBackOutline, addOutline, closeOutline} from 'ionicons/icons';
+import {arrowBackOutline, addOutline, closeOutline, logoWindows} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
 
 const { Storage } = Plugins;
+
 
 const Item = ({id, data}) => {
 	const history = useHistory();
@@ -42,7 +43,8 @@ const Item = ({id, data}) => {
 }
 
 const RenderItems = () => {
-	const {state: {items}, dispatch} = useContext(ItemsContext);
+	const context = useContext(ItemsContext);
+	const {state: {items}, dispatch} = context;
 	const [initialized, setInitialized] = useState(false);
 
 	useEffect(() => {
@@ -51,7 +53,7 @@ const RenderItems = () => {
 				return;
 
 			const oldItems = await Storage.get({ key: 'items' });
-			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 			
 			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
 				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
@@ -65,16 +67,30 @@ const RenderItems = () => {
 		return <></>;
 	}
 	return <>
-		{
-		items.map((data, index) => {
+		{items.map((data, index) => {
 			return <Item key={index} data={data} id={index}/>
 		})}
 	</>
 }
 
+
 const SetItems = () => {
 	const history = useHistory();
 	
+	const context = useContext(ItemsContext);
+
+	function deleteAllItems(context) {
+		const {dispatch} = context;
+		
+		Storage.remove({key: "items"});
+		
+		const oldItems = Storage.get({ key: 'items' });
+		const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : 
+		oldItems.value;
+		
+		dispatch({type: "SET_ITEMS", value: newItemsJson});
+	}
+
 	return (
 		<IonPage>
 			<IonContent scrollEvents={false}>
@@ -95,9 +111,8 @@ const SetItems = () => {
 					</IonRow>
 				</IonGrid>
 				<div style={{width: "70px", position: "fixed", bottom: 10, right: 10, textAlign: "right"}}>
-					<IonFabButton style={{display: "inline-block"}} color="danger"  
-					onClick={() => history.push("/crudCard")}>
-						<IonIcon icon={closeOutline} />
+					<IonFabButton style={{display: "inline-block"}} color="danger">
+						<IonIcon icon={closeOutline} onClick={() => {deleteAllItems(context)}} />
 					</IonFabButton>
 					<IonFabButton style={{display: "inline-block"}} onClick={() => history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
