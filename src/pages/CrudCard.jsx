@@ -51,7 +51,7 @@ const Play = (props) => {
 		// Print a success message
 		setToastState({
 			visible: true,
-			message: "The Item is successfully removed."
+			message: "The Item is successfully removed!"
 		});
 		// Route back the page to setItems
 		props.history.push("/setItems");
