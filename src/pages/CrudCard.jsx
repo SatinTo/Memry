@@ -13,6 +13,7 @@ const Play = (props) => {
 	const {dispatch} = useContext(ItemsContext);
 	const [flipped, setFlip] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
+	const [isAlertVisible, setAlertVisible] = useState(false);
 	const [frontCardText, setFrontCardText ] = useState(null);
 	const [backCardText, setBackCardText ] = useState(null);
 	const [toastState, setToastState] = useState({
@@ -111,8 +112,8 @@ const Play = (props) => {
 	}
 
 	const alertProps = {
-		isOpen: isPromptVisible,
-		onDidDismiss: () => setPromptVisible(false),
+		isOpen: isAlertVisible,
+		onDidDismiss: () => setAlertVisible(false),
 		header: (flipped) ? "Answer!" : "Question!",
 		inputs: [
 			{
@@ -126,7 +127,7 @@ const Play = (props) => {
 				text: 'Cancel',
 				role: 'cancel',
 				cssClass: 'secondary',
-				handler: () => setPromptVisible(false)
+				handler: () => setAlertVisible(false)
 			},
 			{
 				text: 'Ok',
@@ -135,8 +136,28 @@ const Play = (props) => {
 						setBackCardText(data.Answer);
 						return;
 					} 
-
 					setFrontCardText(data.Question);
+				}
+			}
+		]
+	}
+
+	const promptProps = {
+		isOpen: isPromptVisible,
+		onDidDismiss: () => setPromptVisible(false),
+		header: 'Delete Card',
+		message: 'Are you sure you want to remove this Card?',
+		buttons: [
+			{
+				text: 'Cancel',
+				role: 'cancel',
+				cssClass: 'secondary',
+				handler: () => setPromptVisible(false)
+			},
+			{
+				text: 'Okay',
+				handler: () => {
+					console.log('Confirm Okay');
 				}
 			}
 		]
@@ -158,7 +179,7 @@ const Play = (props) => {
 			</IonToolbar>
 			<div className="container" style={{ paddingTop: "8vh"}}>
 				<IonCard style={{height: "64vh", boxShadow: "none"}}>
-					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setPromptVisible(true)}>
+					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setAlertVisible(true)}>
 						<div className="card__face card__face--front">
 							<IonCardContent className="container">
 								<IonCardTitle>
@@ -169,8 +190,8 @@ const Play = (props) => {
 						<div className="card__face card__face--back">
 							<IonCardContent className="container">
 								<IonCardTitle>{(backCardText === null) ? <i>Put Answer!</i> : backCardText}</IonCardTitle>
-							</IonCardContent>	
-						</div>	
+							</IonCardContent>
+						</div>
 					</div>
 				</IonCard>
 				<IonToolbar>
@@ -185,14 +206,16 @@ const Play = (props) => {
 							<IonIcon icon={refreshOutline} />
 						</IonFabButton>
 						<IonFabButton style={{display: "inline-block", marginBottom: 20}}>
-							<IonIcon icon={trashBinOutline} onClick={() => {deleteItem(id)}} />
+							<IonIcon icon={trashBinOutline} onClick={() => {setPromptVisible(true)}} />
+							{/* onClick={() => {deleteItem(id)}} */}
 						</IonFabButton>
 					</div>
 				</IonToolbar>
 			</div>
 		</IonContent>
 		
-		<IonAlert {...alertProps} />
+		<IonAlert {...alertProps}/>
+		<IonAlert {...promptProps} />
 		<IonToast
 			isOpen={toastState.visible}
 			onDidDismiss={() => setToastState({visible: false, message: null})}
