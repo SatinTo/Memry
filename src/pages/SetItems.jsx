@@ -22,7 +22,6 @@ import { ItemsContext } from "../ItemsStore";
 
 const { Storage } = Plugins;
 
-
 const Item = ({id, data}) => {
 	const history = useHistory();
 
@@ -73,10 +72,8 @@ const RenderItems = () => {
 	</>
 }
 
-
 const SetItems = () => {
 	const history = useHistory();
-	
 	const context = useContext(ItemsContext);
 
 	function deleteAllItems(context) {
@@ -95,8 +92,8 @@ const SetItems = () => {
 		<IonPage>
 			<IonContent scrollEvents={false}>
 				<IonToolbar style={{ marginTop: 10, paddingLeft: 10}}>
-					<IonButtons style={{display: "inline-block"}}>
-						<IonBackButton defaultHref="home" text="" icon={arrowBackOutline}/>
+					<IonButtons style={{display: "inline-block"}} onClick={() => history.push("/home")} >
+						<IonIcon icon={arrowBackOutline} style={{ fontSize: 30, color: "gray"}}/>
 					</IonButtons>
 					<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
 						<IonCardTitle style={{fontSize: "1.2em"}}>Set of Cards</IonCardTitle>
