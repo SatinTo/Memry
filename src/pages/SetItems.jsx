@@ -3,7 +3,6 @@ import {
 	IonPage,
 	IonToolbar,
 	IonButtons,
-	IonBackButton,
 	IonCardTitle,
 	IonCardSubtitle,
 	IonFabButton,
@@ -12,7 +11,8 @@ import {
 	IonCard,
 	IonRow,
 	IonCol,
-	IonGrid
+	IonGrid,
+	IonAlert
 } from "@ionic/react";
 import React, {useState, useEffect, useContext} from "react";
 import {arrowBackOutline, addOutline, closeOutline, logoWindows} from 'ionicons/icons';
@@ -72,9 +72,12 @@ const RenderItems = () => {
 	</>
 }
 
+
+
 const SetItems = () => {
 	const history = useHistory();
 	const context = useContext(ItemsContext);
+	const [isPromptVisible, setPromptVisible] = useState(false);
 
 	function deleteAllItems(context) {
 		const {dispatch} = context;
@@ -87,6 +90,26 @@ const SetItems = () => {
 		
 		dispatch({type: "SET_ITEMS", value: newItemsJson});
 	}
+
+	const promptProps = {
+		isOpen: isPromptVisible,
+		onDidDismiss: () => setPromptVisible(false),
+		header: 'Delete Card',
+		message: 'Are you sure you want to remove all Cards?',
+		buttons: [
+			{
+				text: 'Cancel',
+				role: 'cancel',
+				cssClass: 'secondary',
+				handler: () => setPromptVisible(false)
+			},
+			{
+				text: 'Okay',
+				handler: () => {deleteAllItems(context)}
+			}
+		]
+	}
+
 
 	return (
 		<IonPage>
@@ -109,14 +132,17 @@ const SetItems = () => {
 				</IonGrid>
 				<div style={{width: "70px", position: "fixed", bottom: 10, right: 10, textAlign: "right"}}>
 					<IonFabButton style={{display: "inline-block"}} color="danger">
-						<IonIcon icon={closeOutline} onClick={() => {deleteAllItems(context)}} />
+						<IonIcon icon={closeOutline} onClick={() => {setPromptVisible(true)}} />
 					</IonFabButton>
 					<IonFabButton style={{display: "inline-block"}} onClick={() => history.push("/crudCard")}>
 						<IonIcon icon={addOutline} />
 					</IonFabButton>
 				</div>
 			</IonContent>
+
+			<IonAlert {...promptProps} />
 		</IonPage>
+
 	);
 };
 export default SetItems;
