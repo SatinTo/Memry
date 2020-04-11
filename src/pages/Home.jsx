@@ -1,9 +1,9 @@
 import {
-  IonContent,
-  IonPage,
-  IonToolbar,
-  IonButton,
-  IonFooter
+	IonContent,
+	IonPage,
+	IonToolbar,
+	IonButton,
+	IonFooter
 } from "@ionic/react";
 import React from "react";
 
