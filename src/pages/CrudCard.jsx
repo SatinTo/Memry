@@ -1,5 +1,5 @@
-import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast } from '@ionic/react';
-import React, {useState, useEffect, useContext} from 'react';
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter } from '@ionic/react';
+import React, {useState, useContext} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
 import { ItemsContext } from "../ItemsStore";
 import { Plugins } from '@capacitor/core';
@@ -9,7 +9,7 @@ import './Play.css';
 
 const { Storage } = Plugins;
 
-const Play = (props) => {
+const CrudCard = (props) => {
 	const {dispatch} = useContext(ItemsContext);
 	const [flipped, setFlip] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
@@ -22,18 +22,24 @@ const Play = (props) => {
 	});
 
 	const {id} = props.match.params
-	// Ini ang nag kukua kang data from localStorage
-	useEffect(() => {
-		(async function(){
-			const oldItems = await Storage.get({ key: 'items' });
+
+	useIonViewWillEnter(() => {
+		if (typeof id === "undefined"){
+			setFrontCardText(null);
+			setBackCardText(null);
+		}
+		
+		setFlip(false);
+
+		Storage.get({ key: 'items' }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id) || !oldItemsJSON[id].hasOwnProperty("front") || !oldItemsJSON[id].hasOwnProperty("back")){
 				return;
 			}
 			setFrontCardText(oldItemsJSON[id].front);
 			setBackCardText(oldItemsJSON[id].back);
-		})();
-	}, [id])
+		});
+	});
 
 	// Function to flip the card
 	function flipCard() {
@@ -103,12 +109,6 @@ const Play = (props) => {
 			message: "The Items are successfully saved."
 		});
 		props.history.push("/setItems");
-
-		if (typeof id === "undefined"){
-			setFrontCardText(false);
-			setBackCardText(false);
-		}
-		setFlip(false);
 	}
 
 	const alertProps = {
@@ -224,4 +224,4 @@ const Play = (props) => {
 	);
 };
 
-export default Play;
+export default CrudCard;

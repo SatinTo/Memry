@@ -16,21 +16,11 @@ import {
 
 import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
+import shuffleArray from '../vanilla/shuffleArray';
+import { useHistory } from "react-router-dom";
 import './Play.css';
 
-import { useHistory } from "react-router-dom";
-
 const { Storage } = Plugins;
-
-// TODO: separate into a file for pure javascript
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-	}
-	
-	return array;
-}
 
 const Play = () => {
 	const history = useHistory();
@@ -76,7 +66,7 @@ const Play = () => {
 				</IonButtons>
 				<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
 					<IonCardTitle style={{fontSize: "1.2em"}}>
-						Total Cards ({currentCardIndex+1}/{cardItems.length})
+						Total Cards ({cardItems.length ? currentCardIndex+1 : 0}/{cardItems.length})
 					</IonCardTitle>
 					<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>Finish all cards or press back to reshuffle</IonCardSubtitle>
 				</div>	
