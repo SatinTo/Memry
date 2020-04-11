@@ -15,7 +15,7 @@ import {
 	IonAlert
 } from "@ionic/react";
 import React, {useState, useEffect, useContext} from "react";
-import {arrowBackOutline, addOutline, closeOutline, logoWindows} from 'ionicons/icons';
+import {arrowBackOutline, addOutline, closeOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
