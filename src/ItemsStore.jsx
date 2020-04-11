@@ -1,5 +1,4 @@
 import React, {createContext, useReducer} from 'react';
-import { logoWindows } from 'ionicons/icons';
 
 export const ItemsContext = createContext({});
 
