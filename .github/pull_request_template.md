@@ -5,7 +5,7 @@ CHANGE_TO_DESCRIPTIVE_CONTENT
 Closes #0
 
 #### How should this be manually tested?
-No manual tested is required.
+No manual testing is required.
 
 #### Any background context you want to provide?
 Is it related to some issue or may conflict?
