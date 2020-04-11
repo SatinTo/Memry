@@ -7,72 +7,18 @@ import {
 	IonCardSubtitle,
 	IonFabButton,
 	IonIcon,
-	IonCardContent,
-	IonCard,
 	IonRow,
-	IonCol,
 	IonGrid,
 	IonAlert
 } from "@ionic/react";
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useContext} from "react";
 import {arrowBackOutline, addOutline, closeOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
 
+import RenderItems from '../components/RenderItems';
 const { Storage } = Plugins;
-
-const Item = ({id, data}) => {
-	const history = useHistory();
-
-	return (
-		<IonCol size="6">
-			<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}
-			onClick={() => {history.push("/crudCard/" + id )}}>
-				<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
-					<IonCardContent className="container">
-						<IonCardTitle style={{fontSize: "10px"}}>
-							{data.front}
-						</IonCardTitle>
-					</IonCardContent>
-				</div>
-			</IonCard>
-		</IonCol>
-	);
-}
-
-const RenderItems = () => {
-	const context = useContext(ItemsContext);
-	const {state: {items}, dispatch} = context;
-	const [initialized, setInitialized] = useState(false);
-
-	useEffect(() => {
-		(async function(){
-			if (initialized)
-				return;
-
-			const oldItems = await Storage.get({ key: 'items' });
-			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
-			
-			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
-				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
-			}
-
-			setInitialized(true);
-		})();
-	}, [items, initialized, dispatch])
-
-	if (items.length < 1) {
-		return <></>;
-	}
-	return <>
-		{items.map((data, index) => {
-			return <Item key={index} data={data} id={index}/>
-		})}
-	</>
-}
-
-
 
 const SetItems = () => {
 	const history = useHistory();
@@ -145,4 +91,5 @@ const SetItems = () => {
 
 	);
 };
+
 export default SetItems;
