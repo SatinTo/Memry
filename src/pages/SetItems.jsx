@@ -94,7 +94,7 @@ const SetItems = () => {
 	const promptProps = {
 		isOpen: isPromptVisible,
 		onDidDismiss: () => setPromptVisible(false),
-		header: 'Delete Card',
+		header: 'Clear Cards',
 		message: 'Are you sure you want to remove all Cards?',
 		buttons: [
 			{
