@@ -4,10 +4,13 @@ import {
 	IonToolbar,
 	IonIcon,
 	IonHeader,
-	IonRow
+	IonRow,
+	IonCol,
+	IonCardContent,
+	IonCardTitle
 } from "@ionic/react";
 import React from "react";
-import {calendarOutline, folderOpenSharp, settingsOutline} from 'ionicons/icons';
+import {calendarOutline, folderOpenSharp, settingsOutline,addSharp, albumsOutline} from 'ionicons/icons';
 import CollectionItems from '../components/CollectionItems';
 
 const Collections = () => {
@@ -33,6 +36,19 @@ const Collections = () => {
 						<CollectionItems />
 						<CollectionItems />
 						<CollectionItems />
+						{/* Add Button */}
+						<IonCol size="6">
+							<div style={{height: "20vh", boxShadow: "none"}}>
+								<div style={{ borderRadius: "10px", display: "inline-block", width: "calc(100% - 10px)", margin: "auto", height: "inherit", border: "dashed #B0E7FF"}}>
+									<IonCardContent className="container">
+										<IonCardTitle style={{fontSize: "12px", color: "#B0E7FF"}}>
+											<IonIcon icon={addSharp} style={{fontSize: "77px"}}/>
+											<span style={{fontSize: "14px"}}>New Collection</span>
+										</IonCardTitle>
+									</IonCardContent>
+								</div>
+							</div>
+						</IonCol>
 					</IonRow>
 				</div>
 			</IonContent>
