@@ -12,15 +12,16 @@ import {
 	IonAlert,
 	IonHeader,
 	IonCol,
-	IonCardContent
+	IonCardContent,
+	IonCard
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
-import {arrowBackOutline, addOutline, closeOutline, albumsOutline, trashOutline, addSharp} from 'ionicons/icons';
+import {arrowBackOutline, addOutline, closeOutline, albumsOutline, trashOutline, addSharp, ellipsisVertical, refreshOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
 
-import RenderItems from '../components/RenderItems';
+// import RenderItems from '../components/RenderItems';
 import Item from "../components/Item";
 const { Storage } = Plugins;
 
@@ -67,7 +68,7 @@ const SetItems = () => {
 					<IonToolbar>
 						<div slot="start" style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290", marginLeft: "3px"}}>
 							<IonIcon icon={albumsOutline} style={{width: "20px", height: "20px", float:"left", padding: "1px"}}/>
-							<span style={{fontWeight: "bold", fontSize: "10px", lineHeight: "12px", paddingLeft: "26%"}}>10</span>
+							<span style={{fontWeight: "bold", fontSize: "10px", lineHeight: "12px", paddingLeft: "14px"}}>10</span>
 						</div>
 						
 						<div style={{ display: "flex", padding: "1px", background: "#E5E5E5", marginLeft: "4px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "190px", height: "23px"}}>
@@ -85,10 +86,12 @@ const SetItems = () => {
 					<IonRow >
 						{/* <RenderItems/> */}
 						<Item/>
+						<Item/>
+						<Item/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
-							<div style={{height: "40vh", boxShadow: "none"}}>
-								<div style={{ borderRadius: "5px", display: "inline-block", margin: "auto", height: "inherit", border: "4px dashed #B7B0FF", width: "100%"}}>
+							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}}>
+								<div className="" style={{ width: "100%", borderRadius: "5px", display: "inline-block", height: "100%", border: "4px dashed #B7B0FF", position: "absolute"}}>
 									<IonCardContent className="container">
 										<IonCardTitle style={{color: "#B7B0FF"}}>
 											<IonIcon icon={addSharp} style={{width: "50px", height: "50px"}}/>
@@ -96,7 +99,7 @@ const SetItems = () => {
 										</IonCardTitle>
 									</IonCardContent>
 								</div>
-							</div>
+							</IonCard>
 						</IonCol>
 					</IonRow>
 				</IonGrid>
