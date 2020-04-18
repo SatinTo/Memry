@@ -182,3 +182,9 @@ ion-content ion-toolbar {
 .textButton {
 	font-size: 1.2em
 }
+
+.clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+  }

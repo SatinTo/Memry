@@ -10,7 +10,7 @@ import { addSharp, albumsOutline} from "ionicons/icons";
 const CollectionItems = () => {
 	return (
 		<IonCol size="6">
-			<div style={{boxShadow: "none", paddingBottom: "58%", height: 0, backgroundColor: "#B0E7FF", borderRadius: "10px", position: "relative"}}>
+			<div style={{boxShadow: "none", paddingBottom: "56%", height: 0, backgroundColor: "#B0E7FF", borderRadius: "10px", position: "relative"}}>
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">
 						<IonCardTitle style={{fontSize: "12px", color: "#236B8A"}}>
