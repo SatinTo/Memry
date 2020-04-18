@@ -13,20 +13,30 @@ import React from "react";
 import {calendarOutline, folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
 import CollectionItems from '../components/CollectionItems';
 
+const Indicator = ({style, icon, label}) => {
+	const customCSS = {
+		...{width: "80px",  borderRadius: "5px 10px 10px 5px", marginLeft: "10px", padding: "1px 0", float: "left"}, // Default CSS
+		...style // Custom CSS
+	};
+
+	return (
+		<div style={customCSS} className="clearfix">
+			<IonIcon icon={icon} style={{width: "2rem", height: "21px", float:"left"}}/>
+			<span style={{float:"left", fontSize: "10px", marginLeft: "4px", fontWeight: "bold", lineHeight: "21px"}}>{label}</span>
+		</div>
+	)
+}
+
 const Collections = () => {
 	return (
 		<IonPage>
 			<IonHeader>
 				<IonToolbar>
-					<div slot="start" style={{ width: "80px", backgroundColor: "#FDD9A2", height: "28px", borderRadius: "5px 10px 10px 5px", marginLeft: "10px"}}>
-						<IonIcon icon={calendarOutline} style={{width: "2rem", height: "27px", color: "#D78203", float:"left"}}/>
-						<span style={{float:"left", padding: "6px", marginLeft: "10px", fontWeight: "bold", color:"#D78203"}}>10</span>
+					<div slot="start" >
+						<Indicator style={{backgroundColor: "#FDD9A2", color: "#D78203"}} icon={calendarOutline} label="10" />
+						<Indicator style={{backgroundColor: "#B0E7FF", color: "#236B8A"}} icon={folderOpenSharp} label="4" />
 					</div>
-					<div style={{ width: "80px", backgroundColor: "#B0E7FF", height: "28px", borderRadius: "5px 10px 10px 5px", marginLeft: "10px"}}>
-						<IonIcon icon={folderOpenSharp} style={{width: "2rem", height: "27px", color: "#236B8A", float:"left"}}/>
-						<span style={{float:"left", padding: "6px", marginLeft: "10px", fontWeight: "bold", color:"#236B8A"}}>4 </span>
-					</div>
-					<IonIcon icon={settingsOutline} slot="end" style={{width: "30px", height:"30px", color:"#CCCCCC"}}/>
+					<IonIcon icon={settingsOutline} slot="end" style={{width: "20px", height:"20px", color:"#CCCCCC"}}/>
 				</IonToolbar>
 			</IonHeader>
 			<IonContent scrollEvents={false}>
@@ -36,14 +46,15 @@ const Collections = () => {
 						<CollectionItems />
 						<CollectionItems />
 						<CollectionItems />
+						<CollectionItems />
 						{/* Add Button */}
 						<IonCol size="6">
-							<div style={{height: "20vh", boxShadow: "none"}}>
-								<div style={{ borderRadius: "10px", display: "inline-block", width: "calc(100% - 10px)", margin: "auto", height: "inherit", border: "dashed #B0E7FF"}}>
+							<div style={{boxShadow: "none", paddingBottom: "56%", height: 0, border: "4px dashed #B0E7FF", borderRadius: "10px", position: "relative"}}>
+								<div style={{ borderRadius: "10px", display: "inline-block", margin: "auto", height: "inherit"}}>
 									<IonCardContent className="container">
 										<IonCardTitle style={{fontSize: "12px", color: "#B0E7FF"}}>
-											<IonIcon icon={addSharp} style={{fontSize: "77px"}}/>
-											<span style={{fontSize: "14px"}}>New Collection</span>
+											<IonIcon icon={addSharp} style={{height: "50px", width: "50px"}}/>
+											<div style={{fontSize: "13px"}}>New Collection</div>
 										</IonCardTitle>
 									</IonCardContent>
 								</div>
