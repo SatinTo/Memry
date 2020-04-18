@@ -2,64 +2,60 @@ import {
 	IonContent,
 	IonPage,
 	IonToolbar,
-	IonButtons,
 	IonCardTitle,
-	IonCardSubtitle,
-	IonFabButton,
 	IonIcon,
 	IonRow,
 	IonGrid,
-	IonAlert,
 	IonHeader,
 	IonCol,
 	IonCardContent,
 	IonCard
 } from "@ionic/react";
-import React, {useState, useContext} from "react";
-import {arrowBackOutline, addOutline, closeOutline, albumsOutline, trashOutline, addSharp, ellipsisVertical, refreshOutline} from 'ionicons/icons';
-import { Plugins } from '@capacitor/core';
-import { useHistory } from "react-router-dom";
-import { ItemsContext } from "../ItemsStore";
+import React from "react";
+import {albumsOutline, trashOutline, addSharp} from 'ionicons/icons';
+// import { Plugins } from '@capacitor/core';
+// import { useHistory } from "react-router-dom";
+// import { ItemsContext } from "../ItemsStore";
 
 // import RenderItems from '../components/RenderItems';
 import Item from "../components/Item";
-const { Storage } = Plugins;
+// const { Storage } = Plugins;
 
 const SetItems = () => {
-	const history = useHistory();
-	const context = useContext(ItemsContext);
-	const [isPromptVisible, setPromptVisible] = useState(false);
+	// const history = useHistory();
+	// const context = useContext(ItemsContext);
+	// const [isPromptVisible, setPromptVisible] = useState(false);
 
-	function deleteAllItems(context) {
-		const {dispatch} = context;
+	// function deleteAllItems(context) {
+	// 	const {dispatch} = context;
 		
-		Storage.remove({key: "items"});
+	// 	Storage.remove({key: "items"});
 		
-		const oldItems = Storage.get({ key: 'items' });
-		const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : 
-		oldItems.value;
+	// 	const oldItems = Storage.get({ key: 'items' });
+	// 	const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : 
+	// 	oldItems.value;
 		
-		dispatch({type: "SET_ITEMS", value: newItemsJson});
-	}
+	// 	dispatch({type: "SET_ITEMS", value: newItemsJson});
+	// }
 
-	const promptProps = {
-		isOpen: isPromptVisible,
-		onDidDismiss: () => setPromptVisible(false),
-		header: 'Clear Cards',
-		message: 'Are you sure you want to remove all Cards?',
-		buttons: [
-			{
-				text: 'Cancel',
-				role: 'cancel',
-				cssClass: 'secondary',
-				handler: () => setPromptVisible(false)
-			},
-			{
-				text: 'Okay',
-				handler: () => {deleteAllItems(context)}
-			}
-		]
-	}
+	// const promptProps = {
+	// 	isOpen: isPromptVisible,
+	// 	onDidDismiss: () => setPromptVisible(false),
+	// 	header: 'Clear Cards',
+	// 	message: 'Are you sure you want to remove all Cards?',
+	// 	buttons: [
+	// 		{
+	// 			text: 'Cancel',
+	// 			role: 'cancel',
+	// 			cssClass: 'secondary',
+	// 			handler: () => setPromptVisible(false)
+	// 		},
+	// 		{
+	// 			text: 'Okay',
+	// 			handler: () => {deleteAllItems(context)}
+	// 		}
+	// 	]
+	// }
 
 	return (
 		<IonPage>

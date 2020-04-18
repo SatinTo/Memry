@@ -3,8 +3,6 @@ import {
 	IonCardContent,
 	IonCard,
 	IonCol,
-	IonCardHeader,
-	IonCardSubtitle,
 	IonIcon,
 	IonFabButton
 } from "@ionic/react";
