@@ -10,7 +10,7 @@ import {
 	IonCardTitle
 } from "@ionic/react";
 import React from "react";
-import {calendarOutline, folderOpenSharp, settingsOutline,addSharp, albumsOutline} from 'ionicons/icons';
+import {calendarOutline, folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
 import CollectionItems from '../components/CollectionItems';
 
 const Collections = () => {

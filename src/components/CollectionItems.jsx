@@ -2,12 +2,10 @@ import {
 	IonCardContent,
 	IonCol,
 	IonCardTitle,
-	IonCardSubtitle,
 	IonIcon
 } from "@ionic/react";
 import React from "react";
-import { addSharp, albumsOutline, folderOpenOutline } from "ionicons/icons";
-// import {calendarOutline, folderOpenSharp, settingsOutline} from 'ionicons/icons';
+import { addSharp, albumsOutline} from "ionicons/icons";
 
 const CollectionItems = () => {
 	return (
