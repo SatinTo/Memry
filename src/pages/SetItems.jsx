@@ -59,15 +59,15 @@ const SetItems = () => {
 
 	return (
 		<IonPage>
-			
 			<IonContent scrollEvents={false}>
 				<IonHeader>
 					<IonToolbar>
-						<div slot="start" style={{ width: "80px", backgroundColor: "#FDD9A2", height: "28px", borderRadius: "5px 10px 10px 5px", marginLeft: "10px"}}>
-							<IonIcon icon={albumsOutline} style={{width: "2rem", height: "27px", color: "#D78203", float:"left"}}/>
-							<span style={{float:"left", padding: "6px", marginLeft: "10px", fontWeight: "bold", color:"#D78203"}}>10</span>
+						<div slot="start" style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290"}}>
+							<IonIcon icon={albumsOutline} style={{width: "20px", height: "20px", float:"left", padding: "1px"}}/>
+							<span style={{fontWeight: "bold", fontSize: "10px", lineHeight: "12px", paddingLeft: "26%"}}>10</span>
 						</div>
-						<IonIcon icon={trashOutline} slot="end" style={{width: "30px", height:"30px", color:"#CCCCCC"}}/>
+
+						<IonIcon icon={trashOutline} slot="end" style={{width: "20px", height:"20px", color:"#575757", paddingRight: "5px"}}/>
 					</IonToolbar>
 				</IonHeader>
 				<IonGrid>
@@ -76,8 +76,6 @@ const SetItems = () => {
 					</IonRow>
 				</IonGrid>
 			</IonContent>
-
-			<IonAlert {...promptProps} />
 		</IonPage>
 
 	);
