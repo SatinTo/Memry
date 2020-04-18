@@ -10,7 +10,9 @@ import {
 	IonRow,
 	IonGrid,
 	IonAlert,
-	IonHeader
+	IonHeader,
+	IonCol,
+	IonCardContent
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
 import {arrowBackOutline, addOutline, closeOutline, albumsOutline, trashOutline, addSharp} from 'ionicons/icons';
@@ -81,6 +83,20 @@ const SetItems = () => {
 				<IonGrid>
 					<IonRow >
 						<RenderItems/>
+
+						{/* Add New Card Button */}
+						<IonCol size="6">
+							<div style={{height: "40vh", boxShadow: "none"}}>
+								<div style={{ borderRadius: "10px", display: "inline-block", margin: "auto", height: "inherit", border: "4px dashed #B7B0FF", width: "100%"}}>
+									<IonCardContent className="container">
+										<IonCardTitle style={{color: "#B7B0FF"}}>
+												<IonIcon icon={addSharp} style={{width: "50px", height: "50px"}}/>
+												<h1 style={{fontSize: "13px", lineHeight: "15px"}}>Add New Card</h1>
+										</IonCardTitle>
+									</IonCardContent>
+								</div>
+							</div>
+						</IonCol>
 					</IonRow>
 				</IonGrid>
 			</IonContent>
