@@ -13,7 +13,7 @@ import {
 	IonHeader
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
-import {arrowBackOutline, addOutline, closeOutline, albumsOutline, trashOutline} from 'ionicons/icons';
+import {arrowBackOutline, addOutline, closeOutline, albumsOutline, trashOutline, addSharp} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
@@ -62,13 +62,21 @@ const SetItems = () => {
 			<IonContent scrollEvents={false}>
 				<IonHeader>
 					<IonToolbar>
-						<div slot="start" style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290"}}>
+						<div slot="start" style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290", marginLeft: "3px"}}>
 							<IonIcon icon={albumsOutline} style={{width: "20px", height: "20px", float:"left", padding: "1px"}}/>
 							<span style={{fontWeight: "bold", fontSize: "10px", lineHeight: "12px", paddingLeft: "26%"}}>10</span>
 						</div>
+						
+						<div style={{ display: "flex", padding: "1px", background: "#E5E5E5", marginLeft: "4px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "190px", height: "23px"}}>
+							<div style={{marginTop: "2px"}}>
+								<IonIcon icon={addSharp} style={{width: "18px", height: "18px", float: "left"}}/>
+								<span style={{fontSize:"10px", lineHeight: "18px", float: "left"}}>MemPoints: 10/100</span>
+							</div>
+							<div style={{position: "absolute", backgroundColor: "#DD6363", width: "50%", height: "23px", borderRadius: "5px 15px 15px 5px", zIndex: "-1"}}></div>
+						</div>
 
 						<IonIcon icon={trashOutline} slot="end" style={{width: "20px", height:"20px", color:"#575757", paddingRight: "5px"}}/>
-					</IonToolbar>
+					</IonToolbar>	
 				</IonHeader>
 				<IonGrid>
 					<IonRow >
