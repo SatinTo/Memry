@@ -2,7 +2,9 @@ import {
 	IonCardTitle,
 	IonCardContent,
 	IonCard,
-	IonCol
+	IonCol,
+	IonCardHeader,
+	IonCardSubtitle
 } from "@ionic/react";
 import React from "react";
 import { useHistory } from "react-router-dom";
@@ -15,9 +17,12 @@ const Item = ({id, data}) => {
 			<IonCard style={{height: "40vh", boxShadow: "none", margin: 0}}
 			onClick={() => {history.push("/crudCard/" + id )}}>
 				<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "10px", display: "inline-block"}}>
+					<IonCardHeader>
+						<IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+					</IonCardHeader>
 					<IonCardContent className="container">
 						<IonCardTitle style={{fontSize: "10px"}}>
-							{data.front}
+							Who is the most handsome in your workspace?
 						</IonCardTitle>
 					</IonCardContent>
 				</div>

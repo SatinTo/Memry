@@ -21,6 +21,7 @@ import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
 
 import RenderItems from '../components/RenderItems';
+import Item from "../components/Item";
 const { Storage } = Plugins;
 
 const SetItems = () => {
@@ -78,20 +79,20 @@ const SetItems = () => {
 						</div>
 
 						<IonIcon icon={trashOutline} slot="end" style={{width: "20px", height:"20px", color:"#575757", paddingRight: "5px"}}/>
-					</IonToolbar>	
+					</IonToolbar>
 				</IonHeader>
 				<IonGrid>
 					<IonRow >
-						<RenderItems/>
-
+						{/* <RenderItems/> */}
+						<Item/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
 							<div style={{height: "40vh", boxShadow: "none"}}>
-								<div style={{ borderRadius: "10px", display: "inline-block", margin: "auto", height: "inherit", border: "4px dashed #B7B0FF", width: "100%"}}>
+								<div style={{ borderRadius: "5px", display: "inline-block", margin: "auto", height: "inherit", border: "4px dashed #B7B0FF", width: "100%"}}>
 									<IonCardContent className="container">
 										<IonCardTitle style={{color: "#B7B0FF"}}>
-												<IonIcon icon={addSharp} style={{width: "50px", height: "50px"}}/>
-												<h1 style={{fontSize: "13px", lineHeight: "15px"}}>Add New Card</h1>
+											<IonIcon icon={addSharp} style={{width: "50px", height: "50px"}}/>
+											<h1 style={{fontSize: "13px", lineHeight: "15px"}}>Add New Card</h1>
 										</IonCardTitle>
 									</IonCardContent>
 								</div>
