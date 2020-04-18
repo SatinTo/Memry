@@ -9,10 +9,11 @@ import {
 	IonIcon,
 	IonRow,
 	IonGrid,
-	IonAlert
+	IonAlert,
+	IonHeader
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
-import {arrowBackOutline, addOutline, closeOutline} from 'ionicons/icons';
+import {arrowBackOutline, addOutline, closeOutline, albumsOutline, trashOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
@@ -56,34 +57,24 @@ const SetItems = () => {
 		]
 	}
 
-
 	return (
 		<IonPage>
+			
 			<IonContent scrollEvents={false}>
-				<IonToolbar style={{ marginTop: 10, paddingLeft: 10}}>
-					<IonButtons style={{display: "inline-block"}} onClick={() => history.push("/home")} >
-						<IonIcon icon={arrowBackOutline} style={{ fontSize: 30, color: "gray"}}/>
-					</IonButtons>
-					<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
-						<IonCardTitle style={{fontSize: "1.2em"}}>Set of Cards</IonCardTitle>
-						<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>
-							Available Cards
-						</IonCardSubtitle>
-					</div>
-				</IonToolbar>
+				<IonHeader>
+					<IonToolbar>
+						<div slot="start" style={{ width: "80px", backgroundColor: "#FDD9A2", height: "28px", borderRadius: "5px 10px 10px 5px", marginLeft: "10px"}}>
+							<IonIcon icon={albumsOutline} style={{width: "2rem", height: "27px", color: "#D78203", float:"left"}}/>
+							<span style={{float:"left", padding: "6px", marginLeft: "10px", fontWeight: "bold", color:"#D78203"}}>10</span>
+						</div>
+						<IonIcon icon={trashOutline} slot="end" style={{width: "30px", height:"30px", color:"#CCCCCC"}}/>
+					</IonToolbar>
+				</IonHeader>
 				<IonGrid>
 					<IonRow >
 						<RenderItems/>
 					</IonRow>
 				</IonGrid>
-				<div style={{width: "70px", position: "fixed", bottom: 10, right: 10, textAlign: "right"}}>
-					<IonFabButton style={{display: "inline-block"}} color="danger">
-						<IonIcon icon={closeOutline} onClick={() => {setPromptVisible(true)}} />
-					</IonFabButton>
-					<IonFabButton style={{display: "inline-block"}} onClick={() => history.push("/crudCard")}>
-						<IonIcon icon={addOutline} />
-					</IonFabButton>
-				</div>
 			</IonContent>
 
 			<IonAlert {...promptProps} />
