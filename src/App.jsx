@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Play from './pages/Play';
 import SetItems from './pages/SetItems';
 import CrudCard from './pages/CrudCard';
+import Collections from './pages/Collections';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -46,6 +47,7 @@ const App = () => (
 					<Route path="/setItems" component={SetItems} exact={true} />
 					<Route path="/completed/:count" component={Completed} exact={true} />
 					<Route path="/crudCard" component={CrudCard} exact={true} />
+					<Route path="/collections" component={Collections} exact={true} />
 					<Route path="/crudCard/:id" component={CrudCard}/>
 					<Route exact path="/" render={() => <Redirect to="/home" />} />
 				</IonRouterOutlet>
