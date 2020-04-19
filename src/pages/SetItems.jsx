@@ -10,12 +10,13 @@ import {
 	IonCol,
 	IonCardContent,
 	IonCard,
-	IonFabButton
+	IonFabButton,
+	IonAlert
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
 
 // import RenderItems from '../components/RenderItems';
@@ -43,7 +44,7 @@ const SetItems = () => {
 		isOpen: isPromptVisible,
 		onDidDismiss: () => setPromptVisible(false),
 		header: 'Clear Cards',
-		message: 'Are you sure you want to remove all Cards?',
+		message: 'Are you sure you want to remove all cards?',
 		buttons: [
 			{
 				text: 'Cancel',
@@ -76,7 +77,7 @@ const SetItems = () => {
 							<div style={{position: "absolute", backgroundColor: "#DD6363", width: "50%", height: "23px", borderRadius: "5px 15px 15px 5px", zIndex: "-1"}}></div>
 						</div>
 						<IonFabButton slot="end" style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px"}}>
-							<IonIcon icon={trashOutline}  style={{color:"#575757", paddingRight: "5px"}}/>
+							<IonIcon icon={trashOutline} style={{color:"#575757", paddingRight: "5px"}} onClick={() => setPromptVisible(true)}/>
 						</IonFabButton>
 					</IonToolbar>
 				</IonHeader>
@@ -102,6 +103,7 @@ const SetItems = () => {
 					</IonRow>
 				</IonGrid>
 			</IonContent>
+			<IonAlert {...promptProps} />
 		</IonPage>
 
 	);
