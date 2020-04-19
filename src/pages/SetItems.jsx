@@ -9,7 +9,8 @@ import {
 	IonHeader,
 	IonCol,
 	IonCardContent,
-	IonCard
+	IonCard,
+	IonFabButton
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp} from 'ionicons/icons';
@@ -22,7 +23,7 @@ import Item from "../components/Item";
 const { Storage } = Plugins;
 
 const SetItems = () => {
-	const history = useHistory();
+	// const history = useHistory();
 	const context = useContext(ItemsContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 
@@ -74,8 +75,9 @@ const SetItems = () => {
 							</div>
 							<div style={{position: "absolute", backgroundColor: "#DD6363", width: "50%", height: "23px", borderRadius: "5px 15px 15px 5px", zIndex: "-1"}}></div>
 						</div>
-
-						<IonIcon icon={trashOutline} slot="end" style={{width: "20px", height:"20px", color:"#575757", paddingRight: "5px"}}/>
+						<IonFabButton slot="end" style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px"}}>
+							<IonIcon icon={trashOutline}  style={{color:"#575757", paddingRight: "5px"}}/>
+						</IonFabButton>
 					</IonToolbar>
 				</IonHeader>
 				<IonGrid>
