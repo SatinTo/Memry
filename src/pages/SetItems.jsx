@@ -122,8 +122,6 @@ const SetItems = () => {
 					<IonRow >
 						{/* <RenderItems/> */}
 						<Item/>
-						<Item/>
-						<Item/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
 							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}}>
@@ -139,17 +137,16 @@ const SetItems = () => {
 						</IonCol>
 					</IonRow>
 				</IonGrid>
-					
-				<IonFooter>
-					<IonToolbar>
-						<div style={{textAlign: "center", paddingTop: "5px"}}>
-							<PlayButtons style={{"--background": "#FC6363"}} label="Hell"/>
-							<PlayButtons style={{"--background": "#FC8763"}} label="Hard"/>
-							<PlayButtons style={{"--background": "#63FCC5"}} label="Easy"/>
-						</div>
-					</IonToolbar>
-				</IonFooter>
 			</IonContent>
+			<IonFooter>
+				<IonToolbar>
+					<div style={{textAlign: "center", paddingTop: "5px"}}>
+						<PlayButtons style={{"--background": "#FC6363"}} label="Hell"/>
+						<PlayButtons style={{"--background": "#FC8763"}} label="Hard"/>
+						<PlayButtons style={{"--background": "#63FCC5"}} label="Easy"/>
+					</div>
+				</IonToolbar>
+			</IonFooter>
 			<IonAlert {...promptProps} />
 		</IonPage>
 
