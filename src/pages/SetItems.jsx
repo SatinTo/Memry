@@ -11,10 +11,12 @@ import {
 	IonCardContent,
 	IonCard,
 	IonFabButton,
-	IonAlert
+	IonAlert,
+	IonButtons,
+	IonBackButton
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
-import {albumsOutline, trashOutline, addSharp} from 'ionicons/icons';
+import {albumsOutline, trashOutline, addSharp, arrowBackOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 // import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
@@ -64,12 +66,16 @@ const SetItems = () => {
 			<IonContent scrollEvents={false}>
 				<IonHeader>
 					<IonToolbar>
-						<div slot="start" style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290", marginLeft: "3px"}}>
+						<IonButtons slot="start" style={{paddingLeft: "5px"}}>
+							<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} style={{color: "#7D7D7D"}} />
+						</IonButtons>
+
+						<div  slot="secondary" style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290", marginLeft: "14px"}}>
 							<IonIcon icon={albumsOutline} style={{width: "20px", height: "20px", float:"left", padding: "1px"}}/>
 							<span style={{fontWeight: "bold", fontSize: "10px", lineHeight: "12px", paddingLeft: "14px"}}>10</span>
 						</div>
 						
-						<div style={{ display: "flex", padding: "1px", background: "#E5E5E5", marginLeft: "4px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "190px", height: "23px"}}>
+						<div slot="primary" style={{ display: "flex", background: "#E5E5E5", marginRight: "10px",marginLeft: "3px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "190px", height: "23px"}}>
 							<div style={{marginTop: "2px"}}>
 								<IonIcon icon={addSharp} style={{width: "18px", height: "18px", float: "left"}}/>
 								<span style={{fontSize:"10px", lineHeight: "18px", float: "left"}}>MemPoints: 10/100</span>
