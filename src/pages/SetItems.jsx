@@ -77,7 +77,7 @@ const SetItems = () => {
 							<div style={{position: "absolute", backgroundColor: "#DD6363", width: "50%", height: "23px", borderRadius: "5px 15px 15px 5px", zIndex: "-1"}}></div>
 						</div>
 						<IonFabButton slot="end" style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px"}}>
-							<IonIcon icon={trashOutline} style={{color:"#575757", paddingRight: "5px"}} onClick={() => setPromptVisible(true)}/>
+							<IonIcon icon={trashOutline} style={{color:"#575757"}} onClick={() => setPromptVisible(true)}/>
 						</IonFabButton>
 					</IonToolbar>
 				</IonHeader>
