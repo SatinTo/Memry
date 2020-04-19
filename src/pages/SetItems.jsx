@@ -13,10 +13,11 @@ import {
 	IonFabButton,
 	IonAlert,
 	IonButtons,
-	IonBackButton
+	IonBackButton,
+	IonFooter
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
-import {albumsOutline, trashOutline, addSharp, arrowBackOutline} from 'ionicons/icons';
+import {albumsOutline, trashOutline, addSharp, arrowBackOutline, playOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 // import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
@@ -25,18 +26,18 @@ import { ItemsContext } from "../ItemsStore";
 import Item from "../components/Item";
 const { Storage } = Plugins;
 
-const Indicator = ({label, slot}) => {
+const Indicator = ({label}) => {
 	return (
-		<div  slot={slot} style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290", marginLeft: "14px"}}>
+		<div style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290", marginLeft: "14px", float: "left"}}>
 			<IonIcon icon={albumsOutline} style={{width: "20px", height: "20px", float:"left", padding: "1px"}}/>
 			<span style={{fontWeight: "bold", fontSize: "10px", lineHeight: "12px", paddingLeft: "14px"}}>{label}</span>
 		</div>
 	);
 }
 
-const ProgressBar = ({label, slot}) => {
+const ProgressBar = ({label}) => {
 	return (
-		<div slot={slot} style={{ display: "flex", backgroundColor: "#E5E5E5", marginRight: "10px",marginLeft: "3px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "190px", height: "23px"}}>
+		<div style={{ display: "flex", backgroundColor: "#E5E5E5", marginRight: "10px",marginLeft: "3px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "160px", height: "23px", float: "right"}}>
 			<div style={{marginTop: "2px"}}>
 				<IonIcon icon={addSharp} style={{width: "18px", height: "18px", float: "left"}}/>
 				<span style={{fontSize:"10px", lineHeight: "18px", float: "left"}}>{label}</span>
@@ -46,6 +47,21 @@ const ProgressBar = ({label, slot}) => {
 	);
 }
 
+const PlayButtons = ({label, style}) => {
+	const customCSS = {
+		...{width: "80px", height: "34px", "--border-radius": "50px", margin: "0 5px", padding: "0", display: "inline-block"},
+		...style
+	}
+
+	return (
+		<IonFabButton style={customCSS}>
+			<IonIcon icon={playOutline} style={{width: "20px", height: "20px"}}/>
+			<label htmlFor="Hell" style={{lineHeight: "15px", fontSize: "13px", fontWeight: "bold", paddingLeft: "5px"}}>
+				{label}
+			</label>
+		</IonFabButton>
+	);
+}
 
 const SetItems = () => {
 	// const history = useHistory();
@@ -91,10 +107,12 @@ const SetItems = () => {
 						<IonButtons slot="start" style={{paddingLeft: "5px"}}>
 							<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} style={{color: "#7D7D7D"}} />
 						</IonButtons>
-					
-						<Indicator slot="secondary" label="10"/>
-						<ProgressBar slot="primary" label="MemPoints: 10/100"/>
-					
+						
+						<div slot="secondary">
+							<Indicator  label="10"/>
+							<ProgressBar label="MemPoints: 10/100"/>
+						</div>
+						
 						<IonFabButton slot="end" style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px"}}>
 							<IonIcon icon={trashOutline} style={{color:"#575757"}} onClick={() => setPromptVisible(true)}/>
 						</IonFabButton>
@@ -121,6 +139,16 @@ const SetItems = () => {
 						</IonCol>
 					</IonRow>
 				</IonGrid>
+					
+				<IonFooter>
+					<IonToolbar>
+						<div style={{textAlign: "center", paddingTop: "5px"}}>
+							<PlayButtons style={{"--background": "#FC6363"}} label="Hell"/>
+							<PlayButtons style={{"--background": "#FC8763"}} label="Hard"/>
+							<PlayButtons style={{"--background": "#63FCC5"}} label="Easy"/>
+						</div>
+					</IonToolbar>
+				</IonFooter>
 			</IonContent>
 			<IonAlert {...promptProps} />
 		</IonPage>
