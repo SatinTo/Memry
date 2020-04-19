@@ -17,7 +17,7 @@ import {
 	IonFooter
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
-import {albumsOutline, trashOutline, addSharp, arrowBackOutline, playOutline} from 'ionicons/icons';
+import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
@@ -55,7 +55,7 @@ const PlayButtons = ({label, style}) => {
 
 	return (
 		<IonFabButton style={customCSS}>
-			<IonIcon icon={playOutline} style={{width: "20px", height: "20px"}}/>
+			<IonIcon icon={caretForward} style={{width: "20px", height: "20px"}}/>
 			<label htmlFor="Hell" style={{lineHeight: "15px", fontSize: "13px", fontWeight: "bold", paddingLeft: "5px"}}>
 				{label}
 			</label>
