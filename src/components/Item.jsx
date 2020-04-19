@@ -4,7 +4,8 @@ import {
 	IonCard,
 	IonCol,
 	IonIcon,
-	IonFabButton
+	IonFabButton,
+	IonRippleEffect
 } from "@ionic/react";
 import React from "react";
 import { useHistory } from "react-router-dom";
@@ -15,7 +16,7 @@ const Item = ({id, data}) => {
 
 	return (
 		<IonCol size="6">
-			<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}}
+			<IonCard className="ion-activatable ripple-parent" style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}}
 			onClick={() => {history.push("/crudCard/" + id )}}>
 				<div className="card__face card__face--front" style={{ width: "100%", borderRadius: "5px", display: "inline-block"}}>
 					<div style={{float: "right", paddingTop: "7px"}}>
@@ -32,6 +33,7 @@ const Item = ({id, data}) => {
 						</IonFabButton>
 					</div>
 				</div>
+				<IonRippleEffect type="inbound"></IonRippleEffect>
 			</IonCard>
 		</IonCol>
 	);
