@@ -13,7 +13,6 @@ import {ellipsisVertical, refreshOutline} from 'ionicons/icons';
 
 const Item = ({id, data}) => {
 	const history = useHistory();
-
 	return (
 		<IonCol size="6">
 			<IonCard className="ion-activatable ripple-parent" style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}}
@@ -24,7 +23,7 @@ const Item = ({id, data}) => {
 					</div>
 					<IonCardContent className="container">
 						<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
-							Who is the most handsome in your workspace?
+							{data.front}
 						</IonCardTitle>
 					</IonCardContent>
 					<div style={{position: "absolute", bottom: "9px", left: "9px"}}>

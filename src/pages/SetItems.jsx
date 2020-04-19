@@ -22,8 +22,7 @@ import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
 
-// import RenderItems from '../components/RenderItems';
-import Item from "../components/Item";
+import RenderItems from '../components/RenderItems';
 const { Storage } = Plugins;
 
 const Indicator = ({label}) => {
@@ -120,12 +119,11 @@ const SetItems = () => {
 				</IonHeader>
 				<IonGrid>
 					<IonRow >
-						{/* <RenderItems/> */}
-						<Item/>
+						<RenderItems/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
 							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push("/crudCard")}}>
-								<div className="" style={{ width: "100%", borderRadius: "5px", display: "inline-block", height: "100%", border: "4px dashed #B7B0FF", position: "absolute"}}>
+								<div className="" style={{ width: "100%", borderRadius: "5px", display: "inline-block",height: "100%", border: "4px dashed #B7B0FF", position: "absolute"}}>
 									<IonCardContent className="container">
 										<IonCardTitle style={{color: "#B7B0FF"}}>
 											<IonIcon icon={addSharp} style={{width: "50px", height: "50px"}}/>
