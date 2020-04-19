@@ -25,6 +25,28 @@ import { ItemsContext } from "../ItemsStore";
 import Item from "../components/Item";
 const { Storage } = Plugins;
 
+const Indicator = ({label, slot}) => {
+	return (
+		<div  slot={slot} style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290", marginLeft: "14px"}}>
+			<IonIcon icon={albumsOutline} style={{width: "20px", height: "20px", float:"left", padding: "1px"}}/>
+			<span style={{fontWeight: "bold", fontSize: "10px", lineHeight: "12px", paddingLeft: "14px"}}>{label}</span>
+		</div>
+	);
+}
+
+const ProgressBar = ({label, slot}) => {
+	return (
+		<div slot={slot} style={{ display: "flex", backgroundColor: "#E5E5E5", marginRight: "10px",marginLeft: "3px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "190px", height: "23px"}}>
+			<div style={{marginTop: "2px"}}>
+				<IonIcon icon={addSharp} style={{width: "18px", height: "18px", float: "left"}}/>
+				<span style={{fontSize:"10px", lineHeight: "18px", float: "left"}}>{label}</span>
+			</div>
+			<div style={{position: "absolute", backgroundColor: "#DD6363", width: "50%", height: "23px", borderRadius: "5px 15px 15px 5px", zIndex: "-1"}}></div>
+		</div>
+	);
+}
+
+
 const SetItems = () => {
 	// const history = useHistory();
 	const context = useContext(ItemsContext);
@@ -69,19 +91,10 @@ const SetItems = () => {
 						<IonButtons slot="start" style={{paddingLeft: "5px"}}>
 							<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} style={{color: "#7D7D7D"}} />
 						</IonButtons>
-
-						<div  slot="secondary" style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290", marginLeft: "14px"}}>
-							<IonIcon icon={albumsOutline} style={{width: "20px", height: "20px", float:"left", padding: "1px"}}/>
-							<span style={{fontWeight: "bold", fontSize: "10px", lineHeight: "12px", paddingLeft: "14px"}}>10</span>
-						</div>
-						
-						<div slot="primary" style={{ display: "flex", background: "#E5E5E5", marginRight: "10px",marginLeft: "3px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "190px", height: "23px"}}>
-							<div style={{marginTop: "2px"}}>
-								<IonIcon icon={addSharp} style={{width: "18px", height: "18px", float: "left"}}/>
-								<span style={{fontSize:"10px", lineHeight: "18px", float: "left"}}>MemPoints: 10/100</span>
-							</div>
-							<div style={{position: "absolute", backgroundColor: "#DD6363", width: "50%", height: "23px", borderRadius: "5px 15px 15px 5px", zIndex: "-1"}}></div>
-						</div>
+					
+						<Indicator slot="secondary" label="10"/>
+						<ProgressBar slot="primary" label="MemPoints: 10/100"/>
+					
 						<IonFabButton slot="end" style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px"}}>
 							<IonIcon icon={trashOutline} style={{color:"#575757"}} onClick={() => setPromptVisible(true)}/>
 						</IonFabButton>
