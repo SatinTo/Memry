@@ -19,7 +19,7 @@ import {
 import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline, playOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
 
 // import RenderItems from '../components/RenderItems';
@@ -64,7 +64,7 @@ const PlayButtons = ({label, style}) => {
 }
 
 const SetItems = () => {
-	// const history = useHistory();
+	const history = useHistory();
 	const context = useContext(ItemsContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 
@@ -124,7 +124,7 @@ const SetItems = () => {
 						<Item/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
-							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}}>
+							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push("/crudCard")}}>
 								<div className="" style={{ width: "100%", borderRadius: "5px", display: "inline-block", height: "100%", border: "4px dashed #B7B0FF", position: "absolute"}}>
 									<IonCardContent className="container">
 										<IonCardTitle style={{color: "#B7B0FF"}}>
