@@ -1,33 +1,35 @@
 body { font-family: sans-serif; }
 
 .card {
-  width: 100%;
-  height: 100%;
-  transition: transform 1.2s;
-  transform-style: preserve-3d;
-  cursor: pointer;
-  position: relative;
+	width: 100%;
+	height: 100%;
+	transition: transform 1.2s;
+	transform-style: preserve-3d;
+	cursor: pointer;
+	position: relative;
 }
 
 .card.is-flipped {
-  transform: rotateY(180deg);
+	transform: rotateY(180deg);
 }
 
 .card__face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  font-weight: bold;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-weight: bold;
+	/* -webkit-backface-visibility: hidden; */
+	/* backface-visibility: hidden; */
 }
 
 .card__face--front {
-  background: #b7b0ff;
+	background: #b7b0ff;
+	backface-visibility: hidden;
 }
 
 .card__face--back {
-  background: #97fff3;
-  transform: rotateY(180deg);
+	background: #97fff3;
+	transform: rotateY(180deg);
+	/* backface-visibility: hidden; */
 }
