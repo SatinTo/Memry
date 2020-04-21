@@ -14,7 +14,8 @@ import {
 	IonAlert,
 	IonButtons,
 	IonBackButton,
-	IonFooter
+	IonFooter,
+	useIonViewWillEnter
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} from 'ionicons/icons';
@@ -55,7 +56,7 @@ const PlayButtons = ({label, style}) => {
 	return (
 		<IonFabButton style={customCSS}>
 			<IonIcon icon={caretForward} style={{width: "20px", height: "20px"}}/>
-			<label htmlFor="Hell" style={{lineHeight: "15px", fontSize: "13px", fontWeight: "bold", paddingLeft: "5px"}}>
+			<label htmlFor={label} style={{lineHeight: "15px", fontSize: "13px", fontWeight: "bold", paddingLeft: "5px"}}>
 				{label}
 			</label>
 		</IonFabButton>
@@ -66,9 +67,14 @@ const SetItems = () => {
 	const history = useHistory();
 	const context = useContext(ItemsContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
-
-	function deleteAllItems(context) {
-		const {dispatch} = context;
+	const {state: {items_length}, dispatch} = context; 
+	
+	const hellStyle = {
+		
+	}; 
+	
+	function deleteAllItems() {
+		// const {dispatch} = context;
 		
 		Storage.remove({key: "items"});
 		
@@ -139,9 +145,11 @@ const SetItems = () => {
 			<IonFooter>
 				<IonToolbar>
 					<div style={{textAlign: "center", paddingTop: "5px"}}>
-						<PlayButtons style={{"--background": "#FC6363"}} label="Hell"/>
-						<PlayButtons style={{"--background": "#FC8763"}} label="Hard"/>
-						<PlayButtons style={{"--background": "#63FCC5"}} label="Easy"/>
+						<PlayButtons style={{"--background" : (items_length > 100 ? "#FC6363" : "#fc636382")}} label="Hell"/>
+						<PlayButtons style={{"--background": (items_length > 30 ? "#FC8763": "#fc876382")}} 
+						label="Hard"/>
+						<PlayButtons style={{"--background": "#63FCC5"}} 
+						label="Easy"/>
 					</div>
 				</IonToolbar>
 			</IonFooter>

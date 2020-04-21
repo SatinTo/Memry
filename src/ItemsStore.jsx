@@ -5,7 +5,7 @@ export const ItemsContext = createContext({});
 function itemReducer(state, action) {
 	switch (action.type) {
 		case "SET_ITEMS":
-			return { ...state, items: action.value};
+			return { ...state, items: action.value, items_length: action.value.length};
 		default:
 			return state;
 	}
@@ -13,7 +13,8 @@ function itemReducer(state, action) {
 
 export default function ItemsStore(props){
 	const [state, dispatch] = useReducer(itemReducer, {
-		items: []
+		items: [],
+		items_length: 0
 	});
 
 	return (
