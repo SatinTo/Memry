@@ -1,4 +1,4 @@
-import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter } from '@ionic/react';
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter, IonHeader } from '@ionic/react';
 import React, {useState, useContext} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
 import { ItemsContext } from "../ItemsStore";
@@ -164,17 +164,16 @@ const CrudCard = (props) => {
 	return (
 	<IonPage>
 		<IonContent scrollEvents={false}>
-			<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
-				<IonButtons style={{display: "inline-block"}}>
-					<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} />
-				</IonButtons>
-				<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
-					<IonCardTitle style={{fontSize: "1.2em"}}>{(flipped) ? "Back" : "Front"} Card</IonCardTitle>
-					<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>
-						Serve as a {(flipped) ? "answer" : "question"} in an item
-					</IonCardSubtitle>
-				</div>	
-			</IonToolbar>
+			<IonHeader>
+				<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
+					<IonButtons slot="start" style={{display: "inline-block"}}>
+						<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} />
+					</IonButtons>
+					<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
+						<IonCardTitle style={{fontSize: "1.2em"}}>Create New Card</IonCardTitle>
+					</div>	
+				</IonToolbar>
+			</IonHeader>
 			<div className="container" style={{ paddingTop: "8vh"}}>
 				<IonCard style={{height: "64vh", boxShadow: "none"}}>
 					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setAlertVisible(true)}>

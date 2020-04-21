@@ -2,7 +2,8 @@ import {
 	IonCardContent,
 	IonCol,
 	IonCardTitle,
-	IonIcon
+	IonIcon,
+	IonRippleEffect
 } from "@ionic/react";
 import React from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
@@ -10,7 +11,7 @@ import { addSharp, albumsOutline} from "ionicons/icons";
 const CollectionItems = () => {
 	return (
 		<IonCol size="6">
-			<div style={{boxShadow: "none", paddingBottom: "56%", height: 0, backgroundColor: "#B0E7FF", borderRadius: "10px", position: "relative"}}>
+			<div className="ion-activatable ripple-parent" style={{boxShadow: "none", paddingBottom: "56%", height: 0, backgroundColor: "#B0E7FF", borderRadius: "10px", position: "relative"}}>
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">
 						<IonCardTitle style={{fontSize: "12px", color: "#236B8A"}}>
@@ -31,6 +32,7 @@ const CollectionItems = () => {
 						</div>
 					</div>
 				</div>
+				<IonRippleEffect type="inbound"></IonRippleEffect>
 			</div>
 		</IonCol>
 	)
