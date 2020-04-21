@@ -14,8 +14,7 @@ import {
 	IonAlert,
 	IonButtons,
 	IonBackButton,
-	IonFooter,
-	useIonViewWillEnter
+	IonFooter
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} from 'ionicons/icons';
@@ -68,14 +67,8 @@ const SetItems = () => {
 	const context = useContext(ItemsContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const {state: {items_length}, dispatch} = context; 
-	
-	const hellStyle = {
-		
-	}; 
-	
+
 	function deleteAllItems() {
-		// const {dispatch} = context;
-		
 		Storage.remove({key: "items"});
 		
 		const oldItems = Storage.get({ key: 'items' });

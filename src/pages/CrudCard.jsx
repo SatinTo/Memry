@@ -1,4 +1,4 @@
-import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter, IonHeader } from '@ionic/react';
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter, IonHeader } from '@ionic/react';
 import React, {useState, useContext} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
 import { ItemsContext } from "../ItemsStore";

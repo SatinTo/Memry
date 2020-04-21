@@ -52,7 +52,7 @@ const Item = ({id, data}) => {
 								</IonCardTitle>
 							</IonCardContent>
 						</div>
-				{/* <IonRippleEffect type="inbound"></IonRippleEffect> */}
+				<IonRippleEffect type="inbound"></IonRippleEffect>
 			</IonCard>
 			<div style={{position: "absolute", bottom: "9px", left: "9px"}}>
 				<IonFabButton style={{width: "20px", height:"20px", "--background": (flipped) ? "#b7b0ff" : "#97fff3"}} onClick={flipCard}>
