@@ -41,7 +41,6 @@ const Item = ({id, data}) => {
 							</IonCardTitle>
 						</IonCardContent>
 					</div>
-
 					<div className="card__face card__face--back" style={frontFace}>
 						<div style={{float: "right", paddingTop: "7px"}} >
 							<IonIcon icon={ellipsisVertical} style={{height: "20px", width: "20px", color: "#000"}}/>
