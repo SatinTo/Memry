@@ -47,14 +47,14 @@ const ProgressBar = ({label}) => {
 	);
 }
 
-const PlayButtons = ({label, style}) => {
+const PlayButtons = ({label, style, disabled}) => {
 	const customCSS = {
 		...{width: "80px", height: "34px", "--border-radius": "50px", margin: "0 5px", padding: "0", display: "inline-block"},
 		...style
 	}
 
 	return (
-		<IonFabButton style={customCSS}>
+		<IonFabButton style={customCSS} disabled={disabled}>
 			<IonIcon icon={caretForward} style={{width: "20px", height: "20px"}}/>
 			<label htmlFor={label} style={{lineHeight: "15px", fontSize: "13px", fontWeight: "bold", paddingLeft: "5px"}}>
 				{label}
@@ -145,11 +145,18 @@ const SetItems = () => {
 			<IonFooter>
 				<IonToolbar>
 					<div style={{textAlign: "center", paddingTop: "5px"}}>
-						<PlayButtons style={{"--background" : (items_length > 100 ? "#FC6363" : "#fc636382")}} label="Hell"/>
-						<PlayButtons style={{"--background": (items_length > 30 ? "#FC8763": "#fc876382")}} 
-						label="Hard"/>
-						<PlayButtons style={{"--background": "#63FCC5"}} 
-						label="Easy"/>
+						<PlayButtons 
+							disabled={(items_length > 100 ? "false": "true")} 
+							style={{"--background" : (items_length > 100 ? "#FC6363" : "#fc636382")}} 
+							label="Hell"
+						/>
+						<PlayButtons 
+							disabled={(items_length > 30 ? "false": "true")}
+							style={{"--background": (items_length > 30 ? "#FC8763": "#fc876382")}} 
+							label="Hard"
+						/>
+						
+						<PlayButtons style={{"--background": "#63FCC5"}} label="Easy"/>
 					</div>
 				</IonToolbar>
 			</IonFooter>
