@@ -111,7 +111,7 @@ const SetItems = () => {
 							<ProgressBar label="MemPoints: 10/100"/>
 						</div>
 						
-						<IonFabButton slot="end" disabled={(items_length < 1 ?"true": "false")} style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px"}}>
+						<IonFabButton slot="end" disabled={(items_length < 1 ?"true": "false")} style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}}>
 							<IonIcon icon={trashOutline} style={{color:"#575757"}} onClick={() => setPromptVisible(true)}/>
 						</IonFabButton>
 					</IonToolbar>

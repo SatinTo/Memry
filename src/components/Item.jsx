@@ -22,29 +22,27 @@ const Item = ({id, data}) => {
 		setFlip(!flipped)
 	}
 
-	const frontFace = {
-	}
-
 	return (
 		<IonCol size="6">
 			{/*  */}
+			<div style={{position: "absolute", top: "6px", right: "0", zIndex: "1"}} >
+				<IonFabButton style={{width: "30px", height:"30px", "--box-shadow": "none", "--background": "none", "--background-activated": "none"}}>
+					<IonIcon icon={ellipsisVertical} style={{height: "20px", width: "20px", color: "#000"}}/>
+				</IonFabButton>
+			</div>
+
 			<IonCard className="ion-activatable ripple-parent" style={{boxShadow: "none", margin: 0}} onClick={() => {history.push("/crudCard/" + id )}}>
+	
 				<div className={"card" + (flipped ? " is-flipped" : "")} style={{paddingBottom: "152%"}}>
 					{/* Fron Card */}
-					<div className="card__face card__face--front" style={frontFace}>
-						<div style={{float: "right", paddingTop: "7px"}} >
-							<IonIcon icon={ellipsisVertical} style={{height: "20px", width: "20px", color: "#000"}}/>
-						</div>
+					<div className="card__face card__face--front">
 						<IonCardContent className="container">
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.front}
 							</IonCardTitle>
 						</IonCardContent>
 					</div>
-					<div className="card__face card__face--back" style={frontFace}>
-						<div style={{float: "right", paddingTop: "7px"}} >
-							<IonIcon icon={ellipsisVertical} style={{height: "20px", width: "20px", color: "#000"}}/>
-						</div>
+					<div className="card__face card__face--back">
 						<IonCardContent className="container">
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.back}
