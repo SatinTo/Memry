@@ -66,6 +66,7 @@ const SetItems = () => {
 	const history = useHistory();
 	const context = useContext(ItemsContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
+
 	const {state: {items_length}, dispatch} = context; 
 
 	function deleteAllItems() {
@@ -154,6 +155,7 @@ const SetItems = () => {
 				</IonToolbar>
 			</IonFooter>
 			<IonAlert {...promptProps} />
+			
 		</IonPage>
 
 	);

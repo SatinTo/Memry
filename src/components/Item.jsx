@@ -5,7 +5,7 @@ import {
 	IonCol,
 	IonIcon,
 	IonFabButton,
-	IonRippleEffect
+	IonRippleEffect,
 } from "@ionic/react";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -13,27 +13,42 @@ import {ellipsisVertical, refreshOutline} from 'ionicons/icons';
  
 // import '../pages/Play.css';
 
-const Item = ({id, data}) => {
+const EllipsisButton = ({callBack}) => {
+	return (
+		<div style={{position: "absolute", top: "-80px", right: "0"}} >
+			<IonFabButton 
+				style={{width: "30px", height:"30px", "--box-shadow": "none", "--background": "none", "--background-activated": "none"}} onClick={
+					(e) => {
+						e.persist();
+						e.stopPropagation();
+						callBack({event: e, status: true});
+					}
+				}
+			>
+				<IonIcon icon={ellipsisVertical} style={{height: "20px", width: "20px", color: "#000"}}/>
+			</IonFabButton>
+		</div>
+	);
+}
+
+const Item = ({id, data, callBack}) => {
 	const history = useHistory();
 	const [flipped, setFlip] = useState(false);
-	
+
 	// Function to flip the card
 	function flipCard() {
 		setFlip(!flipped)
 	}
 
+	
 	return (
 		<IonCol size="6">
-			<div style={{position: "absolute", top: "6px", right: "0", zIndex: "1"}} >
-				<IonFabButton style={{width: "30px", height:"30px", "--box-shadow": "none", "--background": "none", "--background-activated": "none"}}>
-					<IonIcon icon={ellipsisVertical} style={{height: "20px", width: "20px", color: "#000"}}/>
-				</IonFabButton>
-			</div>
-
 			<IonCard className="ion-activatable ripple-parent" style={{boxShadow: "none", margin: 0}} onClick={() => {history.push("/crudCard/" + id )}}>
+				
 				<div className={"card" + (flipped ? " is-flipped" : "")} style={{paddingBottom: "152%"}}>
 					<div className="card__face card__face--front">
 						<IonCardContent className="container">
+							<EllipsisButton callBack={callBack}/>
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.front}
 							</IonCardTitle>
@@ -41,6 +56,7 @@ const Item = ({id, data}) => {
 					</div>
 					<div className="card__face card__face--back">
 						<IonCardContent className="container">
+							<EllipsisButton callBack={callBack}/>
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.back}
 							</IonCardTitle>
@@ -56,6 +72,7 @@ const Item = ({id, data}) => {
 				</IonFabButton>
 			</div>
 		</IonCol>
+		
 	);
 }
 

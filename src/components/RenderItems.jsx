@@ -1,12 +1,13 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import { Plugins } from '@capacitor/core';
 import { ItemsContext } from "../ItemsStore";
-import {useIonViewWillEnter} from '@ionic/react';
+import {useIonViewWillEnter, IonPopover, IonList, IonItem, IonLabel} from '@ionic/react';
 import Item from '../components/Item';
 const { Storage } = Plugins;
 
 const RenderItems = () => {
 	const context = useContext(ItemsContext);
+	const [showPopover, setShowPopover] = useState({event: null, status: false, id: null});
 	const {state: {items}, dispatch} = context;
 
 	useIonViewWillEnter(() => {
@@ -24,8 +25,26 @@ const RenderItems = () => {
 	}
 	return <>
 		{items.map((data, index) => {
-			return <Item key={index} data={data} id={index}/>
+			return <Item key={index} data={data} id={index} callBack={setShowPopover}/>
 		})}
+
+		<IonPopover
+			isOpen={showPopover.status}
+			onDidDismiss={e => setShowPopover({event: null, status: false})}
+			event={showPopover.event || undefined}
+			showBackdrop="true"
+			mode="ios"
+			translucent={true}
+		>
+			<IonList>
+				<IonItem button>
+					<IonLabel>Delete Card</IonLabel>
+				</IonItem>
+				<IonItem>
+					<IonLabel>Coming soon...</IonLabel>
+				</IonItem>
+			</IonList>
+		</IonPopover>
 	</>
 }
 
