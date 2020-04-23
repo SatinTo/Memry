@@ -23,16 +23,8 @@ import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
 
 import RenderItems from '../components/RenderItems';
+import Indicator from "../components/Indicator";
 const { Storage } = Plugins;
-
-const Indicator = ({label}) => {
-	return (
-		<div style={{ width: "67px", backgroundColor: "#B7B0FF", height: "23px", borderRadius: "5px 10px 10px 5px", color: "#656290", marginLeft: "14px", float: "left"}}>
-			<IonIcon icon={albumsOutline} style={{width: "20px", height: "20px", float:"left", padding: "1px"}}/>
-			<span style={{fontWeight: "bold", fontSize: "10px", lineHeight: "12px", paddingLeft: "14px"}}>{label}</span>
-		</div>
-	);
-}
 
 const ProgressBar = ({label}) => {
 	return (
@@ -107,7 +99,7 @@ const CardList = () => {
 						</IonButtons>
 						
 						<div slot="secondary">
-							<Indicator  label="10"/>
+							<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline}  label="10"/>
 							<ProgressBar label="MemPoints: 10/100"/>
 						</div>
 						
