@@ -37,11 +37,11 @@ const RenderItems = () => {
 			translucent={true}
 		>
 			<IonList>
-				<IonItem button>
-					<IonLabel>Delete Card</IonLabel>
+				<IonItem detail={false} button style={{"--background-activated": "#007EFF", "--color-activated": "#007EFF"}}>
+					<IonLabel style={{fontSize: "14px"}}>Delete Card</IonLabel>
 				</IonItem>
 				<IonItem>
-					<IonLabel>Coming soon...</IonLabel>
+					<IonLabel style={{fontSize: "14px"}}>Coming soon...</IonLabel>
 				</IonItem>
 			</IonList>
 		</IonPopover>
