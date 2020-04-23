@@ -62,7 +62,7 @@ const PlayButtons = ({label, style, disabled}) => {
 	);
 }
 
-const SetItems = () => {
+const CardList = () => {
 	const history = useHistory();
 	const context = useContext(ItemsContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
@@ -159,4 +159,4 @@ const SetItems = () => {
 	);
 };
 
-export default SetItems;
+export default CardList;

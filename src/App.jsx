@@ -4,7 +4,7 @@ import { IonApp, IonRouterOutlet, setupConfig } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import Play from './pages/Play';
-import SetItems from './pages/SetItems';
+import CardList from './pages/CardList';
 import CrudCard from './pages/CrudCard';
 import Collections from './pages/Collections';
 
@@ -44,7 +44,7 @@ const App = () => (
 				<IonRouterOutlet>
 					<Route path="/home" component={Home} exact={true} />
 					<Route path="/play" component={Play} exact={true} />
-					<Route path="/setItems" component={SetItems} exact={true} />
+					<Route path="/setItems" component={CardList} exact={true} />
 					<Route path="/completed/:count" component={Completed} exact={true} />
 					<Route path="/crudCard" component={CrudCard} exact={true} />
 					<Route path="/collections" component={Collections} exact={true} />
