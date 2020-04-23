@@ -50,11 +50,15 @@ const CrudCard = (props) => {
 	async function deleteItem(id) {
 		const oldItems = await Storage.get({ key:'items'});
 		const newItemsJson = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty)? [] : JSON.parse(oldItems.value);
+
 		const filteredItems = newItemsJson.filter((element, index) => String(index) !== String(id));
+		
 		// Update the Storage by setting the filteredItems
 		await Storage.set({key: 'items', value: JSON.stringify(filteredItems)});
+		
 		//  Update the ItemsStore context;
 		dispatch({type: "SET_ITEMS", value: filteredItems});
+		
 		// Print a success message
 		setToastState({
 			visible: true,

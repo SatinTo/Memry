@@ -13,15 +13,16 @@ import {ellipsisVertical, refreshOutline} from 'ionicons/icons';
  
 // import '../pages/Play.css';
 
-const EllipsisButton = ({callBack}) => {
+const EllipsisButton = ({itemID,callBack}) => {
 	return (
 		<div style={{position: "absolute", top: "-80px", right: "0"}} >
 			<IonFabButton 
-				style={{width: "30px", height:"30px", "--box-shadow": "none", "--background": "none", "--background-activated": "none"}} onClick={
+				style={{width: "30px", height:"30px", "--box-shadow": "none", "--background": "none", "--background-activated": "none"}} 
+				onClick={
 					(e) => {
 						e.persist();
 						e.stopPropagation();
-						callBack({event: e, status: true});
+						callBack({event: e, status: true, id: itemID});
 					}
 				}
 			>
@@ -40,7 +41,6 @@ const Item = ({id, data, callBack}) => {
 		setFlip(!flipped)
 	}
 
-	
 	return (
 		<IonCol size="6">
 			<IonCard className="ion-activatable ripple-parent" style={{boxShadow: "none", margin: 0}} onClick={() => {history.push("/crudCard/" + id )}}>
@@ -48,15 +48,15 @@ const Item = ({id, data, callBack}) => {
 				<div className={"card" + (flipped ? " is-flipped" : "")} style={{paddingBottom: "152%"}}>
 					<div className="card__face card__face--front">
 						<IonCardContent className="container">
-							<EllipsisButton callBack={callBack}/>
+							<EllipsisButton callBack={callBack} itemID={id}/>
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.front}
-							</IonCardTitle>
+							</IonCardTitle>	
 						</IonCardContent>
 					</div>
 					<div className="card__face card__face--back">
 						<IonCardContent className="container">
-							<EllipsisButton callBack={callBack}/>
+							<EllipsisButton callBack={callBack} itemID={id}/>
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.back}
 							</IonCardTitle>

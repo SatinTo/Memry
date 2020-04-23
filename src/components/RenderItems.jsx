@@ -35,26 +35,6 @@ const RenderItems = () => {
 		console.log("hey");
 	}
 
-	// Delete Modal
-	const promptProps = {
-		isOpen: isPromptVisible,
-		onDidDismiss: () => setPromptVisible(false),
-		header: 'Delete Card',
-		message: 'Are you sure you want to remove this cards?',
-		buttons: [
-			{
-				text: 'Cancel',
-				role: 'cancel',
-				cssClass: 'secondary',
-				handler: () => setPromptVisible(false)
-			},
-			{
-				text: 'Okay',
-				handler: () => {deleteAllItems(context)}
-			}
-		]
-	}
-	
 	return <>
 		{items.map((data, index) => {
 			return <Item key={index} data={data} id={index} callBack={setShowPopover}/>
@@ -62,7 +42,7 @@ const RenderItems = () => {
 
 		<IonPopover
 			isOpen={showPopover.status}
-			onDidDismiss={e => setShowPopover({event: null, status: false})}
+			onDidDismiss={e => setShowPopover({event: null, status: false, id: null})}
 			event={showPopover.event || undefined}
 			showBackdrop="true"
 			mode="ios"
@@ -70,8 +50,8 @@ const RenderItems = () => {
 		>
 			<IonList>
 				<IonItem 
-					detail={false} 
-					button 
+					detail={false}
+					button
 					style={{"--background-activated": "#007EFF", "--color-activated": "#007EFF"}}
 					onClick= {() => {setPromptVisible(true)}}
 				>
@@ -83,7 +63,24 @@ const RenderItems = () => {
 			</IonList>
 		</IonPopover>
 
-		<IonAlert {...promptProps} />
+		<IonAlert
+			isOpen = {isPromptVisible}
+			onDidDismiss = {() => setPromptVisible(false)}
+			header = {'Delete Card'}
+			message = {'Are you sure you want to remove this cards?'}
+			buttons = {[
+				{
+					text: 'Cancel',
+					role: 'cancel',
+					cssClass: 'secondary',
+					handler: () => setPromptVisible(false)
+				},
+				{
+					text: 'Okay',
+					handler: () => {deleteAllItems(context)}
+				}
+			]}
+		/>
 	</>
 }
 

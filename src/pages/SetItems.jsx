@@ -93,7 +93,7 @@ const SetItems = () => {
 			},
 			{
 				text: 'Okay',
-				handler: () => {deleteAllItems(context)}
+				handler: () => {deleteAllItems()}
 			}
 		]
 	}
