@@ -4,12 +4,12 @@ import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ion
 import { ItemsContext } from "../ItemsStore";
 import { Plugins } from '@capacitor/core';
 
-import './CrudCard.css';
+import './SetupCard.css';
 import './Play.css';
 
 const { Storage } = Plugins;
 
-const CrudCard = (props) => {
+const SetupCard = (props) => {
 	const {dispatch} = useContext(ItemsContext);
 	const [flipped, setFlip] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
@@ -227,4 +227,4 @@ const CrudCard = (props) => {
 	);
 };
 
-export default CrudCard;
+export default SetupCard;
