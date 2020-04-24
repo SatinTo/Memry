@@ -6,6 +6,8 @@ function itemReducer(state, action) {
 	switch (action.type) {
 		case "SET_ITEMS":
 			return { ...state, items: action.value, items_length: action.value.length};
+		case "SET_COLLECTION":
+			return { ...state, collection: action.value, collection_length: action.value.length};
 		default:
 			return state;
 	}
@@ -14,7 +16,8 @@ function itemReducer(state, action) {
 export default function ItemsStore(props){
 	const [state, dispatch] = useReducer(itemReducer, {
 		items: [],
-		items_length: 0
+		items_length: 0,
+		collection: []
 	});
 
 	return (

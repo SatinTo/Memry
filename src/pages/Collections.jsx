@@ -19,15 +19,18 @@ import React, { useState } from "react";
 import {calendarOutline, folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
 import CollectionItems from '../components/CollectionItems';
 import Indicator from "../components/Indicator";
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
 
 const Collections = () => {
 	const [showPopover, setShowpopover] = useState({event: null, status: false});
 	const [isAlertVisible, setAlertVisible] = useState(false);
-	
+	// const [collectionTitle, setCollectionTitle] = useState(false);
 
 	const alertProps = {
 		isOpen: isAlertVisible,
-		onDidDIsmiss: () => setAlertVisible(false),
+		onDidDismiss: () => setAlertVisible(false),
 		header: "Collection Title",
 		inputs: [{
 			name: "Title",
@@ -44,7 +47,8 @@ const Collections = () => {
 			{
 				text: "Ok",
 				handler: (data) => {
-					console.log(data)
+					const title = data.Title
+					insertItem(title)
 				}
 			}
 		]
@@ -57,6 +61,24 @@ const Collections = () => {
 		showBackdrop: "true",
 		mode: 'ios',
 		translucent: true
+	}
+
+	
+	// Inserting Collection
+	async function insertItem(title) {
+		const collections = await Storage.get({ key: 'collections' });
+		const collectionsJson = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : JSON.parse(collections.value);
+
+		const newCollections = [
+			{title: title},
+			...collectionsJson
+		]
+
+		await Storage.set({
+			key: 'collections',
+			value: JSON.stringify(newCollections)
+		});
+
 	}
 
 	return (
@@ -130,7 +152,6 @@ const Collections = () => {
 				</IonList>
 			</IonPopover>
 			<IonAlert {...alertProps}/>
-
 		</IonPage>
 	);
 };
