@@ -3,20 +3,22 @@ import { Plugins } from '@capacitor/core';
 import { ItemsContext } from "../ItemsStore";
 import {
 	useIonViewWillEnter,
-	IonPopover, 
-	IonList, 
-	IonItem, 
+	IonPopover,
+	IonList,
+	IonItem,
 	IonLabel,
-	IonAlert
+	IonAlert,
+	IonToast
 } from '@ionic/react';
 import Item from '../components/Item';
 const { Storage } = Plugins;
 
-const RenderItems = () => {
+const RenderItems = ({callBack}) => {
 	const context = useContext(ItemsContext);
 	const [showPopover, setShowPopover] = useState({event: null, status: false, id: null});
 	const {state: {items}, dispatch} = context;
 	const [isPromptVisible, setPromptVisible] = useState(false);
+	
 
 	useIonViewWillEnter(() => {
 		Storage.get({ key: 'items' }).then((oldItems) => {
@@ -31,8 +33,21 @@ const RenderItems = () => {
 		return <></>;
 	}
 	
-	function deleteAllItems() {
-		console.log("hey");
+	async function deleteCard(id) {
+		const oldItems =  await Storage.get({ key: 'items' });
+		const newItems = (oldItems.value ? JSON.parse(oldItems.value) : []);
+
+		const filteredItems = newItems.filter((e, index) => String(index) !== String(id));
+		Storage.set({key: 'items', value: JSON.stringify(filteredItems)});
+
+		dispatch({type: "SET_ITEMS", value: filteredItems});
+
+		callBack({
+			visible: true,
+			message: "The Item is successfully removed!"
+		});
+
+		setPromptVisible(false);
 	}
 
 	return <>
@@ -77,10 +92,13 @@ const RenderItems = () => {
 				},
 				{
 					text: 'Okay',
-					handler: () => {deleteAllItems(showPopover.id)}
+					handler: () => {deleteCard(showPopover.id)}
 				}
 			]}
 		/>
+
+		
+
 	</>
 }
 

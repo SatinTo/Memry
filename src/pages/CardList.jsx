@@ -14,7 +14,8 @@ import {
 	IonAlert,
 	IonButtons,
 	IonBackButton,
-	IonFooter
+	IonFooter,
+	IonToast,
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} from 'ionicons/icons';
@@ -58,8 +59,11 @@ const CardList = () => {
 	const history = useHistory();
 	const context = useContext(ItemsContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
-
 	const {state: {items_length}, dispatch} = context; 
+	const [toastState, setToastState] = useState({
+		visible: false,
+		message: null
+	});
 
 	function deleteAllItems() {
 		Storage.remove({key: "items"});
@@ -111,7 +115,7 @@ const CardList = () => {
 				</IonHeader>
 				<IonGrid>
 					<IonRow >
-						<RenderItems/>
+						<RenderItems callBack={setToastState}/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
 							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push("/crudCard")}}>
@@ -147,7 +151,12 @@ const CardList = () => {
 				</IonToolbar>
 			</IonFooter>
 			<IonAlert {...promptProps} />
-			
+			<IonToast
+				isOpen={toastState.visible}
+				onDidDismiss={() => setToastState({visible: false, message: null})}
+				message={toastState.message}
+				duration={500}
+			/>
 		</IonPage>
 
 	);
