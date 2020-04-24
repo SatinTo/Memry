@@ -77,7 +77,7 @@ const RenderItems = () => {
 				},
 				{
 					text: 'Okay',
-					handler: () => {deleteAllItems(context)}
+					handler: () => {deleteAllItems(showPopover.id)}
 				}
 			]}
 		/>

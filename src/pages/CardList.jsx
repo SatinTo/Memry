@@ -28,7 +28,7 @@ const { Storage } = Plugins;
 
 const ProgressBar = ({label}) => {
 	return (
-		<div style={{ display: "flex", backgroundColor: "#E5E5E5", marginRight: "10px",marginLeft: "3px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "160px", height: "23px", float: "right"}}>
+		<div style={{ display: "flex", backgroundColor: "#E5E5E5", marginRight: "10px",marginLeft: "3px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "150px", height: "23px", float: "right"}}>
 			<div style={{marginTop: "2px"}}>
 				<IonIcon icon={addSharp} style={{width: "18px", height: "18px", float: "left"}}/>
 				<span style={{fontSize:"10px", lineHeight: "18px", float: "left"}}>{label}</span>
