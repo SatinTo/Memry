@@ -13,7 +13,8 @@ import {
 	IonLabel,
 	IonItem,
 	IonPopover,
-	IonList
+	IonList,
+	IonToast
 } from "@ionic/react";
 import React, { useState } from "react";
 import {calendarOutline, folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
@@ -26,7 +27,7 @@ const { Storage } = Plugins;
 const Collections = () => {
 	const [showPopover, setShowpopover] = useState({event: null, status: false});
 	const [isAlertVisible, setAlertVisible] = useState(false);
-	// const [collectionTitle, setCollectionTitle] = useState(false);
+	const [toastState, setToastState] = useState({visible: false, message: null});
 
 	const alertProps = {
 		isOpen: isAlertVisible,
@@ -78,6 +79,8 @@ const Collections = () => {
 			key: 'collections',
 			value: JSON.stringify(newCollections)
 		});
+
+		setToastState({ visible: true, message: "New Collection is successfully added."})
 
 	}
 
@@ -151,7 +154,15 @@ const Collections = () => {
 					</IonItem>
 				</IonList>
 			</IonPopover>
+
 			<IonAlert {...alertProps}/>
+
+			<IonToast
+				isOpen={toastState.visible}
+				onDidDismiss={() => setToastState({visible: false, message: null})}
+				message={toastState.message}
+				duration={500}
+			/>
 		</IonPage>
 	);
 };
