@@ -78,7 +78,6 @@ const CardList = () => {
 			visible: true,
 			message: "All Items are successfully removed!"
 		});
-
 	}
 
 	const promptProps = {

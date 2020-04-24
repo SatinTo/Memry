@@ -8,7 +8,6 @@ import {
 	IonItem,
 	IonLabel,
 	IonAlert,
-	IonToast
 } from '@ionic/react';
 import Item from '../components/Item';
 const { Storage } = Plugins;

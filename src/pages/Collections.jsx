@@ -7,14 +7,43 @@ import {
 	IonRow,
 	IonCol,
 	IonCardContent,
-	IonCardTitle
+	IonCardTitle,
+	IonFabButton,
+	IonAlert
 } from "@ionic/react";
-import React from "react";
+import React, { useState } from "react";
 import {calendarOutline, folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
 import CollectionItems from '../components/CollectionItems';
 import Indicator from "../components/Indicator";
 
 const Collections = () => {
+	const [isAlertVisible, setAlertVisible] = useState(false);
+	
+	const alertProps = {
+		isOpen: isAlertVisible,
+		onDidDIsmiss: () => setAlertVisible(false),
+		header: "Collection Title",
+		inputs: [{
+			name: "Title",
+			type: "text",
+			placeholder: "Enter your Collection title here..."
+		}],
+		buttons: [
+			{
+				text: "Cancel",
+				role: "Cancel",
+				cssClass: "secondary",
+				handler: () => setAlertVisible(false)
+			},
+			{
+				text: "Ok",
+				handler: (data) => {
+					console.log(data)
+				}
+			}
+		]
+	}
+
 	return (
 		<IonPage>
 			<IonHeader>
@@ -23,7 +52,14 @@ const Collections = () => {
 						<Indicator style={{backgroundColor: "#FDD9A2", color: "#D78203"}} icon={calendarOutline} label="10" />
 						<Indicator style={{backgroundColor: "#B0E7FF", color: "#236B8A"}} icon={folderOpenSharp} label="4" />
 					</div>
-					<IonIcon icon={settingsOutline} slot="end" style={{width: "20px", height:"20px", color:"#CCCCCC"}}/>
+					
+					<IonFabButton slot="end" style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}}>
+						<IonIcon 
+							icon={settingsOutline} 
+							style={{width: "20px", height:"20px", color:"#CCCCCC"}} 
+							// onClick={() => setAlertVisible(true)}
+						/>
+					</IonFabButton>
 				</IonToolbar>
 			</IonHeader>
 			<IonContent scrollEvents={false}>
@@ -36,12 +72,16 @@ const Collections = () => {
 						<CollectionItems />
 						{/* Add Button */}
 						<IonCol size="6">
-							<div style={{boxShadow: "none", paddingBottom: "56%", height: 0, border: "4px dashed #B0E7FF", borderRadius: "10px", position: "relative"}}>
+							<div style={{boxShadow: "none", paddingBottom: "50%", height: 0, border: "4px dashed #B0E7FF", borderRadius: "10px", position: "relative"}}>
 								<div style={{ borderRadius: "10px", display: "inline-block", margin: "auto", height: "inherit"}}>
-									<IonCardContent className="container">
+									<IonCardContent 
+										className="container" 
+										style={{paddingLeft: 0, paddingRight: 0}}
+										onClick={() => setAlertVisible(true)}
+									>
 										<IonCardTitle style={{fontSize: "12px", color: "#B0E7FF"}}>
-											<IonIcon icon={addSharp} style={{height: "50px", width: "50px"}}/>
-											<div style={{fontSize: "13px"}}>New Collection</div>
+											<IonIcon icon={addSharp} style={{height: "40px", width: "40px"}}/>
+											<h1 style={{fontSize: "13px"}}>New Collection</h1>
 										</IonCardTitle>
 									</IonCardContent>
 								</div>
@@ -50,8 +90,9 @@ const Collections = () => {
 					</IonRow>
 				</div>
 			</IonContent>
-		</IonPage>
 
+			<IonAlert {...alertProps}/>
+		</IonPage>
 	);
 };
 
