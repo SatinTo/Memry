@@ -9,7 +9,11 @@ import {
 	IonCardContent,
 	IonCardTitle,
 	IonFabButton,
-	IonAlert
+	IonAlert,
+	IonLabel,
+	IonItem,
+	IonPopover,
+	IonList
 } from "@ionic/react";
 import React, { useState } from "react";
 import {calendarOutline, folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
@@ -17,8 +21,10 @@ import CollectionItems from '../components/CollectionItems';
 import Indicator from "../components/Indicator";
 
 const Collections = () => {
+	const [showPopover, setShowpopover] = useState({event: null, status: false});
 	const [isAlertVisible, setAlertVisible] = useState(false);
 	
+
 	const alertProps = {
 		isOpen: isAlertVisible,
 		onDidDIsmiss: () => setAlertVisible(false),
@@ -44,6 +50,15 @@ const Collections = () => {
 		]
 	}
 
+	const popoverProps = {
+		isOpen: showPopover.status,
+		onDidDismiss: () => setShowpopover({ event: null, status: false}),
+		event: showPopover.event,
+		showBackdrop: "true",
+		mode: 'ios',
+		translucent: true
+	}
+
 	return (
 		<IonPage>
 			<IonHeader>
@@ -53,12 +68,21 @@ const Collections = () => {
 						<Indicator style={{backgroundColor: "#B0E7FF", color: "#236B8A"}} icon={folderOpenSharp} label="4" />
 					</div>
 					
-					<IonFabButton slot="end" style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}}>
+					<IonFabButton 
+						slot="end" 
+						style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}}
+						onClick={
+							(e) => {
+								e.persist();
+								setShowpopover({event: e, status: true})
+							}
+						}
+					>
 						<IonIcon 
 							icon={settingsOutline} 
 							style={{width: "20px", height:"20px", color:"#CCCCCC"}} 
-							// onClick={() => setAlertVisible(true)}
 						/>
+
 					</IonFabButton>
 				</IonToolbar>
 			</IonHeader>
@@ -91,7 +115,22 @@ const Collections = () => {
 				</div>
 			</IonContent>
 
+			<IonPopover {...popoverProps}>
+				<IonList>
+					<IonItem
+						detail={false}
+						button
+						style={{"--background-activated": "#007EFF", "--color-activated": "#007EFF"}}
+					>
+						<IonLabel style={{fontSize: "14px"}}>Reset Workspace</IonLabel>
+					</IonItem>
+					<IonItem>
+						<IonLabel style={{fontSize: "14px"}}>Coming soon...</IonLabel>
+					</IonItem>
+				</IonList>
+			</IonPopover>
 			<IonAlert {...alertProps}/>
+
 		</IonPage>
 	);
 };
