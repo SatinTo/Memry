@@ -1,6 +1,6 @@
-import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter, IonHeader } from '@ionic/react';
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter, IonHeader, IonRippleEffect } from '@ionic/react';
 import React, {useState, useContext} from 'react';
-import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline} from 'ionicons/icons';
+import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline, trashOutline} from 'ionicons/icons';
 import { ItemsContext } from "../ItemsStore";
 import { Plugins } from '@capacitor/core';
 
@@ -22,9 +22,10 @@ const SetupCard = (props) => {
 	});
 
 	const {id} = props.match.params
+	const updateMode = (typeof id !== "undefined");
 
 	useIonViewWillEnter(() => {
-		if (typeof id === "undefined"){
+		if (!updateMode){
 			setFrontCardText(null);
 			setBackCardText(null);
 		}
@@ -160,7 +161,7 @@ const SetupCard = (props) => {
 			},
 			{
 				text: 'Okay',
-				handler: () => {deleteItem(id)}
+				handler: () => deleteItem(id)
 			}
 		]
 	}
@@ -169,13 +170,22 @@ const SetupCard = (props) => {
 	<IonPage>
 		<IonContent scrollEvents={false}>
 			<IonHeader>
-				<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15}}>
-					<IonButtons slot="start" style={{display: "inline-block"}}>
-						<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} />
+				<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15, height: "50px", color: "#7D7D7D"}}>
+					<IonButtons slot="start">
+						<IonBackButton defaultHref="/home" text="" icon={arrowBackOutline} style={{color: "inherit"}} />
 					</IonButtons>
-					<div style={{display: "inline-block", marginLeft: 10, maxWidth: "85%"}}>
-						<IonCardTitle style={{fontSize: "1.2em"}}>Create New Card</IonCardTitle>
-					</div>	
+					<IonCardTitle style={{fontSize: "1.2em", color: "inherit", position: "absolute", left: "14.44%", right: "14.17%", lineHeight: "21px", display: "flex", alignItems: "center", top: 0, bottom: 0}}>
+						{updateMode ? "Update card": "Create new card"}
+					</IonCardTitle>
+
+					{
+						updateMode && (
+							<div slot="end" className="ion-activatable" style={{position: "relative", padding: "5px", marginRight: "5px"}} onClick={() => {setPromptVisible(true)}} >
+								<IonIcon icon={trashOutline} style={{color: "inherit", height: "20px", width: "20px"}} />
+								<IonRippleEffect type="unbounded"></IonRippleEffect>
+							</div>
+						)
+					}
 				</IonToolbar>
 			</IonHeader>
 			<div className="container" style={{ paddingTop: "8vh"}}>
@@ -184,13 +194,15 @@ const SetupCard = (props) => {
 						<div className="card__face card__face--front">
 							<IonCardContent className="container">
 								<IonCardTitle>
-									{(frontCardText === null) ? <i>Put Question!</i> : frontCardText}
+									{(updateMode && frontCardText !== null) ? frontCardText : <i>Put Question!</i>}
 								</IonCardTitle>
 							</IonCardContent>
 						</div>
 						<div className="card__face card__face--back">
 							<IonCardContent className="container">
-								<IonCardTitle>{(backCardText === null) ? <i>Put Answer!</i> : backCardText}</IonCardTitle>
+								<IonCardTitle>
+									{(updateMode && backCardText !== null) ? backCardText : <i>Put Answer!</i>}
+								</IonCardTitle>
 							</IonCardContent>
 						</div>
 					</div>
