@@ -35,8 +35,8 @@ export const TYPE_THE_ANSWER = 1;
 const SetupCard = (props) => {
 	const {dispatch} = useContext(ItemsContext);
 	const [flipped, setFlip] = useState(false);
-	const [isPromptVisible, setPromptVisible] = useState(false);
-	const [isAlertVisible, setAlertVisible] = useState(false);
+	const [isDelConfirmVisible, setDelConfirmVisible] = useState(false);
+	const [isCardInputVisible, setCardInputVisible] = useState(false);
 	const [cardDetail, setCardDetail] = useState({
 		front: null,
 		back: null
@@ -143,8 +143,8 @@ const SetupCard = (props) => {
 	}
 
 	const alertProps = {
-		isOpen: isAlertVisible,
-		onDidDismiss: () => setAlertVisible(false),
+		isOpen: isCardInputVisible,
+		onDidDismiss: () => setCardInputVisible(false),
 		header: (flipped) ? "Answer!" : "Question!",
 		inputs: [
 			{
@@ -158,7 +158,7 @@ const SetupCard = (props) => {
 				text: 'Cancel',
 				role: 'cancel',
 				cssClass: 'secondary',
-				handler: () => setAlertVisible(false)
+				handler: () => setCardInputVisible(false)
 			},
 			{
 				text: 'Ok',
@@ -176,8 +176,8 @@ const SetupCard = (props) => {
 	}
 
 	const promptProps = {
-		isOpen: isPromptVisible,
-		onDidDismiss: () => setPromptVisible(false),
+		isOpen: isDelConfirmVisible,
+		onDidDismiss: () => setDelConfirmVisible(false),
 		header: 'Delete Card',
 		message: 'Are you sure you want to remove this Card?',
 		buttons: [
@@ -185,7 +185,7 @@ const SetupCard = (props) => {
 				text: 'Cancel',
 				role: 'cancel',
 				cssClass: 'secondary',
-				handler: () => setPromptVisible(false)
+				handler: () => setDelConfirmVisible(false)
 			},
 			{
 				text: 'Okay',
@@ -208,7 +208,7 @@ const SetupCard = (props) => {
 
 					{
 						updateMode && (
-							<div slot="end" className="ion-activatable" style={{position: "relative", padding: "5px", marginRight: "5px"}} onClick={() => {setPromptVisible(true)}} >
+							<div slot="end" className="ion-activatable" style={{position: "relative", padding: "5px", marginRight: "5px"}} onClick={() => {setDelConfirmVisible(true)}} >
 								<IonIcon icon={trashOutline} style={{color: "inherit", height: "20px", width: "20px"}} />
 								<IonRippleEffect type="unbounded"></IonRippleEffect>
 							</div>
@@ -224,7 +224,7 @@ const SetupCard = (props) => {
 			</div>
 				
 			<IonCard style={{width: "68%", margin: "15px auto", boxShadow: "none"}}>
-				<div  style={{height: "0", paddingBottom: "158%"}} className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setAlertVisible(true)}>
+				<div  style={{height: "0", paddingBottom: "158%"}} className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setCardInputVisible(true)}>
 					<div className="card__face card__face--front">
 						<IonCardContent className="container">
 							<IonCardTitle style={{color: "#656290"}}>
