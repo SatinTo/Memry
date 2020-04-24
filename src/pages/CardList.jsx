@@ -73,6 +73,12 @@ const CardList = () => {
 		oldItems.value;
 		
 		dispatch({type: "SET_ITEMS", value: newItemsJson});
+
+		setToastState({
+			visible: true,
+			message: "All Items are successfully removed!"
+		});
+
 	}
 
 	const promptProps = {
