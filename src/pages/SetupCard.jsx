@@ -1,4 +1,4 @@
-import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter, IonHeader, IonRippleEffect } from '@ionic/react';
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter, IonHeader, IonRippleEffect, IonButton } from '@ionic/react';
 import React, {useState, useContext} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline, trashOutline} from 'ionicons/icons';
 import { ItemsContext } from "../ItemsStore";
@@ -209,15 +209,16 @@ const SetupCard = (props) => {
 				</IonCard>
 				<IonToolbar>
 					<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
-						<IonFabButton style={{display: "inline-block",  marginBottom: 20}} onClick={insertItem}>
-							<IonIcon icon={addOutline} />
-						</IonFabButton>
 						<IonFabButton 
 							style={{display: "inline-block", margin: "0 15px", "--background": (flipped) ? "#b7b0ff" : "#97fff3"}} 
 							onClick={flipCard}
 						>
 							<IonIcon icon={refreshOutline} />
 						</IonFabButton>
+						
+						<IonButton disabled={!flipped} shape="round" onClick={insertItem} style={{float: "right", marginRight: "7px"}}>
+							{updateMode ? "Update card": "Create new card"}
+						</IonButton>
 					</div>
 				</IonToolbar>
 			</div>
