@@ -1,4 +1,26 @@
-import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardTitle, IonCardContent, IonButtons, IonBackButton, IonAlert, IonToast,useIonViewWillEnter, IonHeader, IonRippleEffect, IonButton } from '@ionic/react';
+import { 
+	IonContent,
+	IonFabButton,
+	IonPage, 
+	IonToolbar, 
+	IonCard, 
+	IonIcon, 
+	IonCardTitle, 
+	IonCardContent, 
+	IonButtons, 
+	IonBackButton, 
+	IonAlert, 
+	IonToast,
+	useIonViewWillEnter, 
+	IonHeader, 
+	IonRippleEffect, 
+	IonButton, 
+	IonSelect,
+	IonSelectOption,
+	IonLabel,
+	IonItem,
+} from '@ionic/react';
+
 import React, {useState, useContext} from 'react';
 import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline, trashOutline} from 'ionicons/icons';
 import { ItemsContext } from "../ItemsStore";
@@ -8,6 +30,9 @@ import './SetupCard.css';
 import './Play.css';
 
 const { Storage } = Plugins;
+
+const RATE_YOUR_SELF = 0;
+const TYPE_THE_ANSWER = 1;
 
 const SetupCard = (props) => {
 	const {dispatch} = useContext(ItemsContext);
@@ -20,6 +45,8 @@ const SetupCard = (props) => {
 		visible: false,
 		message: null
 	});
+	
+	const [type, setType] = useState(RATE_YOUR_SELF);
 
 	const {id} = props.match.params
 	const updateMode = (typeof id !== "undefined");
@@ -167,8 +194,8 @@ const SetupCard = (props) => {
 	}
 
 	return (
-	<IonPage>
-		<IonContent scrollEvents={false}>
+	<IonPage >
+		<IonContent style={{"--overflow": "hidden"}} scrollEvents={false}>
 			<IonHeader>
 				<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15, height: "50px", color: "#7D7D7D"}}>
 					<IonButtons slot="start">
@@ -188,40 +215,45 @@ const SetupCard = (props) => {
 					}
 				</IonToolbar>
 			</IonHeader>
-			<div className="container" style={{ paddingTop: "8vh"}}>
-				<IonCard style={{height: "64vh", boxShadow: "none"}}>
-					<div className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setAlertVisible(true)}>
-						<div className="card__face card__face--front">
-							<IonCardContent className="container">
-								<IonCardTitle>
-									{(updateMode && frontCardText !== null) ? frontCardText : <i>Put Question!</i>}
-								</IonCardTitle>
-							</IonCardContent>
-						</div>
-						<div className="card__face card__face--back">
-							<IonCardContent className="container">
-								<IonCardTitle>
-									{(updateMode && backCardText !== null) ? backCardText : <i>Put Answer!</i>}
-								</IonCardTitle>
-							</IonCardContent>
-						</div>
-					</div>
-				</IonCard>
-				<IonToolbar>
-					<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
-						<IonFabButton 
-							style={{display: "inline-block", margin: "0 15px", "--background": (flipped) ? "#b7b0ff" : "#97fff3"}} 
-							onClick={flipCard}
-						>
-							<IonIcon icon={refreshOutline} />
-						</IonFabButton>
-						
-						<IonButton disabled={!flipped} shape="round" onClick={insertItem} style={{float: "right", marginRight: "7px"}}>
-							{updateMode ? "Update card": "Create new card"}
-						</IonButton>
-					</div>
-				</IonToolbar>
+			<div style={{border: "1px solid #DBDDE0", borderRadius: "8px", width: "165px", margin: "auto"}}>
+				<IonSelect value={type} placeholder="Select One" onIonChange={e => setType(e.detail.value)}>
+					<IonSelectOption value={RATE_YOUR_SELF} >Rate-yourself</IonSelectOption>
+					<IonSelectOption disabled={true} value={TYPE_THE_ANSWER}>Type-the-answer</IonSelectOption>
+				</IonSelect>
 			</div>
+				
+			<IonCard style={{width: "68%", margin: "15px auto", boxShadow: "none"}}>
+				<div  style={{height: "0", paddingBottom: "158%"}} className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setAlertVisible(true)}>
+					<div className="card__face card__face--front">
+						<IonCardContent className="container">
+							<IonCardTitle>
+								{(updateMode && frontCardText !== null) ? frontCardText : <i>Put Question!</i>}
+							</IonCardTitle>
+						</IonCardContent>
+					</div>
+					<div className="card__face card__face--back">
+						<IonCardContent className="container">
+							<IonCardTitle>
+								{(updateMode && backCardText !== null) ? backCardText : <i>Put Answer!</i>}
+							</IonCardTitle>
+						</IonCardContent>
+					</div>
+				</div>
+			</IonCard>
+			<IonToolbar>
+				<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
+					<IonFabButton 
+						style={{display: "inline-block", margin: "0 15px", "--background": (flipped) ? "#b7b0ff" : "#97fff3"}} 
+						onClick={flipCard}
+					>
+						<IonIcon icon={refreshOutline} />
+					</IonFabButton>
+					
+					<IonButton disabled={!flipped} shape="round" onClick={insertItem} style={{float: "right", marginRight: "7px"}}>
+						{updateMode ? "Update card": "Create new card"}
+					</IonButton>
+				</div>
+			</IonToolbar>
 		</IonContent>
 		
 		<IonAlert {...alertProps}/>
