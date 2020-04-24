@@ -33,28 +33,29 @@ export const RATE_YOUR_SELF = 0;
 export const TYPE_THE_ANSWER = 1;
 
 const SetupCard = (props) => {
+	const DEFAULT_CARD_STATE = {
+		front: null,
+		back: null,
+		type: RATE_YOUR_SELF
+	};
+
 	const {dispatch} = useContext(ItemsContext);
 	const [flipped, setFlip] = useState(false);
 	const [isDelConfirmVisible, setDelConfirmVisible] = useState(false);
 	const [isCardInputVisible, setCardInputVisible] = useState(false);
-	const [cardDetail, setCardDetail] = useState({
-		front: null,
-		back: null
-	});
+	const [cardDetail, setCardDetail] = useState(DEFAULT_CARD_STATE);
 	
 	const [toastState, setToastState] = useState({
 		visible: false,
 		message: null
 	});
 	
-	const [type, setType] = useState(RATE_YOUR_SELF);
-
 	const {id} = props.match.params
 	const updateMode = (typeof id !== "undefined");
 
 	useIonViewWillEnter(() => {
 		if (!updateMode){
-			setCardDetail({ front: null, back: null })
+			setCardDetail(DEFAULT_CARD_STATE);
 		}
 		
 		setFlip(false);
@@ -64,7 +65,8 @@ const SetupCard = (props) => {
 			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id) || !oldItemsJSON[id].hasOwnProperty("front") || !oldItemsJSON[id].hasOwnProperty("back")){
 				return;
 			}
-			setCardDetail( oldItemsJSON[id] )
+
+			setCardDetail( {...cardDetail, ...oldItemsJSON[id]} )
 		});
 	});
 
@@ -217,9 +219,15 @@ const SetupCard = (props) => {
 				</IonToolbar>
 			</IonHeader>
 			<div style={{border: "1px solid #DBDDE0", borderRadius: "8px", width: "165px", margin: "auto"}}>
-				<IonSelect cancelText="Nah" okText="Select it!" value={type} placeholder="Select One" onIonChange={e => setType(e.detail.value)}>
+				<IonSelect 
+					cancelText="Nah"
+					okText="Select it!"
+					value={cardDetail.type}
+					placeholder="Select One"
+					onIonChange={e => setCardDetail({...cardDetail, type: e.detail.value})}
+				>
 					<IonSelectOption value={RATE_YOUR_SELF} >Rate-yourself</IonSelectOption>
-					<IonSelectOption disabled={true} value={TYPE_THE_ANSWER}>Type-the-answer</IonSelectOption>
+					<IonSelectOption value={TYPE_THE_ANSWER}>Type-the-answer</IonSelectOption>
 				</IonSelect>
 			</div>
 				
