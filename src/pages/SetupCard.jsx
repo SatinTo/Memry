@@ -218,10 +218,6 @@ const SetupCard = (props) => {
 						>
 							<IonIcon icon={refreshOutline} />
 						</IonFabButton>
-						<IonFabButton style={{display: "inline-block", marginBottom: 20}}>
-							<IonIcon icon={trashBinOutline} onClick={() => {setPromptVisible(true)}} />
-							{/* onClick={} */}
-						</IonFabButton>
 					</div>
 				</IonToolbar>
 			</div>
