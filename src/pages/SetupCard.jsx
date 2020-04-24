@@ -17,12 +17,10 @@ import {
 	IonButton, 
 	IonSelect,
 	IonSelectOption,
-	IonLabel,
-	IonItem,
 } from '@ionic/react';
 
 import React, {useState, useContext} from 'react';
-import {arrowBackOutline, refreshOutline, trashBinOutline, addOutline, trashOutline} from 'ionicons/icons';
+import {arrowBackOutline, refreshOutline, trashOutline} from 'ionicons/icons';
 import { ItemsContext } from "../ItemsStore";
 import { Plugins } from '@capacitor/core';
 
