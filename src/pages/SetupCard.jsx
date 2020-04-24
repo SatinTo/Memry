@@ -201,7 +201,7 @@ const SetupCard = (props) => {
 					<IonButtons slot="start">
 						<IonBackButton defaultHref="/home" text="" icon={arrowBackOutline} style={{color: "inherit"}} />
 					</IonButtons>
-					<IonCardTitle style={{fontSize: "1.2em", color: "inherit", position: "absolute", left: "14.44%", right: "14.17%", lineHeight: "21px", display: "flex", alignItems: "center", top: 0, bottom: 0}}>
+					<IonCardTitle style={{fontSize: "1.2em", color: "inherit", position: "absolute", left: "43px", lineHeight: "21px", display: "flex", alignItems: "center", top: 0, bottom: 0}}>
 						{updateMode ? "Update card": "Create new card"}
 					</IonCardTitle>
 
@@ -216,7 +216,7 @@ const SetupCard = (props) => {
 				</IonToolbar>
 			</IonHeader>
 			<div style={{border: "1px solid #DBDDE0", borderRadius: "8px", width: "165px", margin: "auto"}}>
-				<IonSelect value={type} placeholder="Select One" onIonChange={e => setType(e.detail.value)}>
+				<IonSelect cancelText="Nah" okText="Select it!" value={type} placeholder="Select One" onIonChange={e => setType(e.detail.value)}>
 					<IonSelectOption value={RATE_YOUR_SELF} >Rate-yourself</IonSelectOption>
 					<IonSelectOption disabled={true} value={TYPE_THE_ANSWER}>Type-the-answer</IonSelectOption>
 				</IonSelect>
