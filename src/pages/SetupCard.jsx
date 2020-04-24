@@ -226,14 +226,14 @@ const SetupCard = (props) => {
 				<div  style={{height: "0", paddingBottom: "158%"}} className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setAlertVisible(true)}>
 					<div className="card__face card__face--front">
 						<IonCardContent className="container">
-							<IonCardTitle>
+							<IonCardTitle style={{color: "#656290"}}>
 								{(updateMode && frontCardText !== null) ? frontCardText : <i>Put Question!</i>}
 							</IonCardTitle>
 						</IonCardContent>
 					</div>
 					<div className="card__face card__face--back">
 						<IonCardContent className="container">
-							<IonCardTitle>
+							<IonCardTitle style={{color: "#3D746D"}}>
 								{(updateMode && backCardText !== null) ? backCardText : <i>Put Answer!</i>}
 							</IonCardTitle>
 						</IonCardContent>
