@@ -29,16 +29,19 @@ import './Play.css';
 
 const { Storage } = Plugins;
 
-const RATE_YOUR_SELF = 0;
-const TYPE_THE_ANSWER = 1;
+export const RATE_YOUR_SELF = 0;
+export const TYPE_THE_ANSWER = 1;
 
 const SetupCard = (props) => {
 	const {dispatch} = useContext(ItemsContext);
 	const [flipped, setFlip] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const [isAlertVisible, setAlertVisible] = useState(false);
-	const [frontCardText, setFrontCardText ] = useState(null);
-	const [backCardText, setBackCardText ] = useState(null);
+	const [cardDetail, setCardDetail] = useState({
+		front: null,
+		back: null
+	});
+	
 	const [toastState, setToastState] = useState({
 		visible: false,
 		message: null
@@ -51,8 +54,7 @@ const SetupCard = (props) => {
 
 	useIonViewWillEnter(() => {
 		if (!updateMode){
-			setFrontCardText(null);
-			setBackCardText(null);
+			setCardDetail({ front: null, back: null })
 		}
 		
 		setFlip(false);
@@ -62,8 +64,7 @@ const SetupCard = (props) => {
 			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id) || !oldItemsJSON[id].hasOwnProperty("front") || !oldItemsJSON[id].hasOwnProperty("back")){
 				return;
 			}
-			setFrontCardText(oldItemsJSON[id].front);
-			setBackCardText(oldItemsJSON[id].back);
+			setCardDetail( oldItemsJSON[id] )
 		});
 	});
 
@@ -96,7 +97,7 @@ const SetupCard = (props) => {
 
 	async function insertItem() {
 
-		if (!frontCardText){
+		if (!cardDetail.front){
 			setToastState({
 				visible: true,
 				message: "The front card is empty. Do not forget."
@@ -104,7 +105,7 @@ const SetupCard = (props) => {
 			return;
 		}
 
-		if (!backCardText) {
+		if (!cardDetail.back) {
 			setToastState({
 				visible: true,
 				message: "The back card is empty. Do not forget."
@@ -117,14 +118,14 @@ const SetupCard = (props) => {
 		if (typeof id === "undefined"){
 			newItems = [ 
 				{
-					front: frontCardText,
-					back: backCardText
+					front: cardDetail.front,
+					back: cardDetail.back
 				},
 				...oldItemsJSON
 			];
 		} else {
-			oldItemsJSON[id].front = frontCardText;
-			oldItemsJSON[id].back = backCardText;
+			oldItemsJSON[id].front = cardDetail.front;
+			oldItemsJSON[id].back = cardDetail.back;
 			newItems = oldItemsJSON;
 		}
 		await Storage.set({
@@ -163,10 +164,12 @@ const SetupCard = (props) => {
 				text: 'Ok',
 				handler: (data) => {
 					if (flipped) {
-						setBackCardText(data.Answer);
+						setCardDetail({...cardDetail, back: data.Answer});
+						console.log({...cardDetail, back: data.Answer});
 						return;
-					} 
-					setFrontCardText(data.Question);
+					}
+					
+					setCardDetail({...cardDetail, front: data.Question});
 				}
 			}
 		]
@@ -225,14 +228,14 @@ const SetupCard = (props) => {
 					<div className="card__face card__face--front">
 						<IonCardContent className="container">
 							<IonCardTitle style={{color: "#656290"}}>
-								{(updateMode && frontCardText !== null) ? frontCardText : <i>Put Question!</i>}
+								{(updateMode || cardDetail.front !== null) ? cardDetail.front : <i>Put Question!</i>}
 							</IonCardTitle>
 						</IonCardContent>
 					</div>
 					<div className="card__face card__face--back">
 						<IonCardContent className="container">
 							<IonCardTitle style={{color: "#3D746D"}}>
-								{(updateMode && backCardText !== null) ? backCardText : <i>Put Answer!</i>}
+								{(updateMode || cardDetail.back !== null) ? cardDetail.back : <i>Put Answer!</i>}
 							</IonCardTitle>
 						</IonCardContent>
 					</div>
