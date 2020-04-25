@@ -69,8 +69,7 @@ const CardList = () => {
 		Storage.remove({key: "items"});
 		
 		const oldItems = Storage.get({ key: 'items' });
-		const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : 
-		oldItems.value;
+		const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : oldItems.value;
 		
 		dispatch({type: "SET_ITEMS", value: newItemsJson});
 

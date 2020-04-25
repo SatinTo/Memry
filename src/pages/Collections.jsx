@@ -30,7 +30,19 @@ const Collections = () => {
 	const [isAlertVisible, setAlertVisible] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const [toastState, setToastState] = useState({visible: false, message: null});
-	const {dispatch} = useContext(ItemsContext);
+	const {state: {collection_length}, dispatch} = useContext(ItemsContext);
+
+	function deleteAllCollection() {
+		Storage.remove({key: 'collections'});
+
+		const collections =  Storage.get({key: 'collections'});
+		const newCollectionJSON = (collections.value === "undefined" || !collections.hasOwnProperty || !collections.value) ? [] : collections.value
+
+		dispatch({type: "SET_COLLECTION", value: newCollectionJSON});
+
+		setToastState({visible: true, message: "All Collections are successfully removed."});
+		setShowpopover({event: null, status: false});
+	}
 
 	const alertProps = {
 		isOpen: isAlertVisible,
@@ -71,7 +83,7 @@ const Collections = () => {
 			},
 			{
 				text: 'Okay',
-				handler: () => {console.log("testing!")}
+				handler: () => {deleteAllCollection()}
 			}
 		]
 	}
@@ -117,6 +129,7 @@ const Collections = () => {
 					<IonFabButton 
 						slot="end" 
 						style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}}
+						disabled={(collection_length < 1 ?"true": "false")}
 						onClick={
 							(e) => {
 								e.persist();
