@@ -148,7 +148,7 @@ const Collections = () => {
 			<IonContent scrollEvents={false}>
 				<div style={{padding: "0 20px"}}>
 					<IonRow>
-						<RenderCollections />
+						<RenderCollections callBack={setToastState} />
 						{/* Add Button */}
 						<IonCol size="6">
 							<div style={{boxShadow: "none", paddingBottom: "50%", height: 0, border: "4px dashed #B0E7FF", borderRadius: "10px", position: "relative"}}>

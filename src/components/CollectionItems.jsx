@@ -9,14 +9,14 @@ import React from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 
-const CollectionItems = ({ data, callBack }) => {
+const CollectionItems = ({ id, data, callBack }) => {
 
 	return (
 		<IonCol size="6">
 			<div 
 				className="ion-activatable ripple-parent" 
 				style={{boxShadow: "none", paddingBottom: "56%", height: 0, backgroundColor: "#B0E7FF", borderRadius: "10px", position: "relative"}}
-				onTouchStart = {() => handleButtonPress(callBack)}
+				onTouchStart = {() => handleButtonPress(callBack, id)}
 				onTouchEnd = {handleButtonRelease}
 				onMouseDown={() => handleButtonPress(callBack)}
 				onMouseUp= {handleButtonRelease}

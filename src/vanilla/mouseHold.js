@@ -1,6 +1,6 @@
-export function handleButtonPress(callBack) {
+export function handleButtonPress(callBack, id) {
 	window.mouseTimer = setTimeout( () => {
-		callBack(true);
+		callBack({status: true, collectionID: id});
 	}, 800)
 }
 

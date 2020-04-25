@@ -6,9 +6,9 @@ import { useIonViewWillEnter, IonActionSheet, IonAlert } from '@ionic/react';
 
 const { Storage } = Plugins;
 
-const RenderCollections = () => {
+const RenderCollections = ({ callBack }) => {
 	const context = useContext(ItemsContext);
-	const [showActionSheet, setShowActionSheet] = useState(false);
+	const [showActionSheet, setShowActionSheet] = useState({status: false, collectionID: null});
 	const [showPrompt, setShowPrompt] = useState(false);
 	const {state: {collection}, dispatch} = context;
 
@@ -41,8 +41,15 @@ const RenderCollections = () => {
 			},
 			{
 				text: 'Okay',
-				handler: () => {
-					console.log("Delete the Collection here!")
+				handler: async () => {
+					const collections = await Storage.get({key: 'collections'});
+					const newCollectionJSON = (collections.value) ? JSON.parse(collections.value) : [];
+					const filteredCollections = newCollectionJSON.filter((e, i) => String(i) !== String(showActionSheet.collectionID));
+					
+					Storage.set({key: 'collections', value: JSON.stringify(filteredCollections)});
+					dispatch({type: "SET_COLLECTION", value: filteredCollections});
+
+					callBack({ visible: true, message: "Collection is successfully removed."});
 				}
 			}
 		]
@@ -55,8 +62,8 @@ const RenderCollections = () => {
 
 		<IonAlert {...alertProps}/>
 		<IonActionSheet
-			isOpen={showActionSheet}
-			onDidDismiss={() => setShowActionSheet(false)}
+			isOpen={showActionSheet.status}
+			onDidDismiss={() => setShowActionSheet({status: false, collectionID: null})}
 			buttons={[
 				{
 					text: 'Delete',
@@ -65,12 +72,12 @@ const RenderCollections = () => {
 				}, 
 				{
 					text: 'Edit Collection',
-					handler: () => {console.log('Edit Collection clicked');} 
+					handler: () => {console.log('Edit Collection clicked')}
 				}, 
 				{
 					text: 'Cancel',
 					role: 'cancel',
-					handler: () => {setShowActionSheet(false)}
+					handler: () => {setShowActionSheet({status: false, collectionID: null})}
 				}
 			]}
 		>
