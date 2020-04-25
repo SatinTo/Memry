@@ -45,6 +45,7 @@ const App = () => (
 					<Route path="/home" component={Home} exact={true} />
 					<Route path="/play" component={Play} exact={true} />
 					<Route path="/setItems" component={CardList} exact={true} />
+					<Route path="/setItems/:id" component={CardList} />
 					<Route path="/completed/:count" component={Completed} exact={true} />
 					<Route path="/crudCard" component={SetupCard} exact={true} />
 					<Route path="/collections" component={Collections} exact={true} />

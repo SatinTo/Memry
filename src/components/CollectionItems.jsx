@@ -7,9 +7,11 @@ import {
 } from "@ionic/react";
 import React from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
+import { useHistory } from "react-router-dom";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 
 const CollectionItems = ({ id, data, callBack }) => {
+	const history = useHistory();
 
 	return (
 		<IonCol size="6">
@@ -21,6 +23,7 @@ const CollectionItems = ({ id, data, callBack }) => {
 				onMouseDown={() => handleButtonPress(callBack)}
 				onMouseUp= {handleButtonRelease}
 				onMouseLeave = {handleButtonRelease}
+				onClick = {() => {history.push("/setItems/" + id)}}
 			>
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">
