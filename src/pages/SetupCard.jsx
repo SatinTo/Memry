@@ -156,7 +156,7 @@ const SetupCard = (props) => {
 	const createCardProps = {
 		disabled: !pageConfig.cardFlipped,
 		shape: "round",
-		onClick: () => {
+		onClick: async () => {
 			if (!cardDetail.front){
 				setPageConfig({
 					...pageConfig,
@@ -211,7 +211,7 @@ const SetupCard = (props) => {
 
 			props.history.push("/setItems");
 		},
-
+		
 		style: {float: "right", marginRight: "7px"}
 	};
 
