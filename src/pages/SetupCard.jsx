@@ -23,6 +23,7 @@ import React, {useState, useContext} from 'react';
 import {arrowBackOutline, refreshOutline, trashOutline} from 'ionicons/icons';
 import { ItemsContext } from "../ItemsStore";
 import { Plugins } from '@capacitor/core';
+import { generateCardProps, generateReducer, generatePromptProps, generateAlertProps}  from "./SetupCardProcessor";
 
 import './SetupCard.css';
 import './Play.css';
@@ -34,7 +35,7 @@ export const TYPE_THE_ANSWER = 1;
 
 const SetupCard = (props) => {
 	// Native JS
-	const {id} = props.match.params
+	const {id} = props.match.params;
 	const updateMode = (typeof id !== "undefined");
 	const DEFAULT_CARD_STATE = {
 		front: null,
@@ -45,6 +46,7 @@ const SetupCard = (props) => {
 	// Hooks
 	const {dispatch} = useContext(ItemsContext);
 	const [cardDetail, setCardDetail] = useState(DEFAULT_CARD_STATE);
+
 	const [pageConfig, setPageConfig] = useState({
 		cardFlipped: false,
 		confirmDeleteShown: false,
@@ -54,170 +56,33 @@ const SetupCard = (props) => {
 			message: null	
 		}
 	});
-	
+
+	const reducer = generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, setCardDetail, cardDetail, props});
+
 	useIonViewWillEnter(() => {
-		if (!updateMode){
-			setCardDetail(DEFAULT_CARD_STATE);
-		}
-		
-		setPageConfig({...pageConfig, cardFlipped: false});
+		if (!updateMode)
+			reducer({type: "RESET_CARD"});
+
+		reducer({type: "UNFLIP_CARD"});
 
 		Storage.get({ key: 'items' }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 			
-			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id)){
+			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id))
 				return;
-			}
 
-			setCardDetail( {...cardDetail, ...oldItemsJSON[id]} )
+			reducer({type: "SET_CARD_DETAILS", val: oldItemsJSON[id]});
 		});
 	});
 
 	// Function to flip the card
-	function flipCard() {
-		setPageConfig({...pageConfig, cardFlipped: !pageConfig.cardFlipped});
-	}
-
-	const alertProps = {
-		isOpen: pageConfig.cardInputShown,
-		onDidDismiss: () => setPageConfig({...pageConfig, cardInputShown: false}),
-		header: (pageConfig.cardFlipped) ? "Answer!" : "Question!",
-		inputs: [
-			{
-				name: `${(pageConfig.cardFlipped) ? "Answer" : "Question"}`,
-				type: 'text',
-				placeholder: `Enter your ${(pageConfig.cardFlipped) ? "Answer" : "Question"} here...`
-			}
-		],
-		buttons: [
-			{
-				text: 'Cancel',
-				role: 'cancel',
-				cssClass: 'secondary',
-				handler: () => setPageConfig({...pageConfig, cardInputShown: false})
-			},
-			{
-				text: 'Ok',
-				handler: (data) => {
-					if (pageConfig.cardFlipped) {
-						setCardDetail({...cardDetail, back: data.Answer});
-						console.log({...cardDetail, back: data.Answer});
-						return;
-					}
-					
-					setCardDetail({...cardDetail, front: data.Question});
-				}
-			}
-		]
-	}
-
-	const promptProps = {
-		isOpen: pageConfig.confirmDeleteShown,
-		onDidDismiss: () => setPageConfig({...pageConfig, confirmDeleteShown:false}),
-		header: 'Delete Card',
-		message: 'Are you sure you want to remove this Card?',
-		buttons: [
-			{
-				text: 'Cancel',
-				role: 'cancel',
-				cssClass: 'secondary',
-				handler: () => setPageConfig({...pageConfig, confirmDeleteShown:false})
-			},
-			{
-				text: 'Okay',
-				handler: async () => {
-					const oldItems = await Storage.get({ key:'items'});
-					const newItemsJson = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty)? [] : JSON.parse(oldItems.value);
-			
-					const filteredItems = newItemsJson.filter((element, index) => String(index) !== String(id));
-					
-					// Update the Storage by setting the filteredItems
-					await Storage.set({key: 'items', value: JSON.stringify(filteredItems)});
-					
-					//  Update the ItemsStore context;
-					dispatch({type: "SET_ITEMS", value: filteredItems});
-					
-					// Print a success message
-					setPageConfig({
-						...pageConfig,
-						toast: {
-							visible: true,
-							message: "The Item is successfully removed!"
-						}
-					});
-			
-					// Route back the page to setItems
-					props.history.push("/setItems");
-				}
-			}
-		]
-	}
-
-	const createCardProps = {
-		disabled: !pageConfig.cardFlipped,
-		shape: "round",
-		onClick: async () => {
-			if (!cardDetail.front){
-				setPageConfig({
-					...pageConfig,
-					toast: {
-						visible: true,
-						message: "The front card is empty. Do not forget."
-					}
-				});
-				return;
-			}
-
-			if (!cardDetail.back) {
-				setPageConfig({
-					...pageConfig,
-					toast: {
-						visible: true,
-						message: "The back card is empty. Do not forget."
-					}
-				});
-				return;
-			}
-			const oldItems = await Storage.get({ key: 'items' });
-			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
-			let newItems;
-			if (typeof id === "undefined"){
-				newItems = [ 
-					{
-						front: cardDetail.front,
-						back: cardDetail.back
-					},
-					...oldItemsJSON
-				];
-			} else {
-				oldItemsJSON[id].front = cardDetail.front;
-				oldItemsJSON[id].back = cardDetail.back;
-				newItems = oldItemsJSON;
-			}
-			await Storage.set({
-				key: 'items',
-				value: JSON.stringify(newItems)
-			});
-
-			dispatch({type: "SET_ITEMS", value: newItems});
-
-			setPageConfig({
-				...pageConfig,
-				toast: {
-					visible: true,
-					message: "The Items are successfully saved."
-				}
-			});
-
-			props.history.push("/setItems");
-		},
-		
-		style: {float: "right", marginRight: "7px"}
-	};
+	const alertProps = generateAlertProps({pageConfig, reducer});
+	const promptProps = generatePromptProps({pageConfig, reducer, id, dispatch});
+	const createCardProps = generateCardProps({pageConfig, cardDetail, reducer, id, dispatch});
 
 	return (
 	<IonPage >
-		<IonContent style={{"--overflow": "hidden"}} scrollEvents={false}>
+		<IonContent style={{"--overflow": "hidden"}} scrollEvents={true}>
 			<IonHeader>
 				<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15, height: "50px", color: "#7D7D7D"}}>
 					<IonButtons slot="start">
@@ -233,7 +98,7 @@ const SetupCard = (props) => {
 								slot="end"
 								className="ion-activatable"
 								style={{position: "relative", padding: "5px", marginRight: "5px"}} 
-								onClick={() => {setPageConfig({...pageConfig, confirmDeleteShown: true})}}
+								onClick={() => reducer({type: "SHOW_DELETE_CONFIRMATION"})}
 							>
 								<IonIcon icon={trashOutline} style={{color: "inherit", height: "20px", width: "20px"}} />
 								<IonRippleEffect type="unbounded"></IonRippleEffect>
@@ -248,7 +113,7 @@ const SetupCard = (props) => {
 					okText="Select it!"
 					value={cardDetail.type}
 					placeholder="Select One"
-					onIonChange={e => setCardDetail({...cardDetail, type: e.detail.value})}
+					onIonChange={e => reducer({type: "SET_CARD_TYPE", val: e.detail.value})}
 				>
 					<IonSelectOption value={RATE_YOUR_SELF} >Rate-yourself</IonSelectOption>
 					<IonSelectOption value={TYPE_THE_ANSWER}>Type-the-answer</IonSelectOption>
@@ -259,7 +124,7 @@ const SetupCard = (props) => {
 				<div  
 					style={{height: "0", paddingBottom: "158%"}} 
 					className={"card" + (pageConfig.cardFlipped ? " is-flipped" : "")} 
-					onClick={() => setPageConfig({...pageConfig, cardInputShown: true})}
+					onClick={() => reducer({type: "SHOW_CARD_INPUT"})}
 				>
 					<div className="card__face card__face--front">
 						<IonCardContent className="container">
@@ -281,7 +146,7 @@ const SetupCard = (props) => {
 				<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
 					<IonFabButton 
 						style={{display: "inline-block", margin: "0 15px", "--background": (pageConfig.cardFlipped) ? "#b7b0ff" : "#97fff3"}} 
-						onClick={flipCard}
+						onClick={() => reducer({type: "FLIP_CARD"})}
 					>
 						<IonIcon icon={refreshOutline} />
 					</IonFabButton>
@@ -297,12 +162,7 @@ const SetupCard = (props) => {
 		<IonAlert {...promptProps} />
 		<IonToast
 			isOpen={pageConfig.toast.visible}
-			onDidDismiss={() => 
-				setPageConfig({
-					...pageConfig,
-					toast: { visible: false, message: null }
-				})
-			}
+			onDidDismiss={() => reducer({type: "HIDE_TOAST"})}
 			message={pageConfig.toast.message}
 			duration={500}
 		/>
