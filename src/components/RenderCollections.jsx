@@ -1,13 +1,14 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import { Plugins } from '@capacitor/core';
 import CollectionItems from './CollectionItems';
 import { ItemsContext } from '../ItemsStore';
-import { useIonViewWillEnter } from '@ionic/react';
+import { useIonViewWillEnter, IonActionSheet } from '@ionic/react';
 
 const { Storage } = Plugins;
 
 const RenderCollections = () => {
 	const context = useContext(ItemsContext);
+	const [showActionSheet, setShowActionSheet] = useState(false);
 	const {state: {collection}, dispatch} = context;
 
 	useIonViewWillEnter(() => {
@@ -27,8 +28,30 @@ const RenderCollections = () => {
 
 	return <>
 		{collection.map((data, index) => {
-			return <CollectionItems key={index} data={data} id={index}/>
+			return <CollectionItems key={index} data={data} id={index} callBack={setShowActionSheet}/>
 		})}
+
+		<IonActionSheet
+			isOpen={showActionSheet}
+			onDidDismiss={() => setShowActionSheet(false)}
+			buttons={[
+				{
+					text: 'Delete',
+					role: 'destructive',
+					handler: () => {console.log('Delete clicked');}
+				}, 
+				{
+					text: 'Edit Collection',
+					handler: () => {console.log('Share clicked');} 
+				}, 
+				{
+					text: 'Cancel',
+					role: 'cancel',
+					handler: () => {setShowActionSheet(false)}
+				}
+			]}
+		>
+		</IonActionSheet>
 	</>;
 }
 

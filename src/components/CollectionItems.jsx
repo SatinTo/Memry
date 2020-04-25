@@ -7,11 +7,21 @@ import {
 } from "@ionic/react";
 import React from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
+import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 
-const CollectionItems = ({ id, data }) => {
+const CollectionItems = ({ data, callBack }) => {
+
 	return (
 		<IonCol size="6">
-			<div className="ion-activatable ripple-parent" style={{boxShadow: "none", paddingBottom: "56%", height: 0, backgroundColor: "#B0E7FF", borderRadius: "10px", position: "relative"}}>
+			<div 
+				className="ion-activatable ripple-parent" 
+				style={{boxShadow: "none", paddingBottom: "56%", height: 0, backgroundColor: "#B0E7FF", borderRadius: "10px", position: "relative"}}
+				onTouchStart = {() => handleButtonPress(callBack)}
+				onTouchEnd = {handleButtonRelease}
+				onMouseDown={() => handleButtonPress(callBack)}
+				onMouseUp= {handleButtonRelease}
+				onMouseLeave = {handleButtonRelease}
+			>
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">
 						<IonCardTitle style={{fontSize: "12px", color: "#236B8A"}}>
