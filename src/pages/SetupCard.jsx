@@ -78,89 +78,6 @@ const SetupCard = (props) => {
 		setPageConfig({...pageConfig, cardFlipped: !pageConfig.cardFlipped});
 	}
 
-	// Delete a selected item
-	async function deleteItem(id) {
-		const oldItems = await Storage.get({ key:'items'});
-		const newItemsJson = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty)? [] : JSON.parse(oldItems.value);
-
-		const filteredItems = newItemsJson.filter((element, index) => String(index) !== String(id));
-		
-		// Update the Storage by setting the filteredItems
-		await Storage.set({key: 'items', value: JSON.stringify(filteredItems)});
-		
-		//  Update the ItemsStore context;
-		dispatch({type: "SET_ITEMS", value: filteredItems});
-		
-		// Print a success message
-		setPageConfig({
-			...pageConfig,
-			toast: {
-				visible: true,
-				message: "The Item is successfully removed!"
-			}
-		});
-
-		// Route back the page to setItems
-		props.history.push("/setItems");
-	}
-
-	async function insertItem() {
-
-		if (!cardDetail.front){
-			setPageConfig({
-				...pageConfig,
-				toast: {
-					visible: true,
-					message: "The front card is empty. Do not forget."
-				}
-			});
-			return;
-		}
-
-		if (!cardDetail.back) {
-			setPageConfig({
-				...pageConfig,
-				toast: {
-					visible: true,
-					message: "The back card is empty. Do not forget."
-				}
-			});
-			return;
-		}
-		const oldItems = await Storage.get({ key: 'items' });
-		const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
-		let newItems;
-		if (typeof id === "undefined"){
-			newItems = [ 
-				{
-					front: cardDetail.front,
-					back: cardDetail.back
-				},
-				...oldItemsJSON
-			];
-		} else {
-			oldItemsJSON[id].front = cardDetail.front;
-			oldItemsJSON[id].back = cardDetail.back;
-			newItems = oldItemsJSON;
-		}
-		await Storage.set({
-			key: 'items',
-			value: JSON.stringify(newItems)
-		});
-
-		dispatch({type: "SET_ITEMS", value: newItems});
-
-		setPageConfig({
-			...pageConfig,
-			toast: {
-				visible: true,
-				message: "The Items are successfully saved."
-			}
-		});
-
-		props.history.push("/setItems");
-	}
-
 	const alertProps = {
 		isOpen: pageConfig.cardInputShown,
 		onDidDismiss: () => setPageConfig({...pageConfig, cardInputShown: false}),
@@ -208,10 +125,95 @@ const SetupCard = (props) => {
 			},
 			{
 				text: 'Okay',
-				handler: () => deleteItem(id)
+				handler: async () => {
+					const oldItems = await Storage.get({ key:'items'});
+					const newItemsJson = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty)? [] : JSON.parse(oldItems.value);
+			
+					const filteredItems = newItemsJson.filter((element, index) => String(index) !== String(id));
+					
+					// Update the Storage by setting the filteredItems
+					await Storage.set({key: 'items', value: JSON.stringify(filteredItems)});
+					
+					//  Update the ItemsStore context;
+					dispatch({type: "SET_ITEMS", value: filteredItems});
+					
+					// Print a success message
+					setPageConfig({
+						...pageConfig,
+						toast: {
+							visible: true,
+							message: "The Item is successfully removed!"
+						}
+					});
+			
+					// Route back the page to setItems
+					props.history.push("/setItems");
+				}
 			}
 		]
 	}
+
+	const createCardProps = {
+		disabled: !pageConfig.cardFlipped,
+		shape: "round",
+		onClick: async () => {
+			if (!cardDetail.front){
+				setPageConfig({
+					...pageConfig,
+					toast: {
+						visible: true,
+						message: "The front card is empty. Do not forget."
+					}
+				});
+				return;
+			}
+
+			if (!cardDetail.back) {
+				setPageConfig({
+					...pageConfig,
+					toast: {
+						visible: true,
+						message: "The back card is empty. Do not forget."
+					}
+				});
+				return;
+			}
+			const oldItems = await Storage.get({ key: 'items' });
+			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
+			let newItems;
+			if (typeof id === "undefined"){
+				newItems = [ 
+					{
+						front: cardDetail.front,
+						back: cardDetail.back
+					},
+					...oldItemsJSON
+				];
+			} else {
+				oldItemsJSON[id].front = cardDetail.front;
+				oldItemsJSON[id].back = cardDetail.back;
+				newItems = oldItemsJSON;
+			}
+			await Storage.set({
+				key: 'items',
+				value: JSON.stringify(newItems)
+			});
+
+			dispatch({type: "SET_ITEMS", value: newItems});
+
+			setPageConfig({
+				...pageConfig,
+				toast: {
+					visible: true,
+					message: "The Items are successfully saved."
+				}
+			});
+
+			props.history.push("/setItems");
+		},
+		
+		style: {float: "right", marginRight: "7px"}
+	};
 
 	return (
 	<IonPage >
@@ -284,7 +286,7 @@ const SetupCard = (props) => {
 						<IonIcon icon={refreshOutline} />
 					</IonFabButton>
 					
-					<IonButton disabled={!pageConfig.cardFlipped} shape="round" onClick={insertItem} style={{float: "right", marginRight: "7px"}}>
+					<IonButton {...createCardProps}>
 						{updateMode ? "Update card": "Create new card"}
 					</IonButton>
 				</div>
