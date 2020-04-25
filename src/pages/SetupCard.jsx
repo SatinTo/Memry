@@ -33,36 +33,39 @@ export const RATE_YOUR_SELF = 0;
 export const TYPE_THE_ANSWER = 1;
 
 const SetupCard = (props) => {
+	// Native JS
+	const {id} = props.match.params
+	const updateMode = (typeof id !== "undefined");
 	const DEFAULT_CARD_STATE = {
 		front: null,
 		back: null,
 		type: RATE_YOUR_SELF
 	};
 
+	// Hooks
 	const {dispatch} = useContext(ItemsContext);
-	const [flipped, setFlip] = useState(false);
-	const [isDelConfirmVisible, setDelConfirmVisible] = useState(false);
-	const [isCardInputVisible, setCardInputVisible] = useState(false);
 	const [cardDetail, setCardDetail] = useState(DEFAULT_CARD_STATE);
-	
-	const [toastState, setToastState] = useState({
-		visible: false,
-		message: null
+	const [pageConfig, setPageConfig] = useState({
+		cardFlipped: false,
+		confirmDeleteShown: false,
+		cardInputShown: false,
+		toast: {
+			visible: false,
+			message: null	
+		}
 	});
 	
-	const {id} = props.match.params
-	const updateMode = (typeof id !== "undefined");
-
 	useIonViewWillEnter(() => {
 		if (!updateMode){
 			setCardDetail(DEFAULT_CARD_STATE);
 		}
 		
-		setFlip(false);
+		setPageConfig({...pageConfig, cardFlipped: false});
 
 		Storage.get({ key: 'items' }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
-			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id) || !oldItemsJSON[id].hasOwnProperty("front") || !oldItemsJSON[id].hasOwnProperty("back")){
+			
+			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id)){
 				return;
 			}
 
@@ -72,7 +75,7 @@ const SetupCard = (props) => {
 
 	// Function to flip the card
 	function flipCard() {
-		setFlip(!flipped)
+		setPageConfig({...pageConfig, cardFlipped: !pageConfig.cardFlipped});
 	}
 
 	// Delete a selected item
@@ -89,10 +92,14 @@ const SetupCard = (props) => {
 		dispatch({type: "SET_ITEMS", value: filteredItems});
 		
 		// Print a success message
-		setToastState({
-			visible: true,
-			message: "The Item is successfully removed!"
+		setPageConfig({
+			...pageConfig,
+			toast: {
+				visible: true,
+				message: "The Item is successfully removed!"
+			}
 		});
+
 		// Route back the page to setItems
 		props.history.push("/setItems");
 	}
@@ -100,17 +107,23 @@ const SetupCard = (props) => {
 	async function insertItem() {
 
 		if (!cardDetail.front){
-			setToastState({
-				visible: true,
-				message: "The front card is empty. Do not forget."
+			setPageConfig({
+				...pageConfig,
+				toast: {
+					visible: true,
+					message: "The front card is empty. Do not forget."
+				}
 			});
 			return;
 		}
 
 		if (!cardDetail.back) {
-			setToastState({
-				visible: true,
-				message: "The back card is empty. Do not forget."
+			setPageConfig({
+				...pageConfig,
+				toast: {
+					visible: true,
+					message: "The back card is empty. Do not forget."
+				}
 			});
 			return;
 		}
@@ -136,23 +149,27 @@ const SetupCard = (props) => {
 		});
 
 		dispatch({type: "SET_ITEMS", value: newItems});
-		
-		setToastState({
-			visible: true,
-			message: "The Items are successfully saved."
+
+		setPageConfig({
+			...pageConfig,
+			toast: {
+				visible: true,
+				message: "The Items are successfully saved."
+			}
 		});
+
 		props.history.push("/setItems");
 	}
 
 	const alertProps = {
-		isOpen: isCardInputVisible,
-		onDidDismiss: () => setCardInputVisible(false),
-		header: (flipped) ? "Answer!" : "Question!",
+		isOpen: pageConfig.cardInputShown,
+		onDidDismiss: () => setPageConfig({...pageConfig, cardInputShown: false}),
+		header: (pageConfig.cardFlipped) ? "Answer!" : "Question!",
 		inputs: [
 			{
-				name: `${(flipped) ? "Answer" : "Question"}`,
+				name: `${(pageConfig.cardFlipped) ? "Answer" : "Question"}`,
 				type: 'text',
-				placeholder: `Enter your ${(flipped) ? "Answer" : "Question"} here...`
+				placeholder: `Enter your ${(pageConfig.cardFlipped) ? "Answer" : "Question"} here...`
 			}
 		],
 		buttons: [
@@ -160,12 +177,12 @@ const SetupCard = (props) => {
 				text: 'Cancel',
 				role: 'cancel',
 				cssClass: 'secondary',
-				handler: () => setCardInputVisible(false)
+				handler: () => setPageConfig({...pageConfig, cardInputShown: false})
 			},
 			{
 				text: 'Ok',
 				handler: (data) => {
-					if (flipped) {
+					if (pageConfig.cardFlipped) {
 						setCardDetail({...cardDetail, back: data.Answer});
 						console.log({...cardDetail, back: data.Answer});
 						return;
@@ -178,8 +195,8 @@ const SetupCard = (props) => {
 	}
 
 	const promptProps = {
-		isOpen: isDelConfirmVisible,
-		onDidDismiss: () => setDelConfirmVisible(false),
+		isOpen: pageConfig.confirmDeleteShown,
+		onDidDismiss: () => setPageConfig({...pageConfig, confirmDeleteShown:false}),
 		header: 'Delete Card',
 		message: 'Are you sure you want to remove this Card?',
 		buttons: [
@@ -187,7 +204,7 @@ const SetupCard = (props) => {
 				text: 'Cancel',
 				role: 'cancel',
 				cssClass: 'secondary',
-				handler: () => setDelConfirmVisible(false)
+				handler: () => setPageConfig({...pageConfig, confirmDeleteShown:false})
 			},
 			{
 				text: 'Okay',
@@ -210,7 +227,12 @@ const SetupCard = (props) => {
 
 					{
 						updateMode && (
-							<div slot="end" className="ion-activatable" style={{position: "relative", padding: "5px", marginRight: "5px"}} onClick={() => {setDelConfirmVisible(true)}} >
+							<div 
+								slot="end"
+								className="ion-activatable"
+								style={{position: "relative", padding: "5px", marginRight: "5px"}} 
+								onClick={() => {setPageConfig({...pageConfig, confirmDeleteShown: true})}}
+							>
 								<IonIcon icon={trashOutline} style={{color: "inherit", height: "20px", width: "20px"}} />
 								<IonRippleEffect type="unbounded"></IonRippleEffect>
 							</div>
@@ -232,7 +254,11 @@ const SetupCard = (props) => {
 			</div>
 				
 			<IonCard style={{width: "68%", margin: "15px auto", boxShadow: "none"}}>
-				<div  style={{height: "0", paddingBottom: "158%"}} className={"card" + (flipped ? " is-flipped" : "")} onClick={() => setCardInputVisible(true)}>
+				<div  
+					style={{height: "0", paddingBottom: "158%"}} 
+					className={"card" + (pageConfig.cardFlipped ? " is-flipped" : "")} 
+					onClick={() => setPageConfig({...pageConfig, cardInputShown: true})}
+				>
 					<div className="card__face card__face--front">
 						<IonCardContent className="container">
 							<IonCardTitle style={{color: "#656290"}}>
@@ -252,13 +278,13 @@ const SetupCard = (props) => {
 			<IonToolbar>
 				<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
 					<IonFabButton 
-						style={{display: "inline-block", margin: "0 15px", "--background": (flipped) ? "#b7b0ff" : "#97fff3"}} 
+						style={{display: "inline-block", margin: "0 15px", "--background": (pageConfig.cardFlipped) ? "#b7b0ff" : "#97fff3"}} 
 						onClick={flipCard}
 					>
 						<IonIcon icon={refreshOutline} />
 					</IonFabButton>
 					
-					<IonButton disabled={!flipped} shape="round" onClick={insertItem} style={{float: "right", marginRight: "7px"}}>
+					<IonButton disabled={!pageConfig.cardFlipped} shape="round" onClick={insertItem} style={{float: "right", marginRight: "7px"}}>
 						{updateMode ? "Update card": "Create new card"}
 					</IonButton>
 				</div>
@@ -268,9 +294,14 @@ const SetupCard = (props) => {
 		<IonAlert {...alertProps}/>
 		<IonAlert {...promptProps} />
 		<IonToast
-			isOpen={toastState.visible}
-			onDidDismiss={() => setToastState({visible: false, message: null})}
-			message={toastState.message}
+			isOpen={pageConfig.toast.visible}
+			onDidDismiss={() => 
+				setPageConfig({
+					...pageConfig,
+					toast: { visible: false, message: null }
+				})
+			}
+			message={pageConfig.toast.message}
 			duration={500}
 		/>
 	</IonPage>
