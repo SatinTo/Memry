@@ -28,6 +28,7 @@ const { Storage } = Plugins;
 const Collections = () => {
 	const [showPopover, setShowpopover] = useState({event: null, status: false});
 	const [isAlertVisible, setAlertVisible] = useState(false);
+	const [isPromptVisible, setPromptVisible] = useState(false);
 	const [toastState, setToastState] = useState({visible: false, message: null});
 	const {dispatch} = useContext(ItemsContext);
 
@@ -53,6 +54,24 @@ const Collections = () => {
 					const title = data.Title
 					insertItem(title)
 				}
+			}
+		]
+	}
+
+	const promptProps = {
+		isOpen: isPromptVisible,
+		onDidDismiss: () => setPromptVisible(false),
+		header: "Remove All Collections",
+		message: "Are you sure you want to remove all collections?",
+		buttons: [
+			{
+				text: "Cancel",
+				role: 'cancel',
+				handler: () => setPromptVisible(false)
+			},
+			{
+				text: 'Okay',
+				handler: () => {console.log("testing!")}
 			}
 		]
 	}
@@ -144,6 +163,7 @@ const Collections = () => {
 						detail={false}
 						button
 						style={{"--background-activated": "#007EFF", "--color-activated": "#007EFF"}}
+						onClick={() => setPromptVisible(true)}
 					>
 						<IonLabel style={{fontSize: "14px"}}>Reset Workspace</IonLabel>
 					</IonItem>
@@ -154,6 +174,7 @@ const Collections = () => {
 			</IonPopover>
 
 			<IonAlert {...alertProps}/>
+			<IonAlert {...promptProps}/>
 
 			<IonToast
 				isOpen={toastState.visible}
