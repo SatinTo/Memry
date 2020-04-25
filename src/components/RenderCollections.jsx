@@ -10,6 +10,7 @@ const RenderCollections = ({ callBack }) => {
 	const context = useContext(ItemsContext);
 	const [showActionSheet, setShowActionSheet] = useState({status: false, collectionID: null});
 	const [showPrompt, setShowPrompt] = useState(false);
+	const [showAlert, setShowAlert] = useState(false);
 	const {state: {collection}, dispatch} = context;
 
 	useIonViewWillEnter(() => {
@@ -27,7 +28,7 @@ const RenderCollections = ({ callBack }) => {
 		return <></>
 	}
 
-	const alertProps = {
+	const promptProps = {
 		isOpen: showPrompt,
 		onDidDismiss: () => setShowPrompt(false),
 		header: "Delete Collection",
@@ -55,11 +56,56 @@ const RenderCollections = ({ callBack }) => {
 		]
 	}
 
+	const alertProps = {
+		isOpen: showAlert,
+		onDidDismiss: () => setShowAlert(false),
+		header: "Edit Collection",
+		inputs: [
+			{
+				name: 'title',
+				type: 'text',
+				placeholder: 'Enter your collection title here...'
+			}
+		],
+		buttons: [
+			{
+				text: 'Cancel',
+				role: 'cancel',
+				cssClass: 'secondary',
+				handler: () => setShowAlert(false)
+			},
+			{
+				text: 'Ok',
+				handler: async (data) => {
+					const collectionID = showActionSheet.collectionID;
+					const newCollectionTitle = data;
+
+					const collections = await Storage.get({ key: 'collections' });
+					const collectionJSON = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : 
+					JSON.parse(collections.value)
+					
+					let updatedCollections;
+
+					if ( collectionID !== "undefined") {
+						collectionJSON[collectionID] = newCollectionTitle;
+						updatedCollections = collectionJSON;
+					}
+
+					await Storage.set({ key: 'collections', value: JSON.stringify(updatedCollections)});
+					dispatch({ type: "SET_COLLECTION", value: updatedCollections});
+
+					callBack({ visible: true, message: "Collection is successfully saved."});
+				}
+			}
+		]
+	}
+
 	return <>
 		{collection.map((data, index) => {
 			return <CollectionItems key={index} data={data} id={index} callBack={setShowActionSheet}/>
 		})}
 
+		<IonAlert {...promptProps}/>
 		<IonAlert {...alertProps}/>
 		<IonActionSheet
 			isOpen={showActionSheet.status}
@@ -71,8 +117,8 @@ const RenderCollections = ({ callBack }) => {
 					handler: () => {setShowPrompt(true)}
 				}, 
 				{
-					text: 'Edit Collection',
-					handler: () => {console.log('Edit Collection clicked')}
+					text: 'Update',
+					handler: () => {setShowAlert(true)}
 				}, 
 				{
 					text: 'Cancel',

@@ -17,7 +17,6 @@ const RenderItems = ({callBack}) => {
 	const [showPopover, setShowPopover] = useState({event: null, status: false, id: null});
 	const {state: {items}, dispatch} = context;
 	const [isPromptVisible, setPromptVisible] = useState(false);
-	
 
 	useIonViewWillEnter(() => {
 		Storage.get({ key: 'items' }).then((oldItems) => {
@@ -43,7 +42,7 @@ const RenderItems = ({callBack}) => {
 
 		callBack({
 			visible: true,
-			message: "The Item is successfully removed!"
+			message: "The Item is successfully removed."
 		});
 
 		setPromptVisible(false);
@@ -95,9 +94,6 @@ const RenderItems = ({callBack}) => {
 				}
 			]}
 		/>
-
-		
-
 	</>
 }
 
