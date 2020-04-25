@@ -82,7 +82,7 @@ const Collections = () => {
 			value: JSON.stringify(newCollections)
 		});
 
-		dispatch({ type: "SET_COLLECTIONS", value: newCollections})
+		dispatch({ type: "SET_COLLECTION", value: newCollections})
 		setToastState({ visible: true, message: "New Collection is successfully added."})
 	}
 

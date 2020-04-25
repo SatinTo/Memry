@@ -17,7 +17,8 @@ export default function ItemsStore(props){
 	const [state, dispatch] = useReducer(itemReducer, {
 		items: [],
 		items_length: 0,
-		collection: []
+		collection: [],
+		collection_length: 0
 	});
 
 	return (
