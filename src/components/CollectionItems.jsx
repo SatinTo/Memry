@@ -8,14 +8,14 @@ import {
 import React from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
 
-const CollectionItems = () => {
+const CollectionItems = ({ id, data }) => {
 	return (
 		<IonCol size="6">
 			<div className="ion-activatable ripple-parent" style={{boxShadow: "none", paddingBottom: "56%", height: 0, backgroundColor: "#B0E7FF", borderRadius: "10px", position: "relative"}}>
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">
 						<IonCardTitle style={{fontSize: "12px", color: "#236B8A"}}>
-							Collection 1
+							{data.title}
 						</IonCardTitle>
 					</IonCardContent>
 					<div style={{display: "flex", position: "absolute", width: "100%", bottom: "10px"}}>

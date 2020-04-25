@@ -16,11 +16,12 @@ import {
 	IonList,
 	IonToast
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {calendarOutline, folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
-import CollectionItems from '../components/CollectionItems';
 import Indicator from "../components/Indicator";
 import { Plugins } from '@capacitor/core';
+import { ItemsContext } from '../ItemsStore'; 
+import RenderCollections from "../components/RenderCollections";
 
 const { Storage } = Plugins;
 
@@ -28,6 +29,7 @@ const Collections = () => {
 	const [showPopover, setShowpopover] = useState({event: null, status: false});
 	const [isAlertVisible, setAlertVisible] = useState(false);
 	const [toastState, setToastState] = useState({visible: false, message: null});
+	const {dispatch} = useContext(ItemsContext);
 
 	const alertProps = {
 		isOpen: isAlertVisible,
@@ -80,8 +82,8 @@ const Collections = () => {
 			value: JSON.stringify(newCollections)
 		});
 
+		dispatch({ type: "SET_COLLECTIONS", value: newCollections})
 		setToastState({ visible: true, message: "New Collection is successfully added."})
-
 	}
 
 	return (
@@ -114,11 +116,7 @@ const Collections = () => {
 			<IonContent scrollEvents={false}>
 				<div style={{padding: "0 20px"}}>
 					<IonRow>
-						<CollectionItems />
-						<CollectionItems />
-						<CollectionItems />
-						<CollectionItems />
-						<CollectionItems />
+						<RenderCollections />
 						{/* Add Button */}
 						<IonCol size="6">
 							<div style={{boxShadow: "none", paddingBottom: "50%", height: 0, border: "4px dashed #B0E7FF", borderRadius: "10px", position: "relative"}}>
