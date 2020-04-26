@@ -51,7 +51,7 @@ const RenderItems = ({callBack, collectionID}) => {
 
 	return <>
 		{items.map((data, index) => {
-			return <Item key={index} data={data} id={index} callBack={setShowPopover}/>
+			return <Item key={index} data={data} id={index} callBack={setShowPopover} collectionID={collectionID}/>
 		})}
 
 		<IonPopover

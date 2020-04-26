@@ -39,14 +39,14 @@ const ProgressBar = ({label}) => {
 	);
 }
 
-const PlayButtons = ({label, style, disabled, onClick}) => {
+const PlayButtons = ({label, style, disabled}) => {
 	const customCSS = {
 		...{width: "80px", height: "34px", "--border-radius": "50px", margin: "0 5px", padding: "0", display: "inline-block"},
 		...style
 	}
 
 	return (
-		<IonFabButton style={customCSS} disabled={disabled} onClick={onClick}>
+		<IonFabButton style={customCSS} disabled={disabled}>
 			<IonIcon icon={caretForward} style={{width: "20px", height: "20px"}}/>
 			<label htmlFor={label} style={{lineHeight: "15px", fontSize: "13px", fontWeight: "bold", paddingLeft: "5px"}}>
 				{label}
@@ -60,12 +60,11 @@ const CardList = (props) => {
 	const context = useContext(ItemsContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const {state: {items_length}, dispatch} = context;
-	const {id} = props.match.params;
+	const {collectionID} = props.match.params;
 	const [toastState, setToastState] = useState({
 		visible: false,
 		message: null
 	});
-
 	function deleteAllItems() {
 		Storage.remove({key: "items"});
 		
@@ -120,10 +119,10 @@ const CardList = (props) => {
 				</IonHeader>
 				<IonGrid>
 					<IonRow >
-						<RenderItems callBack={setToastState} collectionID={id}/>
+						<RenderItems callBack={setToastState} collectionID={collectionID}/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
-							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push("/crudCard")}}>
+							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push("/crudCard/" + collectionID)}}>
 								<div className="" style={{ width: "100%", borderRadius: "5px", display: "inline-block",height: "100%", border: "4px dashed #B7B0FF", position: "absolute"}}>
 									<IonCardContent className="container">
 										<IonCardTitle style={{color: "#B7B0FF"}}>
@@ -144,20 +143,14 @@ const CardList = (props) => {
 							disabled={(items_length > 100 ? "false": "true")} 
 							style={{"--background" : (items_length > 100 ? "#FC6363" : "#fc636382")}} 
 							label="Hell"
-							onClick={() => history.push("/play")}
 						/>
 						<PlayButtons 
 							disabled={(items_length > 30 ? "false": "true")}
 							style={{"--background": (items_length > 30 ? "#FC8763": "#fc876382")}} 
 							label="Hard"
-							onClick={() => history.push("/play")}
 						/>
 						
-						<PlayButtons 
-							style={{"--background": "#63FCC5"}} 
-							label="Easy"
-							onClick={() => history.push("/play")}
-						/>
+						<PlayButtons style={{"--background": "#63FCC5"}} label="Easy"/>
 					</div>
 				</IonToolbar>
 			</IonFooter>

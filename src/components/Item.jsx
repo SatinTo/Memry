@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 import {refreshOutline} from 'ionicons/icons';
 import EllipsisButton from "./EllipsisButton";
  
-const Item = ({id, data, callBack}) => {
+const Item = ({id, data, callBack, collectionID}) => {
 	const history = useHistory();
 	const [flipped, setFlip] = useState(false);
 
@@ -23,7 +23,7 @@ const Item = ({id, data, callBack}) => {
 
 	return (
 		<IonCol size="6">
-			<IonCard className="ion-activatable ripple-parent" style={{boxShadow: "none", margin: 0}} onClick={() => {history.push("/crudCard/" + id )}}>
+			<IonCard className="ion-activatable ripple-parent" style={{boxShadow: "none", margin: 0}} onClick={() => {history.push("/crudCard/" + collectionID + "/" + id)}}>
 				
 				<div className={"card" + (flipped ? " is-flipped" : "")} style={{paddingBottom: "152%"}}>
 					<div className="card__face card__face--front">
