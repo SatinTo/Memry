@@ -27,6 +27,7 @@ import { generateCardProps, generateReducer, generatePromptProps, generateAlertP
 
 import './SetupCard.css';
 import './Play.css';
+import EllipsisButton from '../components/EllipsisButton';
 
 const { Storage } = Plugins;
 
@@ -147,6 +148,7 @@ const Card = {
 					onClick={() => reducer({type: "SHOW_CARD_INPUT"})}
 				>
 					<div className="card__face card__face--front">
+						<EllipsisButton callBack={()=>{}} itemID={0}/>
 						<IonCardContent className="container">
 							<IonCardTitle style={{color: "#656290"}}>
 								{(updateMode || cardDetail.front !== null) ? cardDetail.front : <i>Put Question!</i>}
@@ -154,6 +156,7 @@ const Card = {
 						</IonCardContent>
 					</div>
 					<div className="card__face card__face--back">
+						<EllipsisButton callBack={()=>{}} itemID={0}/>
 						<IonCardContent className="container">
 							<IonCardTitle style={{color: "#3D746D"}}>
 								{(updateMode || cardDetail.back !== null) ? cardDetail.back : <i>Put Answer!</i>}

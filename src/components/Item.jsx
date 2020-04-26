@@ -27,16 +27,16 @@ const Item = ({id, data, callBack}) => {
 				
 				<div className={"card" + (flipped ? " is-flipped" : "")} style={{paddingBottom: "152%"}}>
 					<div className="card__face card__face--front">
+						<EllipsisButton callBack={callBack} itemID={id}/>
 						<IonCardContent className="container">
-							<EllipsisButton callBack={callBack} itemID={id}/>
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.front}
 							</IonCardTitle>	
 						</IonCardContent>
 					</div>
 					<div className="card__face card__face--back">
+						<EllipsisButton callBack={callBack} itemID={id}/>
 						<IonCardContent className="container">
-							<EllipsisButton callBack={callBack} itemID={id}/>
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.back}
 							</IonCardTitle>
