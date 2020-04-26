@@ -119,8 +119,8 @@ const SetupCard = (props) => {
 					<IonSelectOption value={TYPE_THE_ANSWER}>Type-the-answer</IonSelectOption>
 				</IonSelect>
 			</div>
-			
-			<RateYourselfCard {...{pageConfig, reducer, updateMode, cardDetail, createCardProps}} />
+
+			<Card.RateYourself {...{pageConfig, reducer, updateMode, cardDetail, createCardProps}}  />
 
 		</IonContent>
 		
@@ -136,45 +136,48 @@ const SetupCard = (props) => {
 	);
 };
 
-const RateYourselfCard = ({pageConfig, reducer, updateMode, cardDetail, createCardProps}) => {
-	return (<>
-		<IonCard style={{width: "68%", margin: "15px auto", boxShadow: "none"}}>
-			<div  
-				style={{height: "0", paddingBottom: "158%"}} 
-				className={"card" + (pageConfig.cardFlipped ? " is-flipped" : "")} 
-				onClick={() => reducer({type: "SHOW_CARD_INPUT"})}
-			>
-				<div className="card__face card__face--front">
-					<IonCardContent className="container">
-						<IonCardTitle style={{color: "#656290"}}>
-							{(updateMode || cardDetail.front !== null) ? cardDetail.front : <i>Put Question!</i>}
-						</IonCardTitle>
-					</IonCardContent>
-				</div>
-				<div className="card__face card__face--back">
-					<IonCardContent className="container">
-						<IonCardTitle style={{color: "#3D746D"}}>
-							{(updateMode || cardDetail.back !== null) ? cardDetail.back : <i>Put Answer!</i>}
-						</IonCardTitle>
-					</IonCardContent>
-				</div>
-			</div>
-		</IonCard>
-		<IonToolbar>
-			<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
-				<IonFabButton 
-					style={{display: "inline-block", margin: "0 15px", "--background": (pageConfig.cardFlipped) ? "#b7b0ff" : "#97fff3"}} 
-					onClick={() => reducer({type: "FLIP_CARD"})}
+// Card Types
+const Card = {
+	RateYourself: ({pageConfig, reducer, updateMode, cardDetail, createCardProps}) => {
+		return (<>
+			<IonCard style={{width: "68%", margin: "15px auto", boxShadow: "none"}}>
+				<div  
+					style={{height: "0", paddingBottom: "158%"}} 
+					className={"card" + (pageConfig.cardFlipped ? " is-flipped" : "")} 
+					onClick={() => reducer({type: "SHOW_CARD_INPUT"})}
 				>
-					<IonIcon icon={refreshOutline} />
-				</IonFabButton>
-				
-				<IonButton {...createCardProps}>
-					{updateMode ? "Update card": "Create new card"}
-				</IonButton>
-			</div>
-		</IonToolbar>
-	</>)
+					<div className="card__face card__face--front">
+						<IonCardContent className="container">
+							<IonCardTitle style={{color: "#656290"}}>
+								{(updateMode || cardDetail.front !== null) ? cardDetail.front : <i>Put Question!</i>}
+							</IonCardTitle>
+						</IonCardContent>
+					</div>
+					<div className="card__face card__face--back">
+						<IonCardContent className="container">
+							<IonCardTitle style={{color: "#3D746D"}}>
+								{(updateMode || cardDetail.back !== null) ? cardDetail.back : <i>Put Answer!</i>}
+							</IonCardTitle>
+						</IonCardContent>
+					</div>
+				</div>
+			</IonCard>
+			<IonToolbar>
+				<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
+					<IonFabButton 
+						style={{display: "inline-block", margin: "0 15px", "--background": (pageConfig.cardFlipped) ? "#b7b0ff" : "#97fff3"}} 
+						onClick={() => reducer({type: "FLIP_CARD"})}
+					>
+						<IonIcon icon={refreshOutline} />
+					</IonFabButton>
+					
+					<IonButton {...createCardProps}>
+						{updateMode ? "Update card": "Create new card"}
+					</IonButton>
+				</div>
+			</IonToolbar>
+		</>)
+	}	
 };
 
 export default SetupCard;
