@@ -78,7 +78,7 @@ const RenderCollections = ({ callBack }) => {
 				text: 'Ok',
 				handler: async (data) => {
 					const collectionID = showActionSheet.collectionID;
-					const newCollectionTitle = data;
+					const newCollectionTitle = data.title;
 
 					const collections = await Storage.get({ key: 'collections' });
 					const collectionJSON = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : 
