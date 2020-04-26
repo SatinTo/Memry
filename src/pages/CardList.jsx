@@ -55,11 +55,12 @@ const PlayButtons = ({label, style, disabled}) => {
 	);
 }
 
-const CardList = () => {
+const CardList = (props) => {
 	const history = useHistory();
 	const context = useContext(ItemsContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
-	const {state: {items_length}, dispatch} = context; 
+	const {state: {items_length}, dispatch} = context;
+	const {id} = props.match.params;
 	const [toastState, setToastState] = useState({
 		visible: false,
 		message: null
@@ -119,7 +120,7 @@ const CardList = () => {
 				</IonHeader>
 				<IonGrid>
 					<IonRow >
-						<RenderItems callBack={setToastState}/>
+						<RenderItems callBack={setToastState} collectionID={id}/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
 							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push("/crudCard")}}>

@@ -28,7 +28,7 @@ const CollectionItems = ({ id, data, callBack }) => {
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">
 						<IonCardTitle style={{fontSize: "12px", color: "#236B8A"}}>
-							{data.title}
+							{data}
 						</IonCardTitle>
 					</IonCardContent>
 					<div style={{display: "flex", position: "absolute", width: "100%", bottom: "10px"}}>

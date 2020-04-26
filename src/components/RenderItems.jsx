@@ -12,12 +12,13 @@ import {
 import Item from '../components/Item';
 const { Storage } = Plugins;
 
-const RenderItems = ({callBack}) => {
+const RenderItems = ({callBack, collectionID}) => {
 	const context = useContext(ItemsContext);
 	const [showPopover, setShowPopover] = useState({event: null, status: false, id: null});
 	const {state: {items}, dispatch} = context;
 	const [isPromptVisible, setPromptVisible] = useState(false);
-
+	
+	// Get the Items from localStorage
 	useIonViewWillEnter(() => {
 		Storage.get({ key: 'items' }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);

@@ -104,15 +104,16 @@ const Collections = () => {
 		const collectionsJson = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : JSON.parse(collections.value);
 
 		const newCollections = [
-			{title: title},
+			title,
 			...collectionsJson
-		]
+		];
 
 		await Storage.set({
 			key: 'collections',
 			value: JSON.stringify(newCollections)
 		});
 
+		// console.log(newCollections);
 		dispatch({ type: "SET_COLLECTION", value: newCollections})
 		setToastState({ visible: true, message: "New Collection is successfully added."})
 	}
