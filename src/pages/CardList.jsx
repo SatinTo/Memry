@@ -39,14 +39,14 @@ const ProgressBar = ({label}) => {
 	);
 }
 
-const PlayButtons = ({label, style, disabled}) => {
+const PlayButtons = ({label, style, disabled, onClick}) => {
 	const customCSS = {
 		...{width: "80px", height: "34px", "--border-radius": "50px", margin: "0 5px", padding: "0", display: "inline-block"},
 		...style
 	}
 
 	return (
-		<IonFabButton style={customCSS} disabled={disabled}>
+		<IonFabButton style={customCSS} disabled={disabled} onClick={onClick}>
 			<IonIcon icon={caretForward} style={{width: "20px", height: "20px"}}/>
 			<label htmlFor={label} style={{lineHeight: "15px", fontSize: "13px", fontWeight: "bold", paddingLeft: "5px"}}>
 				{label}
@@ -151,7 +151,11 @@ const CardList = (props) => {
 							label="Hard"
 						/>
 						
-						<PlayButtons style={{"--background": "#63FCC5"}} label="Easy"/>
+						<PlayButtons 
+							style={{"--background": "#63FCC5"}} 
+							label="Easy"
+							onClick={() => history.push("/play")}
+						/>
 					</div>
 				</IonToolbar>
 			</IonFooter>
