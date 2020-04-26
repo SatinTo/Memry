@@ -3,18 +3,15 @@ import { Plugins } from '@capacitor/core';
 import { ItemsContext } from "../ItemsStore";
 import {
 	useIonViewWillEnter,
-	IonPopover,
-	IonList,
-	IonItem,
-	IonLabel,
 	IonAlert,
+	IonActionSheet,
 } from '@ionic/react';
 import Item from '../components/Item';
 const { Storage } = Plugins;
 
 const RenderItems = ({callBack, collectionID}) => {
 	const context = useContext(ItemsContext);
-	const [showPopover, setShowPopover] = useState({event: null, status: false, id: null});
+	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const {state: {items}, dispatch} = context;
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	
@@ -32,66 +29,63 @@ const RenderItems = ({callBack, collectionID}) => {
 		return <></>;
 	}
 	
-	async function deleteCard(id) {
-		const oldItems =  await Storage.get({ key: collectionID});
-		const newItems = (oldItems.value ? JSON.parse(oldItems.value) : []);
+	const alertProps = {
+		isOpen: isPromptVisible,
+		onDidDismiss: () => setPromptVisible(false),
+		header: "Delete Card",
+		message: "Are you sure you want to remove this card?",
+		buttons: [
+			{
+				text: 'Cancel',
+				role: 'cancel',
+				cssClass: 'secondary',
+				handler: () => setPromptVisible(false)
+			},
+			{
+				text: 'Okay',
+				handler: async () => {
+					const cardID = showActionSheet.id;
+					const oldItems =  await Storage.get({ key: collectionID});
+					const newItems = (oldItems.value ? JSON.parse(oldItems.value) : []);
 
-		const filteredItems = newItems.filter((e, index) => String(index) !== String(id));
-		Storage.set({key: collectionID, value: JSON.stringify(filteredItems)});
+					const filteredItems = newItems.filter((e, index) => String(index) !== String(cardID));
+					Storage.set({key: collectionID, value: JSON.stringify(filteredItems)});
 
-		dispatch({type: "SET_ITEMS", value: filteredItems});
+					dispatch({type: "SET_ITEMS", value: filteredItems});
 
-		callBack({
-			visible: true,
-			message: "The Item is successfully removed."
-		});
-
-		setPromptVisible(false);
+					callBack({
+						visible: true,
+						message: "The Item is successfully removed."
+					});
+					setPromptVisible(false);
+				}
+			}
+		]
 	}
 
 	return <>
 		{items.map((data, index) => {
-			return <Item key={index} data={data} id={index} callBack={setShowPopover} collectionID={collectionID}/>
+			return <Item key={index} data={data} id={index} callBack={setShowActionSheet} collectionID={collectionID}/>
 		})}
 
-		<IonPopover
-			isOpen={showPopover.status}
-			onDidDismiss={e => setShowPopover({event: null, status: false, id: null})}
-			event={showPopover.event || undefined}
-			showBackdrop="true"
-			mode="ios"
-			translucent={true}
-		>
-			<IonList>
-				<IonItem 
-					detail={false}
-					button
-					style={{"--background-activated": "#007EFF", "--color-activated": "#007EFF"}}
-					onClick= {() => {setPromptVisible(true)}}
-				>
-					<IonLabel style={{fontSize: "14px"}}>Delete Card</IonLabel>
-				</IonItem>
-				<IonItem>
-					<IonLabel style={{fontSize: "14px"}}>Coming soon...</IonLabel>
-				</IonItem>
-			</IonList>
-		</IonPopover>
-
-		<IonAlert
-			isOpen = {isPromptVisible}
-			onDidDismiss = {() => setPromptVisible(false)}
-			header = {'Delete Card'}
-			message = {'Are you sure you want to remove this cards?'}
-			buttons = {[
+		<IonAlert {...alertProps}/>
+		<IonActionSheet 
+			isOpen={showActionSheet.status}
+			onDidDismiss={() => setShowActionSheet({status: false, collectionID: null})}
+			buttons={[
+				{
+					text: 'Delete',
+					role: 'destructive',
+					handler: () => console.log("Hi im delete function!")
+				}, 
+				{
+					text: 'Flip',
+					handler: () => console.log("Hi im flipping function")
+				}, 
 				{
 					text: 'Cancel',
 					role: 'cancel',
-					cssClass: 'secondary',
-					handler: () => setPromptVisible(false)
-				},
-				{
-					text: 'Okay',
-					handler: () => {deleteCard(showPopover.id)}
+					handler: () => {setShowActionSheet({status: false, collectionID: null})}
 				}
 			]}
 		/>

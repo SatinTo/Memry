@@ -12,9 +12,6 @@ import {
 	IonCard,
 	IonFabButton,
 	IonAlert,
-	IonButtons,
-	IonButton,
-	IonBackButton,
 	IonFooter,
 	IonToast,
 } from "@ionic/react";

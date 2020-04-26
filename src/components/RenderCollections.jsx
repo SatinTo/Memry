@@ -8,7 +8,7 @@ const { Storage } = Plugins;
 
 const RenderCollections = ({ callBack }) => {
 	const context = useContext(ItemsContext);
-	const [showActionSheet, setShowActionSheet] = useState({status: false, collectionID: null});
+	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const [showPrompt, setShowPrompt] = useState(false);
 	const [showAlert, setShowAlert] = useState(false);
 	const {state: {collection}, dispatch} = context;
@@ -45,7 +45,7 @@ const RenderCollections = ({ callBack }) => {
 				handler: async () => {
 					const collections = await Storage.get({key: 'collections'});
 					const newCollectionJSON = (collections.value) ? JSON.parse(collections.value) : [];
-					const filteredCollections = newCollectionJSON.filter((e, i) => String(i) !== String(showActionSheet.collectionID));
+					const filteredCollections = newCollectionJSON.filter((e, i) => String(i) !== String(showActionSheet.id));
 					
 					Storage.set({key: 'collections', value: JSON.stringify(filteredCollections)});
 					dispatch({type: "SET_COLLECTION", value: filteredCollections});
@@ -77,7 +77,7 @@ const RenderCollections = ({ callBack }) => {
 			{
 				text: 'Ok',
 				handler: async (data) => {
-					const collectionID = showActionSheet.collectionID;
+					const collectionID = showActionSheet.id;
 					const newCollectionTitle = data.title;
 
 					const collections = await Storage.get({ key: 'collections' });
