@@ -1,4 +1,5 @@
 import { Plugins } from '@capacitor/core';
+import { PagePath } from '../vanilla/Constants';
 const { Storage } = Plugins;
 
 export function generateAlertProps({pageConfig, reducer}){
@@ -66,11 +67,14 @@ export function generatePromptProps({pageConfig, reducer, id, dispatch}){
 	};
 }
 
-export function generateCardProps({pageConfig, cardDetail, reducer, id, dispatch}) {
+export function generateCardProps({pageConfig, cardDetail, reducer, id, collectionID, dispatch}) {
 	return {
 		disabled: !pageConfig.cardFlipped,
 		shape: "round",
 		onClick: async () => {
+
+			console.log(collectionID);
+
 			if (!cardDetail.front){
 				reducer({type: "SHOW_TOAST", val: "The front card is empty. Do not forget."});
 				return;
@@ -81,7 +85,7 @@ export function generateCardProps({pageConfig, cardDetail, reducer, id, dispatch
 				return;
 			}
 			
-			const oldItems = await Storage.get({ key: 'items' });
+			const oldItems = await Storage.get({ key: collectionID });
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 			
 			let updatedItems;
@@ -95,7 +99,7 @@ export function generateCardProps({pageConfig, cardDetail, reducer, id, dispatch
 				updatedItems = oldItemsJSON;
 			}
 	
-			await Storage.set({ key: 'items', value: JSON.stringify(updatedItems) });
+			await Storage.set({ key: collectionID, value: JSON.stringify(updatedItems) });
 	
 			dispatch({type: "SET_ITEMS", value: updatedItems});
 	
@@ -108,7 +112,7 @@ export function generateCardProps({pageConfig, cardDetail, reducer, id, dispatch
 }
 
 
-export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, setCardDetail, cardDetail, props}){
+export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, setCardDetail, cardDetail, props, collectionID}){
 
 	return function (action){
 	   switch(action.type){
@@ -164,7 +168,7 @@ export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, 
 				});
 				break;
 			case "GO_BACK_TO_CARD_LIST":
-				props.history.push("/setItems");
+				props.history.push(`${PagePath.card_list}/${collectionID}`);
 				break;
 		}
 	};

@@ -37,6 +37,8 @@ export const TYPE_THE_ANSWER = 1;
 const SetupCard = (props) => {
 	// Native JS
 	const {id} = props.match.params;
+	const {collectionID} = props.match.params;
+	
 	const updateMode = (typeof id !== "undefined");
 	const DEFAULT_CARD_STATE = {
 		front: null,
@@ -58,7 +60,7 @@ const SetupCard = (props) => {
 		}
 	});
 
-	const reducer = generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, setCardDetail, cardDetail, props});
+	const reducer = generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, setCardDetail, cardDetail, props, collectionID});
 
 	useIonViewWillEnter(() => {
 		if (!updateMode)
@@ -66,7 +68,7 @@ const SetupCard = (props) => {
 
 		reducer({type: "UNFLIP_CARD"});
 
-		Storage.get({ key: 'items' }).then((oldItems) => {
+		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 			
 			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id))
@@ -79,7 +81,7 @@ const SetupCard = (props) => {
 	// Function to flip the card
 	const alertProps = generateAlertProps({pageConfig, reducer});
 	const promptProps = generatePromptProps({pageConfig, reducer, id, dispatch});
-	const createCardProps = generateCardProps({pageConfig, cardDetail, reducer, id, dispatch});
+	const createCardProps = generateCardProps({pageConfig, cardDetail, reducer, id, collectionID, dispatch});
 
 	return (
 	<IonPage >

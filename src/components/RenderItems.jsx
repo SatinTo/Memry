@@ -20,7 +20,7 @@ const RenderItems = ({callBack, collectionID}) => {
 	
 	// Get the Items from localStorage
 	useIonViewWillEnter(() => {
-		Storage.get({ key: 'items' }).then((oldItems) => {
+		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 			
 			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
@@ -33,11 +33,11 @@ const RenderItems = ({callBack, collectionID}) => {
 	}
 	
 	async function deleteCard(id) {
-		const oldItems =  await Storage.get({ key: 'items' });
+		const oldItems =  await Storage.get({ key: collectionID});
 		const newItems = (oldItems.value ? JSON.parse(oldItems.value) : []);
 
 		const filteredItems = newItems.filter((e, index) => String(index) !== String(id));
-		Storage.set({key: 'items', value: JSON.stringify(filteredItems)});
+		Storage.set({key: collectionID, value: JSON.stringify(filteredItems)});
 
 		dispatch({type: "SET_ITEMS", value: filteredItems});
 

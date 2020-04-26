@@ -35,7 +35,7 @@ const Item = ({id, data, callBack, collectionID}) => {
 						<IonCardContent className="container">
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.front}
-							</IonCardTitle>	
+							</IonCardTitle>
 						</IonCardContent>
 					</div>
 					<div className="card__face card__face--back">
