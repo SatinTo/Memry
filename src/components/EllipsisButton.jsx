@@ -7,7 +7,7 @@ import {ellipsisVertical} from 'ionicons/icons';
 
 const EllipsisButton = ({itemID,callBack}) => {
 	return (
-		<div style={{position: "absolute", top: "-80px", right: "0"}} >
+		<div style={{position: "absolute", top: "5px", right: "0"}} >
 			<IonFabButton 
 				style={{width: "30px", height:"30px", "--box-shadow": "none", "--background": "none", "--background-activated": "none"}} 
 				onClick={
