@@ -11,7 +11,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {refreshOutline} from 'ionicons/icons';
 import EllipsisButton from "./EllipsisButton";
- 
+import { PagePath } from "../vanilla/Constants";
+
 const Item = ({id, data, callBack, collectionID}) => {
 	const history = useHistory();
 	const [flipped, setFlip] = useState(false);
@@ -23,7 +24,10 @@ const Item = ({id, data, callBack, collectionID}) => {
 
 	return (
 		<IonCol size="6">
-			<IonCard className="ion-activatable ripple-parent" style={{boxShadow: "none", margin: 0}} onClick={() => {history.push("/crudCard/" + collectionID + "/" + id)}}>
+			<IonCard 
+				className="ion-activatable ripple-parent" 
+				style={{boxShadow: "none", margin: 0}} 
+				onClick={() => {history.push(`${PagePath.setup_card}/${collectionID}/${id}`)}}>
 				
 				<div className={"card" + (flipped ? " is-flipped" : "")} style={{paddingBottom: "152%"}}>
 					<div className="card__face card__face--front">

@@ -22,6 +22,7 @@ import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} f
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
+import { PagePath } from "../vanilla/Constants";
 
 import RenderItems from '../components/RenderItems';
 import Indicator from "../components/Indicator";
@@ -122,7 +123,7 @@ const CardList = (props) => {
 						<RenderItems callBack={setToastState} collectionID={collectionID}/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
-							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push("/crudCard/" + collectionID)}}>
+							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push(`${PagePath.setup_card}/${collectionID}`)}}>
 								<div className="" style={{ width: "100%", borderRadius: "5px", display: "inline-block",height: "100%", border: "4px dashed #B7B0FF", position: "absolute"}}>
 									<IonCardContent className="container">
 										<IonCardTitle style={{color: "#B7B0FF"}}>

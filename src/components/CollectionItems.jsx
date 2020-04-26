@@ -9,6 +9,7 @@ import React from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
+import { PagePath } from "../vanilla/Constants";
 
 const CollectionItems = ({ id, data, callBack }) => {
 	const history = useHistory();
@@ -23,7 +24,7 @@ const CollectionItems = ({ id, data, callBack }) => {
 				onMouseDown={() => handleButtonPress(callBack)}
 				onMouseUp= {handleButtonRelease}
 				onMouseLeave = {handleButtonRelease}
-				onClick = {() => {history.push("/setItems/" + id)}}
+				onClick = {() => {history.push(`${PagePath.card_list}/${id}`)}}
 			>
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">
