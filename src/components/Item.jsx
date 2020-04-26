@@ -9,29 +9,9 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import {ellipsisVertical, refreshOutline} from 'ionicons/icons';
+import {refreshOutline} from 'ionicons/icons';
+import EllipsisButton from "./EllipsisButton";
  
-// import '../pages/Play.css';
-
-const EllipsisButton = ({itemID,callBack}) => {
-	return (
-		<div style={{position: "absolute", top: "-80px", right: "0"}} >
-			<IonFabButton 
-				style={{width: "30px", height:"30px", "--box-shadow": "none", "--background": "none", "--background-activated": "none"}} 
-				onClick={
-					(e) => {
-						e.persist();
-						e.stopPropagation();
-						callBack({event: e, status: true, id: itemID});
-					}
-				}
-			>
-				<IonIcon icon={ellipsisVertical} style={{height: "20px", width: "20px", color: "#000"}}/>
-			</IonFabButton>
-		</div>
-	);
-}
-
 const Item = ({id, data, callBack}) => {
 	const history = useHistory();
 	const [flipped, setFlip] = useState(false);
