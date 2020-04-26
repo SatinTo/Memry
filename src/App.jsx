@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupConfig } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import {PagePath} from "./vanilla/Constants";
 import Home from './pages/Home';
 import Play from './pages/Play';
 import CardList from './pages/CardList';
@@ -42,15 +43,15 @@ const App = () => (
 		<IonApp>
 			<IonReactRouter>
 				<IonRouterOutlet>
-					<Route path="/home" component={Home} exact={true} />
-					<Route path="/play" component={Play} exact={true} />
-					<Route path="/setItems" component={CardList} exact={true} />
-					<Route path="/setItems/:collectionID" component={CardList} />
-					<Route path="/completed/:count" component={Completed} exact={true} />
-					<Route path="/crudCard/:collectionID" component={SetupCard} exact={true} />
-					<Route path="/collections" component={Collections} exact={true} />
-					<Route path="/crudCard/:collectionID/:id" component={SetupCard}/>
-					<Route exact path="/" render={() => <Redirect to="/home" />} />
+					<Route path={PagePath.homepage} component={Home} exact={true} />
+					<Route path={PagePath.play} component={Play} exact={true} />
+					<Route path={PagePath.card_list} component={CardList} exact={true} />
+					<Route path={`${PagePath.card_list}/:collectionID`} component={CardList} />
+					<Route path={`${PagePath.completed}/:count`} component={Completed} exact={true} />
+					<Route path={`${PagePath.setup_card}/:collectionID`} component={SetupCard} exact={true} />
+					<Route path={PagePath.collections} component={Collections} exact={true} />
+					<Route path={`${PagePath.setup_card}/:collectionID/:id`} component={SetupCard}/>
+					<Route exact path="/" render={() => <Redirect to={PagePath.homepage} />} />
 				</IonRouterOutlet>
 			</IonReactRouter>
 		</IonApp>
