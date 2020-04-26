@@ -86,9 +86,9 @@ export function generateCardProps({cardDetail, reducer, id, collectionID, dispat
 			
 			let updatedItems;
 			if (typeof id === "undefined"){
-				updatedItems = [ 	
-					cardDetail,
-					...oldItemsJSON
+				updatedItems = [
+					...oldItemsJSON,
+					cardDetail
 				];
 			} else {
 				oldItemsJSON[id] = cardDetail;

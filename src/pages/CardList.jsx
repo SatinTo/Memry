@@ -13,6 +13,7 @@ import {
 	IonFabButton,
 	IonAlert,
 	IonButtons,
+	IonButton,
 	IonBackButton,
 	IonFooter,
 	IonToast,
@@ -104,10 +105,12 @@ const CardList = (props) => {
 			<IonContent scrollEvents={false}>
 				<IonHeader>
 					<IonToolbar>
-						<IonButtons slot="start" style={{paddingLeft: "5px"}}>
-							<IonBackButton defaultHref="home" text="" icon={arrowBackOutline} style={{color: "#7D7D7D"}} />
-						</IonButtons>
-						
+						<IonFabButton slot="start" style={{paddingLeft: "5px", "--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}} routerLink={PagePath.collections}>
+							<IonIcon 
+								icon={arrowBackOutline}
+								style={{color: "#7D7D7D"}}
+							/>
+						</IonFabButton>
 						<div slot="secondary">
 							<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline}  label="10"/>
 							<ProgressBar label="MemPoints: 10/100"/>

@@ -24,7 +24,7 @@ const Item = ({id, data, callBack, collectionID}) => {
 
 	return (
 		<IonCol size="6">
-			<IonCard 
+			<IonCard
 				className="ion-activatable ripple-parent" 
 				style={{boxShadow: "none", margin: 0}} 
 				onClick={() => {history.push(`${PagePath.setup_card}/${collectionID}/${id}`)}}>
