@@ -76,7 +76,7 @@ const RenderItems = ({callBack, collectionID}) => {
 				{
 					text: 'Delete',
 					role: 'destructive',
-					handler: () => console.log("Hi im delete function!")
+					handler: () => setPromptVisible(true)
 				}, 
 				{
 					text: 'Flip',
