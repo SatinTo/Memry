@@ -144,11 +144,13 @@ const CardList = (props) => {
 							disabled={(items_length > 100 ? "false": "true")} 
 							style={{"--background" : (items_length > 100 ? "#FC6363" : "#fc636382")}} 
 							label="Hell"
+							onClick={() => history.push("/play")}
 						/>
 						<PlayButtons 
 							disabled={(items_length > 30 ? "false": "true")}
 							style={{"--background": (items_length > 30 ? "#FC8763": "#fc876382")}} 
 							label="Hard"
+							onClick={() => history.push("/play")}
 						/>
 						
 						<PlayButtons 
