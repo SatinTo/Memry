@@ -67,10 +67,8 @@ export function generatePromptProps({pageConfig, reducer, id, dispatch}){
 	};
 }
 
-export function generateCardProps({pageConfig, cardDetail, reducer, id, collectionID, dispatch}) {
+export function generateCardProps({cardDetail, reducer, id, collectionID, dispatch}) {
 	return {
-		disabled: !pageConfig.cardFlipped,
-		shape: "round",
 		onClick: async () => {
 
 			console.log(collectionID);

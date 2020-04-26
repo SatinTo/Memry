@@ -82,7 +82,7 @@ const SetupCard = (props) => {
 	// Function to flip the card
 	const alertProps = generateAlertProps({pageConfig, reducer});
 	const promptProps = generatePromptProps({pageConfig, reducer, id, dispatch});
-	const createCardProps = generateCardProps({pageConfig, cardDetail, reducer, id, collectionID, dispatch});
+	const createCardProps = generateCardProps({cardDetail, reducer, id, collectionID, dispatch});
 
 	return (
 	<IonPage >
@@ -173,6 +173,9 @@ const Card = {
 					</div>
 				</div>
 			</IonCard>
+
+			<ToolBar disabled={!pageConfig.cardFlipped} misc={pageConfig, reducer, createCardProps, updateMode} />
+
 			<IonToolbar>
 				<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
 					<IonFabButton 
@@ -224,15 +227,33 @@ const Card = {
 				/>
 			</div>
 			
-			<IonToolbar>
-				<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
-					<IonButton {...createCardProps} disabled={false}>
-						{updateMode ? "Update card": "Create new card"}
-					</IonButton>
-				</div>
-			</IonToolbar>
+			<ToolBar disabled={false} showRotate={false} misc={pageConfig, reducer, createCardProps, updateMode} />
 		</>)
 	}
+};
+
+const ToolBar = ({disabled, showRotate, misc: {pageConfig, reducer, createCardProps, updateMode}}) => {
+	return (
+		<IonToolbar>
+			<div style={{width: "fit-content", margin: "0 auto 20px auto"}}>
+				
+				{
+					showRotate && (
+						<IonFabButton 
+							style={{display: "inline-block", margin: "0 15px", "--background": (pageConfig.cardFlipped) ? "#b7b0ff" : "#97fff3"}} 
+							onClick={() => reducer({type: "FLIP_CARD"})}
+						>
+								<IonIcon icon={refreshOutline} />
+						</IonFabButton>
+					)
+				}
+				
+				<IonButton shape="round" {...createCardProps} disabled={disabled}>
+					{updateMode ? "Update card": "Create new card"}
+				</IonButton>
+			</div>
+		</IonToolbar>
+	)
 };
 
 export default SetupCard;
