@@ -5,19 +5,13 @@ import {
 	IonCol,
 	IonRippleEffect,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { PagePath } from "../vanilla/Constants";
 import { handleButtonPress, handleButtonRelease } from "../vanilla/mouseHold";
 
-const Item = ({id, data, callBack, collectionID}) => {
+const Item = ({id, data, callBack, collectionID, flipped}) => {
 	const history = useHistory();
-	const [flipped, setFlip] = useState(false);
-
-	// Function to flip the card
-	function flipCard() {
-		setFlip(!flipped)
-	}
 
 	return (
 		<IonCol size="6">
@@ -31,7 +25,10 @@ const Item = ({id, data, callBack, collectionID}) => {
 				onMouseLeave = {handleButtonRelease}
 				onClick={() => {history.push(`${PagePath.setup_card}/${collectionID}/${id}`)}}>
 				
-				<div className={"card" + (flipped ? " is-flipped" : "")} style={{paddingBottom: "152%"}}>
+				<div 
+					className={"card" + (flipped ? " is-flipped" : "")} 
+					style={{paddingBottom: "152%"}}
+				>
 					<div className="card__face card__face--front">
 						<IonCardContent className="container">
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
@@ -49,14 +46,7 @@ const Item = ({id, data, callBack, collectionID}) => {
 				</div>
 				<IonRippleEffect type="inbound"></IonRippleEffect>
 			</IonCard>
-		
-			{/* <div style={{position: "absolute", bottom: "9px", left: "9px"}}>
-				<IonFabButton style={{width: "20px", height:"20px", "--background": (flipped) ? "#b7b0ff" : "#97fff3"}} onClick={flipCard}>
-					<IonIcon icon={refreshOutline} style={{width: "12px", height:"12px"}} />
-				</IonFabButton>
-			</div> */}
 		</IonCol>
-		
 	);
 }
 

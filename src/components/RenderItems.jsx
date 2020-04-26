@@ -14,7 +14,8 @@ const RenderItems = ({callBack, collectionID}) => {
 	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const {state: {items}, dispatch} = context;
 	const [isPromptVisible, setPromptVisible] = useState(false);
-	
+	const [flipped, setFlip] = useState(false);
+
 	// Get the Items from localStorage
 	useIonViewWillEnter(() => {
 		Storage.get({ key: collectionID }).then((oldItems) => {
@@ -25,6 +26,7 @@ const RenderItems = ({callBack, collectionID}) => {
 			}
 		});
 	})
+
 	if (items.length < 1) {
 		return <></>;
 	}
@@ -65,7 +67,7 @@ const RenderItems = ({callBack, collectionID}) => {
 
 	return <>
 		{items.map((data, index) => {
-			return <Item key={index} data={data} id={index} callBack={setShowActionSheet} collectionID={collectionID}/>
+			return <Item key={index} data={data} id={index} callBack={setShowActionSheet} collectionID={collectionID} flipped={flipped}/>
 		})}
 
 		<IonAlert {...alertProps}/>
@@ -77,10 +79,10 @@ const RenderItems = ({callBack, collectionID}) => {
 					text: 'Delete',
 					role: 'destructive',
 					handler: () => setPromptVisible(true)
-				}, 
+				},
 				{
 					text: 'Flip',
-					handler: () => console.log("Hi im flipping function")
+					handler: () => setFlip(!flipped)
 				}, 
 				{
 					text: 'Cancel',
