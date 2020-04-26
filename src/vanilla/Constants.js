@@ -3,9 +3,9 @@
 export const PagePath = {
 	homepage: "/home",
 	play: "/play",
-	card_list: "/setItems",
+	card_list: "/cardList",
 	completed: "/completed",
-	setup_card: "/crudCard",
+	setup_card: "/setupCard",
 	collections: "/collections"
 };
 

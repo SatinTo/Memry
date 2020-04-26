@@ -81,7 +81,7 @@ const SetupCard = (props) => {
 
 	// Function to flip the card
 	const alertProps = generateAlertProps({pageConfig, reducer});
-	const promptProps = generatePromptProps({pageConfig, reducer, id, dispatch});
+	const promptProps = generatePromptProps({pageConfig, reducer, id, dispatch, collectionID});
 	const createCardProps = generateCardProps({cardDetail, reducer, id, collectionID, dispatch});
 
 	return (

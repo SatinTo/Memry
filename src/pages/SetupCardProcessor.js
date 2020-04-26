@@ -35,7 +35,7 @@ export function generateAlertProps({pageConfig, reducer}){
 	}
 }
 
-export function generatePromptProps({pageConfig, reducer, id, dispatch}){
+export function generatePromptProps({pageConfig, reducer, id, dispatch, collectionID}){
 	return {
 		isOpen: pageConfig.confirmDeleteShown,
 		onDidDismiss: () => reducer({type: "HIDE_DELETE_CONFIRMATION"}),
@@ -51,11 +51,11 @@ export function generatePromptProps({pageConfig, reducer, id, dispatch}){
 			{
 				text: 'Okay',
 				handler: async () => {
-					const oldItems = await Storage.get({ key:'items'});
+					const oldItems = await Storage.get({ key: collectionID});
 					const newItemsJson = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty)? [] : JSON.parse(oldItems.value);
 					const filteredItems = newItemsJson.filter((element, index) => String(index) !== String(id));
 					
-					await Storage.set({key: 'items', value: JSON.stringify(filteredItems)}); // Update the Storage by setting the filteredItems
+					await Storage.set({key: collectionID, value: JSON.stringify(filteredItems)}); // Update the Storage by setting the filteredItems
 					
 					dispatch({type: "SET_ITEMS", value: filteredItems}); //  Update the ItemsStore context;
 
@@ -70,8 +70,6 @@ export function generatePromptProps({pageConfig, reducer, id, dispatch}){
 export function generateCardProps({cardDetail, reducer, id, collectionID, dispatch}) {
 	return {
 		onClick: async () => {
-
-			console.log(collectionID);
 
 			if (!cardDetail.front){
 				reducer({type: "SHOW_TOAST", val: "The front card is empty. Do not forget."});
@@ -88,7 +86,7 @@ export function generateCardProps({cardDetail, reducer, id, collectionID, dispat
 			
 			let updatedItems;
 			if (typeof id === "undefined"){
-				updatedItems = [ 
+				updatedItems = [ 	
 					cardDetail,
 					...oldItemsJSON
 				];

@@ -67,9 +67,9 @@ const CardList = (props) => {
 		message: null
 	});
 	function deleteAllItems() {
-		Storage.remove({key: "items"});
+		Storage.remove({key: collectionID});
 		
-		const oldItems = Storage.get({ key: 'items' });
+		const oldItems = Storage.get({ key: collectionID });
 		const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : oldItems.value;
 		
 		dispatch({type: "SET_ITEMS", value: newItemsJson});
