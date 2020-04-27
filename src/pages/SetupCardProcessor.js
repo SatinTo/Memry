@@ -111,7 +111,7 @@ export function generateCardProps({cardDetail, reducer, id, collectionID, dispat
 export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, setCardDetail, cardDetail, props, collectionID}){
 
 	return function (action){
-	   switch(action.type){
+		switch(action.type){
 			case "FLIP_CARD":
 				setPageConfig({...pageConfig, cardFlipped: !pageConfig.cardFlipped});
 				break;
@@ -166,6 +166,8 @@ export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, 
 			case "GO_BACK_TO_CARD_LIST":
 				props.history.push(`${PagePath.card_list}/${collectionID}`);
 				break;
+			default:
+				return;
 		}
 	};
 }

@@ -43,6 +43,7 @@ const RenderCollections = ({ callBack }) => {
 			{
 				text: 'Okay',
 				handler: async () => {
+					// Delete workspace
 					const collections = await Storage.get({key: 'collections'});
 					const newCollectionJSON = (collections.value) ? JSON.parse(collections.value) : [];
 					const filteredCollections = newCollectionJSON.filter((e, i) => String(i) !== String(showActionSheet.id));
@@ -77,6 +78,7 @@ const RenderCollections = ({ callBack }) => {
 			{
 				text: 'Ok',
 				handler: async (data) => {
+					// Edit Workspace
 					const collectionID = showActionSheet.id;
 					const newCollectionTitle = data.title;
 

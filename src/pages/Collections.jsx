@@ -32,18 +32,6 @@ const Collections = () => {
 	const [toastState, setToastState] = useState({visible: false, message: null});
 	const {state: {collection_length}, dispatch} = useContext(ItemsContext);
 
-	function deleteAllCollection() {
-		Storage.remove({key: 'collections'});
-
-		const collections =  Storage.get({key: 'collections'});
-		const newCollectionJSON = (collections.value === "undefined" || !collections.hasOwnProperty || !collections.value) ? [] : collections.value
-
-		dispatch({type: "SET_COLLECTION", value: newCollectionJSON});
-
-		setToastState({visible: true, message: "All Collections are successfully removed."});
-		setShowpopover({event: null, status: false});
-	}
-
 	const alertProps = {
 		isOpen: isAlertVisible,
 		onDidDismiss: () => setAlertVisible(false),
@@ -62,9 +50,25 @@ const Collections = () => {
 			},
 			{
 				text: "Ok",
-				handler: (data) => {
-					const title = data.Title
-					insertItem(title)
+				handler: async (data) => {
+					// Creates new Workspace
+					const title = data.Title;
+
+					const collections = await Storage.get({ key: 'collections' });
+					const collectionsJson = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : JSON.parse(collections.value);
+
+					const newCollections = [
+						title,
+						...collectionsJson
+					];
+
+					await Storage.set({
+						key: 'collections',
+						value: JSON.stringify(newCollections)
+					});
+
+					dispatch({ type: "SET_COLLECTION", value: newCollections})
+					setToastState({ visible: true, message: "New Collection is successfully added."})
 				}
 			}
 		]
@@ -83,7 +87,18 @@ const Collections = () => {
 			},
 			{
 				text: 'Okay',
-				handler: () => {deleteAllCollection()}
+				handler: () => {
+					// Delete all Workspace
+					Storage.remove({key: 'collections'});
+
+					const collections =  Storage.get({key: 'collections'});
+					const newCollectionJSON = (collections.value === "undefined" || !collections.hasOwnProperty || !collections.value) ? [] : collections.value
+
+					dispatch({type: "SET_COLLECTION", value: newCollectionJSON});
+
+					setToastState({visible: true, message: "All Collections are successfully removed."});
+					setShowpopover({event: null, status: false});
+				}
 			}
 		]
 	}
@@ -95,26 +110,6 @@ const Collections = () => {
 		showBackdrop: "true",
 		mode: 'ios',
 		translucent: true
-	}
-
-	
-	// Inserting Collection
-	async function insertItem(title) {
-		const collections = await Storage.get({ key: 'collections' });
-		const collectionsJson = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : JSON.parse(collections.value);
-
-		const newCollections = [
-			title,
-			...collectionsJson
-		];
-
-		await Storage.set({
-			key: 'collections',
-			value: JSON.stringify(newCollections)
-		});
-
-		dispatch({ type: "SET_COLLECTION", value: newCollections})
-		setToastState({ visible: true, message: "New Collection is successfully added."})
 	}
 
 	return (

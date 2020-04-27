@@ -64,19 +64,6 @@ const CardList = (props) => {
 		visible: false,
 		message: null
 	});
-	function deleteAllItems() {
-		Storage.remove({key: collectionID});
-		
-		const oldItems = Storage.get({ key: collectionID });
-		const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : oldItems.value;
-		
-		dispatch({type: "SET_ITEMS", value: newItemsJson});
-
-		setToastState({
-			visible: true,
-			message: "All Items are successfully removed!"
-		});
-	}
 
 	const promptProps = {
 		isOpen: isPromptVisible,
@@ -92,7 +79,20 @@ const CardList = (props) => {
 			},
 			{
 				text: 'Okay',
-				handler: () => {deleteAllItems()}
+				handler: () => {
+					// Delete all Card Items
+					Storage.remove({key: collectionID});
+		
+					const oldItems = Storage.get({ key: collectionID });
+					const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : oldItems.value;
+					
+					dispatch({type: "SET_ITEMS", value: newItemsJson});
+
+					setToastState({
+						visible: true,
+						message: "All Items are successfully removed!"
+					});
+				}
 			}
 		]
 	}
@@ -109,7 +109,7 @@ const CardList = (props) => {
 							/>
 						</IonFabButton>
 						<div slot="secondary">
-							<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline}  label="10"/>
+							<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline} label="10"/>
 							<ProgressBar label="MemPoints: 10/100"/>
 						</div>
 						
