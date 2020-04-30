@@ -47,7 +47,7 @@ const RenderCollections = ({ callBack }) => {
 					const collections = await Storage.get({key: 'collections'});
 					const newCollectionJSON = (collections.value) ? JSON.parse(collections.value) : [];
 					const filteredCollections = newCollectionJSON.filter((e, i) => String(i) !== String(showActionSheet.id));
-					
+					Storage.remove({key: showActionSheet.id});
 					Storage.set({key: 'collections', value: JSON.stringify(filteredCollections)});
 					dispatch({type: "SET_COLLECTION", value: filteredCollections});
 
@@ -111,7 +111,7 @@ const RenderCollections = ({ callBack }) => {
 		<IonAlert {...alertProps}/>
 		<IonActionSheet
 			isOpen={showActionSheet.status}
-			onDidDismiss={() => setShowActionSheet({status: false, collectionID: null})}
+			onDidDismiss={() => setShowActionSheet({status: false, id: null})}
 			buttons={[
 				{
 					text: 'Delete',
