@@ -89,7 +89,7 @@ const Collections = () => {
 				text: 'Okay',
 				handler: () => {
 					// Delete all Workspace
-					Storage.remove({key: 'collections'});
+					Storage.clear();
 
 					const collections =  Storage.get({key: 'collections'});
 					const newCollectionJSON = (collections.value === "undefined" || !collections.hasOwnProperty || !collections.value) ? [] : collections.value
