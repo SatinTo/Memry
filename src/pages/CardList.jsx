@@ -65,6 +65,7 @@ const CardList = (props) => {
 		message: null
 	});
 
+
 	const promptProps = {
 		isOpen: isPromptVisible,
 		onDidDismiss: () => setPromptVisible(false),

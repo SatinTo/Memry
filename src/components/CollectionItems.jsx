@@ -13,6 +13,16 @@ import { PagePath } from "../vanilla/Constants";
 
 const CollectionItems = ({ id, data, callBack }) => {
 	const history = useHistory();
+	let fontSize = 12;
+	let newData = data; 
+
+	if (data.length > 18 && data.length < 20) {
+		fontSize = parseInt(fontSize - 1);
+	} else if (data.length > 20) {
+		newData = data.substr(0, 12) + "...";
+	} else {
+		newData = data;
+	}
 
 	return (
 		<IonCol size="6">
@@ -28,8 +38,8 @@ const CollectionItems = ({ id, data, callBack }) => {
 			>
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">
-						<IonCardTitle style={{fontSize: "12px", color: "#236B8A"}}>
-							{data}
+						<IonCardTitle style={{fontSize: fontSize, color: "#236B8A"}}>
+							{newData}
 						</IonCardTitle>
 					</IonCardContent>
 					<div style={{display: "flex", position: "absolute", width: "100%", bottom: "10px"}}>

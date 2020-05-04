@@ -58,8 +58,8 @@ const Collections = () => {
 					const collectionsJson = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : JSON.parse(collections.value);
 
 					const newCollections = [
-						title,
-						...collectionsJson
+						...collectionsJson,
+						title
 					];
 
 					await Storage.set({
