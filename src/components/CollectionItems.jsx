@@ -13,14 +13,19 @@ import { PagePath } from "../vanilla/Constants";
 
 const CollectionItems = ({ id, data, callBack }) => {
 	const history = useHistory();
+	
 	let fontSize = 12;
-	let newData = data; 
+	let newData = data;
 
-	if (data.length > 18 && data.length < 20) {
-		fontSize = parseInt(fontSize - 1);
-	} else if (data.length > 20) {
+	if (data.length > 13 && data.length <= 15){
+		fontSize = fontSize - 1;
+	} else if (data.length === 16) {
+		fontSize = fontSize - 2;
+	} else if (data.length > 16) {
+		fontSize = fontSize - 2;
 		newData = data.substr(0, 12) + "...";
 	} else {
+		fontSize = 12;
 		newData = data;
 	}
 
