@@ -25,8 +25,23 @@ export function generateAlertProps({pageConfig, reducer}){
 				text: 'Ok',
 				handler: (data) => {
 					if (pageConfig.cardFlipped) {
+						let answer = data.Answer;
+						answer.replace(/\s/g, "");
+
+						if (answer.length < 1){
+							reducer({type: "SHOW_TOAST", val: "Oooppss! The Answer field is empty."});
+							return;
+						}
 						reducer({type: "SET_BACK_CARD", val: data.Answer});
 					}else{
+						let question = data.Question;
+						question.replace(/\s/g, "");
+
+						if (question.length < 1){
+							console.log("");
+							reducer({type: "SHOW_TOAST", val: "Oooppss! The Question field is empty."});
+							return;
+						}
 						reducer({type: "SET_FRONT_CARD", val: data.Question});
 					}
 				}
@@ -70,7 +85,7 @@ export function generatePromptProps({pageConfig, reducer, id, dispatch, collecti
 export function generateCardProps({cardDetail, reducer, id, collectionID, dispatch}) {
 	return {
 		onClick: async () => {
-
+		
 			if (!cardDetail.front){
 				reducer({type: "SHOW_TOAST", val: "The front card is empty. Do not forget."});
 				return;

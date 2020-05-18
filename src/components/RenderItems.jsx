@@ -9,23 +9,18 @@ import {
 import Item from '../components/Item';
 const { Storage } = Plugins;
 
-const RenderItems = ({callBack, collectionID}) => {
+const RenderItems = ({props, callBack, collectionID}) => {
 	const context = useContext(ItemsContext);
 	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const {state: {items}, dispatch} = context;
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const [flipped, setFlip] = useState({});
 
-	// console.log(collectionID);
-
 	// Get the Items from localStorage
 	useIonViewWillEnter(() => {
-
 		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
-
-			console.log(oldItemsJSON);
-
+			
 			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
 				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
 			}
