@@ -13,6 +13,21 @@ import { handleButtonPress, handleButtonRelease } from "../vanilla/mouseHold";
 const Item = ({id, data, callBack, collectionID, flipped}) => {
 	const history = useHistory();
 
+	let fontSize = 12;
+	let newData = data.front;
+
+	if (newData.length > 13 && newData.length <= 15){
+		fontSize = fontSize - 1;
+	} else if (newData.length === 16) {
+		fontSize = fontSize - 2;
+	} else if (newData.length > 16) {
+		fontSize = fontSize - 2;
+		newData = newData.substr(0, 12) + "...";
+	} else {
+		fontSize = 12;
+		newData = data.front;
+	}
+
 	return (
 		<IonCol size="6">
 			<IonCard
@@ -31,8 +46,8 @@ const Item = ({id, data, callBack, collectionID, flipped}) => {
 				>
 					<div className="card__face card__face--front">
 						<IonCardContent className="container">
-							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
-								{data.front}
+							<IonCardTitle style={{fontSize: fontSize, color: "#656290", lineHeight: "15px"}}>
+								{newData}
 							</IonCardTitle>
 						</IonCardContent>
 					</div>
