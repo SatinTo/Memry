@@ -10,6 +10,9 @@ import { addSharp, albumsOutline} from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 import { PagePath } from "../vanilla/Constants";
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
 
 const CollectionItems = ({ id, data, callBack }) => {
 	const history = useHistory();
@@ -29,6 +32,13 @@ const CollectionItems = ({ id, data, callBack }) => {
 		newData = data;
 	}
 
+	const setColID = () => {
+		Storage.set({
+			key: 'collectionID',
+			value: JSON.stringify(id)
+		});
+	}
+
 	return (
 		<IonCol size="6">
 			<div 
@@ -39,7 +49,10 @@ const CollectionItems = ({ id, data, callBack }) => {
 				onMouseDown={() => handleButtonPress(callBack)}
 				onMouseUp= {handleButtonRelease}
 				onMouseLeave = {handleButtonRelease}
-				onClick = {() => {history.push(`${PagePath.card_list}/${id}`)}}
+				onClick = {() => {
+					history.push(`${PagePath.card_list}/${id}`);
+					setColID();
+				}}
 			>
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">

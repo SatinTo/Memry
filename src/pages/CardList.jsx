@@ -13,7 +13,7 @@ import {
 	IonFabButton,
 	IonAlert,
 	IonFooter,
-	IonToast,
+	IonToast
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} from 'ionicons/icons';
