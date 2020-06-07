@@ -21,7 +21,7 @@ import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
 import { PagePath } from "../vanilla/Constants";
-
+import { formatNumber } from "../vanilla/NumberFormatter";
 import RenderItems from '../components/RenderItems';
 import Indicator from "../components/Indicator";
 const { Storage } = Plugins;
@@ -109,7 +109,7 @@ const CardList = (props) => {
 							/>
 						</IonFabButton>
 						<div slot="secondary">
-							<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline} label="10"/>
+							<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline} label={formatNumber(12546)}/>
 							<ProgressBar label="MemPoints: 10/100"/>
 						</div>
 						

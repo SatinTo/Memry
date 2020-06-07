@@ -9,6 +9,7 @@ import React from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
+import { formatNumber } from "../vanilla/NumberFormatter";
 import { PagePath } from "../vanilla/Constants";
 import { Plugins } from '@capacitor/core';
 
@@ -70,7 +71,7 @@ const CollectionItems = ({ id, data, callBack }) => {
 						</div>
 						<div style={{display: "flex", marginLeft: "auto", backgroundColor: "#B7B0FF", width: "30px", padding: "2px", borderRadius: "8px 0 0 8px", color: "#656290"}}>
 							<IonIcon icon={albumsOutline} style={{fontSize: "12px", paddingLeft: "4px"}} />
-							<span style={{fontSize:"10px", paddingLeft: "4px"}}>4 </span>
+							<span style={{fontSize:"10px", paddingLeft: "4px"}}>{formatNumber(12356)} </span>
 						</div>
 					</div>
 				</div>

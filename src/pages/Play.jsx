@@ -88,7 +88,7 @@ const Play = () => {
 									<IonCardContent className="container">
 										<IonCardTitle>{cardItems[currentCardIndex].back}</IonCardTitle>
 									</IonCardContent>
-								</div>	
+								</div>
 							</div>
 						</IonCard>
 						<IonToolbar>

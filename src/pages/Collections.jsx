@@ -22,6 +22,7 @@ import Indicator from "../components/Indicator";
 import { Plugins } from '@capacitor/core';
 import { ItemsContext } from '../ItemsStore'; 
 import RenderCollections from "../components/RenderCollections";
+import { formatNumber } from "../vanilla/NumberFormatter";
 
 const { Storage } = Plugins;
 
@@ -124,7 +125,7 @@ const Collections = () => {
 				<IonToolbar>
 					<div slot="start" >
 						<Indicator style={{backgroundColor: "#FDD9A2", color: "#D78203"}} icon={calendarOutline} label="10" />
-						<Indicator style={{backgroundColor: "#B0E7FF", color: "#236B8A"}} icon={folderOpenSharp} label="4" />
+						<Indicator style={{backgroundColor: "#B0E7FF", color: "#236B8A"}} icon={folderOpenSharp} label={formatNumber(12400)} />
 					</div>
 					
 					<IonFabButton 
