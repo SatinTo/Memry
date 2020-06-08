@@ -35,13 +35,15 @@ const Play = () => {
 
 	// Makesure not to cache the items
 	useIonViewWillEnter(() => {
-		Storage.get({ key: 'items' }).then((oldItems) => {
-			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
-
-			// Put the items
-			setCardItems(shuffleArray(oldItemsJSON));
-			setCurrentCardIndex(0); // Start from top
-			setFlip(false);
+		Storage.get({ key: "collectionID" }).then((id) => {
+			const collectionID = (!id.value || id.value === "undefined" || !id.hasOwnProperty) ? [] : JSON.parse(id.value);
+			Storage.get({ key: collectionID }).then((oldItems) => {
+				const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+				// Put the items
+				setCardItems(shuffleArray(oldItemsJSON));
+				setCurrentCardIndex(0); // Start from top
+				setFlip(false);
+			});
 		});
 	});
 	

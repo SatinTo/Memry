@@ -20,7 +20,6 @@ const RenderItems = ({props, callBack, collectionID}) => {
 	useIonViewWillEnter(() => {
 		Storage.get({ key: "collectionID" }).then((id) => {
 			const collectionID = (!id.value || id.value === "undefined" || !id.hasOwnProperty) ? [] : JSON.parse(id.value);
-			console.log(collectionID);
 			Storage.get({ key: collectionID }).then((oldItems) => {
 				const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 				
