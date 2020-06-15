@@ -159,7 +159,7 @@ const CardList = (props) => {
 							label="Easy" 
 							onClick = {() => {
 								// history.push(`${PagePath.play}/${collectionID}`);
-								history.push(`${PagePath.play}`);
+								history.push(`${PagePath.play}/${collectionID}/0`);
 							}}
 						/>
 					</div>
