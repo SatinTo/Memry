@@ -1,11 +1,11 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "Memry",
-	"bundledWebRuntime": false,
-	"npmClient": "npm",
-	"webDir": "build",
-	"cordova": {},
-	"server": {
-		"url": "http://192.168.56.1:8100"
-	}
+  "appId": "com.datosanalyticos.memry",
+  "appName": "Memry",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {},
+  "server": {
+    "url": "http://172.17.14.177:8100"
+  }
 }

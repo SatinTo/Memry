@@ -3,7 +3,6 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupConfig } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import {PagePath} from "./vanilla/Constants";
-import Home from './pages/Home';
 import Play from './pages/Play';
 import CardList from './pages/CardList';
 import SetupCard from './pages/SetupCard';
@@ -32,6 +31,11 @@ import './theme/variables.css';
 import './global.css';
 import Completed from './pages/Completed';
 import ItemsStore from './ItemsStore';
+import { Plugins } from '@capacitor/core';
+const { SplashScreen } = Plugins;
+
+// Hide the splash (you should do this on app launch)
+SplashScreen.hide();
 
 // Setup config
 setupConfig({
@@ -43,15 +47,14 @@ const App = () => (
 		<IonApp>
 			<IonReactRouter>
 				<IonRouterOutlet>
-					<Route path={PagePath.homepage} component={Home} exact={true} />
+					<Route path={PagePath.collections} component={Collections} exact={true} />
 					<Route path={`${PagePath.play}/:collection_id/:difficulty`} component={Play} exact={true} />
 					<Route path={PagePath.card_list} component={CardList} exact={true} />
 					<Route path={`${PagePath.card_list}/:collectionID`} component={CardList} />
 					<Route path={`${PagePath.completed}/:count`} component={Completed} exact={true} />
 					<Route path={`${PagePath.setup_card}/:collectionID`} component={SetupCard} exact={true} />
-					<Route path={PagePath.collections} component={Collections} exact={true} />
 					<Route path={`${PagePath.setup_card}/:collectionID/:id`} component={SetupCard}/>
-					<Route exact path="/" render={() => <Redirect to={PagePath.homepage} />} />
+					<Route exact path="/" render={() => <Redirect to={PagePath.collections} />} />
 				</IonRouterOutlet>
 			</IonReactRouter>
 		</IonApp>
