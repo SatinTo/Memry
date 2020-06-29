@@ -17,6 +17,7 @@ const RenderCollections = ({ callBack }) => {
 		Storage.get({key: "collections"}).then((collections) => {
 			const collectionsJSON = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : JSON.parse(collections.value);
 
+
 			if (collection.length < 1 || JSON.stringify(collectionsJSON) !== JSON.stringify(collection)) {
 				dispatch({ type: "SET_COLLECTION", value: collectionsJSON });
 			}
