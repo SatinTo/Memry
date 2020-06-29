@@ -1,7 +1,7 @@
 
 // The list of routes
 export const PagePath = {
-	homepage: "/home",
+	homepage: "/collections",
 	play: "/play",
 	card_list: "/cardList",
 	completed: "/completed",
