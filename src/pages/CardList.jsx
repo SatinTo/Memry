@@ -112,7 +112,7 @@ const CardList = (props) => {
 							/>
 						</IonFabButton>
 						<div slot="secondary">
-							<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline} label={formatNumber(12546)}/>
+							<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline} label={formatNumber(items_length)}/>
 							<ProgressBar label="MemPoints: 10/100"/>
 						</div>
 						
