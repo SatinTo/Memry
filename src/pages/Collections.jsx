@@ -125,7 +125,7 @@ const Collections = () => {
 				<IonToolbar>
 					<div slot="start" >
 						<Indicator style={{backgroundColor: "#FDD9A2", color: "#D78203"}} icon={calendarOutline} label="10" />
-						<Indicator style={{backgroundColor: "#B0E7FF", color: "#236B8A"}} icon={folderOpenSharp} label={formatNumber(12400)} />
+						<Indicator style={{backgroundColor: "#B0E7FF", color: "#236B8A"}} icon={folderOpenSharp} label={formatNumber(collection_length)} />
 					</div>
 					
 					<IonFabButton 
@@ -152,7 +152,7 @@ const Collections = () => {
 					<IonRow>
 						<RenderCollections callBack={setToastState} />
 						{/* Add Button */}
-						<IonCol size="6">
+						<IonCol size="12">
 							<div style={{boxShadow: "none", paddingBottom: "50%", height: 0, border: "4px dashed #B0E7FF", borderRadius: "10px", position: "relative"}}>
 								<div style={{ borderRadius: "10px", display: "inline-block", margin: "auto", height: "inherit"}}>
 									<IonCardContent 
