@@ -128,55 +128,67 @@ export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, 
 	return function (action){
 		switch(action.type){
 			case "FLIP_CARD":
-				setPageConfig({...pageConfig, cardFlipped: !pageConfig.cardFlipped});
+				setPageConfig(
+					Object.assign(pageConfig, {cardFlipped: !pageConfig.cardFlipped})
+				);
 				break;
 			case "UNFLIP_CARD":
-				setPageConfig({...pageConfig, cardFlipped: false});
+				setPageConfig(
+					Object.assign(pageConfig, {cardFlipped: false})
+				);
 				break;
 			case "SHOW_CARD_INPUT":
-				setPageConfig({...pageConfig, cardInputShown: true});
+				setPageConfig(
+					Object.assign(pageConfig, {cardInputShown: true})
+				);
 				break;
 			case "HIDE_CARD_INPUT":
-				setPageConfig({...pageConfig, cardInputShown: false});
+				setPageConfig(
+					Object.assign(pageConfig, {cardInputShown: false})
+				);
 				break;
 			case "SHOW_DELETE_CONFIRMATION":
-				setPageConfig({...pageConfig, confirmDeleteShown: true});
+				setPageConfig(
+					Object.assign(pageConfig, {confirmDeleteShown: true})
+				);
 				break;
 			case "HIDE_DELETE_CONFIRMATION":
-				setPageConfig({...pageConfig, confirmDeleteShown: false});
+				setPageConfig(
+					Object.assign(pageConfig, {confirmDeleteShown: false})
+				);
 				break;
 			case "RESET_CARD":
 				setCardDetail(DEFAULT_CARD_STATE);
 				break;
 			case "SET_CARD_DETAILS":
-				setCardDetail( {...cardDetail, ...action.val} );
+				setCardDetail(
+					Object.assign(cardDetail, action.val)
+				);
 				break;
 			case "SET_FRONT_CARD":
-				setCardDetail( {...cardDetail, front: action.val} );
+				setCardDetail(
+					Object.assign(cardDetail, {front: action.val})
+				);
 				break;
 			case "SET_BACK_CARD":
-				setCardDetail( {...cardDetail, back: action.val} );
+				setCardDetail(
+					Object.assign(cardDetail, {back: action.val})
+				);
 				break;
 			case "SET_CARD_TYPE":
-				setCardDetail( {...cardDetail, type: action.val} );
+				setCardDetail(
+					Object.assign(cardDetail, {type: action.val})
+				);
 				break;
 			case "SHOW_TOAST":
-				setPageConfig({
-					...pageConfig,
-					toast: {
-						visible: true,
-						message: action.val
-					}
-				});
+				setPageConfig(
+					Object.assign(pageConfig, {toast: {visible: true, message: action.val}})
+				);
 				break;
 			case "HIDE_TOAST":
-				setPageConfig({
-					...pageConfig,
-					toast: {
-						visible: false,
-						message: null
-					}
-				});
+				setPageConfig(
+					Object.assign(pageConfig, {toast: {visible: false, message: null}})
+				);
 				break;
 			case "GO_BACK_TO_CARD_LIST":
 				props.history.push(`${PagePath.card_list}/${collectionID}`);

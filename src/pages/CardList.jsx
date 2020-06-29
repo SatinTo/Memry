@@ -39,10 +39,9 @@ const ProgressBar = ({label}) => {
 }
 
 const PlayButtons = ({label, style, disabled, onClick}) => {
-	const customCSS = {
-		...{width: "80px", height: "34px", "--border-radius": "50px", margin: "0 5px", padding: "0", display: "inline-block"},
-		...style
-	}
+	let customCSS = {width: "80px", height: "34px", "--border-radius": "50px", margin: "0 5px", padding: "0", display: "inline-block"};
+
+	Object.assign(customCSS, style); // Overwrite 
 
 	return (
 		<IonFabButton 

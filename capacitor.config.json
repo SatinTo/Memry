@@ -1,11 +1,11 @@
 {
   "appId": "com.datosanalyticos.memry",
   "appName": "Memry",
-  "bundledWebRuntime": false,
+  "bundledWebRuntime": true,
   "npmClient": "npm",
   "webDir": "build",
   "cordova": {},
-  "server": {
-    "url": "http://172.17.14.177:8100"
+  "android": {
+    "webContentsDebuggingEnabled": true
   }
 }
