@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupConfig } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import {PagePath} from "./vanilla/Constants";
+import {PageRoutes} from "./vanilla/PageRoutes";
 import Play from './pages/Play';
 import CardList from './pages/CardList';
 import SetupCard from './pages/SetupCard';
@@ -47,14 +47,14 @@ const App = () => (
 		<IonApp>
 			<IonReactRouter>
 				<IonRouterOutlet>
-					<Route path={PagePath.collections} component={Collections} exact={true} />
-					<Route path={`${PagePath.play}/:collection_id/:difficulty`} component={Play} exact={true} />
-					<Route path={PagePath.card_list} component={CardList} exact={true} />
-					<Route path={`${PagePath.card_list}/:collectionID`} component={CardList} />
-					<Route path={`${PagePath.completed}/:count`} component={Completed} exact={true} />
-					<Route path={`${PagePath.setup_card}/:collectionID`} component={SetupCard} exact={true} />
-					<Route path={`${PagePath.setup_card}/:collectionID/:id`} component={SetupCard}/>
-					<Route exact path="/" render={() => <Redirect to={PagePath.collections} />} />
+					<Route path={PageRoutes.collections} component={Collections} exact={true} />
+					<Route path={`${PageRoutes.play}/:collection_id/:difficulty`} component={Play} exact={true} />
+					<Route path={PageRoutes.card_list} component={CardList} exact={true} />
+					<Route path={`${PageRoutes.card_list}/:collectionID`} component={CardList} />
+					<Route path={`${PageRoutes.completed}/:count`} component={Completed} exact={true} />
+					<Route path={`${PageRoutes.setup_card}/:collectionID`} component={SetupCard} exact={true} />
+					<Route path={`${PageRoutes.setup_card}/:collectionID/:id`} component={SetupCard}/>
+					<Route exact path="/" render={() => <Redirect to={PageRoutes.collections} />} />
 				</IonRouterOutlet>
 			</IonReactRouter>
 		</IonApp>

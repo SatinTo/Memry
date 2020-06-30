@@ -10,7 +10,7 @@ import { addSharp, albumsOutline} from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 import { formatNumber } from "../vanilla/NumberFormatter";
-import { PagePath } from "../vanilla/Constants";
+import { PageRoutes } from "../vanilla/PageRoutes";
 import { Plugins } from '@capacitor/core';
 
 const { Storage } = Plugins;
@@ -51,7 +51,7 @@ const CollectionItems = ({ id, data, callBack }) => {
 				onMouseUp= {handleButtonRelease}
 				onMouseLeave = {handleButtonRelease}
 				onClick = {() => {
-					history.push(`${PagePath.card_list}/${id}`);
+					history.push(`${PageRoutes.card_list}/${id}`);
 					setColID();
 				}}
 			>

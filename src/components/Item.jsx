@@ -7,7 +7,7 @@ import {
 } from "@ionic/react";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { PagePath } from "../vanilla/Constants";
+import { PageRoutes } from "../vanilla/PageRoutes";
 import { handleButtonPress, handleButtonRelease } from "../vanilla/mouseHold";
 
 const Item = ({id, data, callBack, collectionID, flipped}) => {
@@ -38,7 +38,7 @@ const Item = ({id, data, callBack, collectionID, flipped}) => {
 				onMouseDown={() => handleButtonPress(callBack)}
 				onMouseUp= {handleButtonRelease}
 				onMouseLeave = {handleButtonRelease}
-				onClick={() => {history.push(`${PagePath.setup_card}/${collectionID}/${id}`)}}>
+				onClick={() => {history.push(`${PageRoutes.setup_card}/${collectionID}/${id}`)}}>
 				
 				<div 
 					className={"card" + (flipped ? " is-flipped" : "")} 

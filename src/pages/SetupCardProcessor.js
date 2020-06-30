@@ -1,5 +1,5 @@
 import { Plugins } from '@capacitor/core';
-import { PagePath } from '../vanilla/Constants';
+import { PageRoutes } from '../vanilla/PageRoutes';
 const { Storage } = Plugins;
 
 export function generateAlertProps({pageConfig, reducer}){
@@ -191,7 +191,7 @@ export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, 
 				);
 				break;
 			case "GO_BACK_TO_CARD_LIST":
-				props.history.push(`${PagePath.card_list}/${collectionID}`);
+				props.history.push(`${PageRoutes.card_list}/${collectionID}`);
 				break;
 			default:
 				return;

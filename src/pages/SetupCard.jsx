@@ -28,6 +28,7 @@ import { generateCardProps, generateReducer, generatePromptProps, generateAlertP
 import './SetupCard.css';
 import './Play.css';
 import EllipsisButton from '../components/EllipsisButton';
+import { PageRoutes } from '../vanilla/PageRoutes';
 
 const { Storage } = Plugins;
 
@@ -89,7 +90,7 @@ const SetupCard = (props) => {
 			<IonHeader>
 				<IonToolbar style={{ marginTop: 10, paddingLeft: 10, marginBottom: 15, height: "50px", color: "#7D7D7D"}}>
 					<IonButtons slot="start">
-						<IonBackButton defaultHref="/home" text="" icon={arrowBackOutline} style={{color: "inherit"}} />
+						<IonBackButton defaultHref={PageRoutes.homepage} text="" icon={arrowBackOutline} style={{color: "inherit"}} />
 					</IonButtons>
 					<IonCardTitle style={{fontSize: "1.2em", color: "inherit", position: "absolute", left: "43px", lineHeight: "21px", display: "flex", alignItems: "center", top: 0, bottom: 0}}>
 						{updateMode ? "Update card": "Create new card"}

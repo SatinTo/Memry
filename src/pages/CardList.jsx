@@ -20,7 +20,7 @@ import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} f
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
 import { ItemsContext } from "../ItemsStore";
-import { PagePath } from "../vanilla/Constants";
+import { PageRoutes } from "../vanilla/PageRoutes";
 import { formatNumber } from "../vanilla/NumberFormatter";
 import RenderItems from '../components/RenderItems';
 import Indicator from "../components/Indicator";
@@ -105,7 +105,7 @@ const CardList = (props) => {
 			<IonContent scrollEvents={false}>
 				<IonHeader>
 					<IonToolbar>
-						<IonFabButton slot="start" style={{paddingLeft: "5px", "--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}} routerLink={PagePath.collections}>
+						<IonFabButton slot="start" style={{paddingLeft: "5px", "--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}} routerLink={PageRoutes.collections}>
 							<IonIcon 
 								icon={arrowBackOutline}
 								style={{color: "#7D7D7D"}}
@@ -126,7 +126,7 @@ const CardList = (props) => {
 						<RenderItems callBack={setToastState} collectionID={collectionID}/>
 						{/* Add New Card Button */}
 						<IonCol size="6">
-							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push(`${PagePath.setup_card}/${collectionID}`)}}>
+							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push(`${PageRoutes.setup_card}/${collectionID}`)}}>
 								<div className="" style={{ width: "100%", borderRadius: "5px", display: "inline-block",height: "100%", border: "4px dashed #B7B0FF", position: "absolute"}}>
 									<IonCardContent className="container">
 										<IonCardTitle style={{color: "#B7B0FF"}}>
@@ -158,7 +158,7 @@ const CardList = (props) => {
 							label="Easy" 
 							onClick = {() => {
 								// history.push(`${PagePath.play}/${collectionID}`);
-								history.push(`${PagePath.play}/${collectionID}/0`);
+								history.push(`${PageRoutes.play}/${collectionID}/0`);
 							}}
 						/>
 					</div>
