@@ -15,8 +15,7 @@ import {
 	IonHeader, 
 	IonRippleEffect, 
 	IonButton, 
-	IonSelect,
-	IonSelectOption,
+	// IonSelect,IonSelectOption,
 	IonTextarea,
 } from '@ionic/react';
 
@@ -111,7 +110,7 @@ const SetupCard = (props) => {
 					}
 				</IonToolbar>
 			</IonHeader>
-			<div style={{border: "1px solid #DBDDE0", borderRadius: "8px", width: "165px", margin: "auto"}}>
+			{/* <div style={{border: "1px solid #DBDDE0", borderRadius: "8px", width: "165px", margin: "auto"}}>
 				<IonSelect 
 					cancelText="Nah"
 					okText="Select it!"
@@ -122,7 +121,7 @@ const SetupCard = (props) => {
 					<IonSelectOption value={RATE_YOUR_SELF} >Rate-yourself</IonSelectOption>
 					<IonSelectOption value={TYPE_THE_ANSWER}>Type-the-answer</IonSelectOption>
 				</IonSelect>
-			</div>
+			</div> */}
 			
 			{
 				(cardDetail.type === TYPE_THE_ANSWER) ?
