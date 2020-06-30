@@ -129,32 +129,32 @@ export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, 
 		switch(action.type){
 			case "FLIP_CARD":
 				setPageConfig(
-					Object.assign(pageConfig, {cardFlipped: !pageConfig.cardFlipped})
+					Object.assign({}, pageConfig, {cardFlipped: !pageConfig.cardFlipped})
 				);
 				break;
 			case "UNFLIP_CARD":
 				setPageConfig(
-					Object.assign(pageConfig, {cardFlipped: false})
+					Object.assign({}, pageConfig, {cardFlipped: false})
 				);
 				break;
 			case "SHOW_CARD_INPUT":
 				setPageConfig(
-					Object.assign(pageConfig, {cardInputShown: true})
+					Object.assign({}, pageConfig, {cardInputShown: true})
 				);
 				break;
 			case "HIDE_CARD_INPUT":
 				setPageConfig(
-					Object.assign(pageConfig, {cardInputShown: false})
+					Object.assign({}, pageConfig, {cardInputShown: false})
 				);
 				break;
 			case "SHOW_DELETE_CONFIRMATION":
 				setPageConfig(
-					Object.assign(pageConfig, {confirmDeleteShown: true})
+					Object.assign({}, pageConfig, {confirmDeleteShown: true})
 				);
 				break;
 			case "HIDE_DELETE_CONFIRMATION":
 				setPageConfig(
-					Object.assign(pageConfig, {confirmDeleteShown: false})
+					Object.assign({}, pageConfig, {confirmDeleteShown: false})
 				);
 				break;
 			case "RESET_CARD":
@@ -162,32 +162,32 @@ export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, 
 				break;
 			case "SET_CARD_DETAILS":
 				setCardDetail(
-					Object.assign(cardDetail, action.val)
+					Object.assign({}, cardDetail, action.val)
 				);
 				break;
 			case "SET_FRONT_CARD":
 				setCardDetail(
-					Object.assign(cardDetail, {front: action.val})
+					Object.assign({}, cardDetail, {front: action.val})
 				);
 				break;
 			case "SET_BACK_CARD":
 				setCardDetail(
-					Object.assign(cardDetail, {back: action.val})
+					Object.assign({}, cardDetail, {back: action.val})
 				);
 				break;
 			case "SET_CARD_TYPE":
 				setCardDetail(
-					Object.assign(cardDetail, {type: action.val})
+					Object.assign({}, cardDetail, {type: action.val})
 				);
 				break;
 			case "SHOW_TOAST":
 				setPageConfig(
-					Object.assign(pageConfig, {toast: {visible: true, message: action.val}})
+					Object.assign({}, pageConfig, {toast: {visible: true, message: action.val}})
 				);
 				break;
 			case "HIDE_TOAST":
 				setPageConfig(
-					Object.assign(pageConfig, {toast: {visible: false, message: null}})
+					Object.assign({}, pageConfig, {toast: {visible: false, message: null}})
 				);
 				break;
 			case "GO_BACK_TO_CARD_LIST":
