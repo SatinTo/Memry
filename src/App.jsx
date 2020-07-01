@@ -6,7 +6,7 @@ import {PageRoutes} from "./vanilla/PageRoutes";
 import Play from './pages/Play';
 import CardList from './pages/CardList';
 import SetupCard from './pages/SetupCard';
-import Collections from './pages/Collections';
+import Collections from './pages/Collections/';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';

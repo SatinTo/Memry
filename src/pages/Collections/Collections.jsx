@@ -18,11 +18,11 @@ import {
 } from "@ionic/react";
 import React, { useState, useContext } from "react";
 import {calendarOutline, folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
-import Indicator from "../components/Indicator";
+import Indicator from "../../components/Indicator";
 import { Plugins } from '@capacitor/core';
-import { ItemsContext } from '../ItemsStore'; 
-import RenderCollections from "../components/RenderCollections";
-import { formatNumber } from "../vanilla/NumberFormatter";
+import { ItemsContext } from '../../ItemsStore'; 
+import RenderCollections from "../../components/RenderCollections";
+import { formatNumber } from "../../vanilla/NumberFormatter";
 
 const { Storage } = Plugins;
 
