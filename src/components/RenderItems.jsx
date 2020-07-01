@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import { Plugins } from '@capacitor/core';
-import { ItemsContext } from "../ItemsStore";
+import { GlobalContext } from "../context/ItemsStore";
 import {
 	useIonViewWillEnter,
 	IonAlert,
@@ -10,7 +10,7 @@ import Item from '../components/Item';
 const { Storage } = Plugins;
 
 const RenderItems = ({props, callBack, collectionID}) => {
-	const context = useContext(ItemsContext);
+	const context = useContext(GlobalContext);
 	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const {state: {items}, dispatch} = context;
 	const [isPromptVisible, setPromptVisible] = useState(false);

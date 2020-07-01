@@ -20,7 +20,7 @@ import React, { useState, useContext } from "react";
 import {calendarOutline, folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
 import Indicator from "../../components/Indicator";
 import { Plugins } from '@capacitor/core';
-import { ItemsContext } from '../../ItemsStore'; 
+import { GlobalContext } from '../../context/ItemsStore'; 
 import RenderCollections from "../../components/RenderCollections";
 import { formatNumber } from "../../vanilla/NumberFormatter";
 
@@ -31,7 +31,7 @@ const Collections = () => {
 	const [isAlertVisible, setAlertVisible] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const [toastState, setToastState] = useState({visible: false, message: null});
-	const {state: {collection_length}, dispatch} = useContext(ItemsContext);
+	const {state: {collection_length}, dispatch} = useContext(GlobalContext);
 
 	const alertProps = {
 		isOpen: isAlertVisible,

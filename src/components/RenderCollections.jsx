@@ -1,13 +1,13 @@
 import React, {useContext, useState} from 'react'
 import { Plugins } from '@capacitor/core';
 import CollectionItems from './CollectionItems';
-import { ItemsContext } from '../ItemsStore';
+import { GlobalContext } from '../context/ItemsStore';
 import { useIonViewWillEnter, IonActionSheet, IonAlert } from '@ionic/react';
 
 const { Storage } = Plugins;
 
 const RenderCollections = ({ callBack }) => {
-	const context = useContext(ItemsContext);
+	const context = useContext(GlobalContext);
 	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const [showPrompt, setShowPrompt] = useState(false);
 	const [showAlert, setShowAlert] = useState(false);

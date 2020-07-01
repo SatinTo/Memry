@@ -19,7 +19,7 @@ import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
-import { ItemsContext } from "../ItemsStore";
+import { GlobalContext } from "../context/ItemsStore";
 import { PageRoutes } from "../vanilla/PageRoutes";
 import { formatNumber } from "../vanilla/NumberFormatter";
 import RenderItems from '../components/RenderItems';
@@ -59,7 +59,7 @@ const PlayButtons = ({label, style, disabled, onClick}) => {
 
 const CardList = (props) => {
 	const history = useHistory();
-	const context = useContext(ItemsContext);
+	const context = useContext(GlobalContext);
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const {state: {items_length}, dispatch} = context;
 	const {collectionID} = props.match.params;

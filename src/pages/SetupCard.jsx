@@ -21,7 +21,7 @@ import {
 
 import React, {useState, useContext} from 'react';
 import {arrowBackOutline, refreshOutline, trashOutline} from 'ionicons/icons';
-import { ItemsContext } from "../ItemsStore";
+import { GlobalContext } from "../context/ItemsStore";
 import { Plugins } from '@capacitor/core';
 import { generateCardProps, generateReducer, generatePromptProps, generateAlertProps}  from "./SetupCardProcessor";
 
@@ -48,7 +48,7 @@ const SetupCard = (props) => {
 	};
 
 	// Hooks
-	const {dispatch} = useContext(ItemsContext);
+	const {dispatch} = useContext(GlobalContext);
 	const [cardDetail, setCardDetail] = useState(DEFAULT_CARD_STATE);
 
 	const [pageConfig, setPageConfig] = useState({

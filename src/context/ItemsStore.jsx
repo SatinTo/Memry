@@ -1,8 +1,8 @@
 import React, {createContext, useReducer} from 'react';
 
-export const ItemsContext = createContext({});
+export const GlobalContext = createContext({});
 
-function itemReducer(state, action) {
+function globalReducer(state, action) {
 	switch (action.type) {
 		case "SET_ITEMS":
 			return Object.assign({}, state, {items: action.value, items_length: action.value.length});
@@ -13,8 +13,8 @@ function itemReducer(state, action) {
 	}
 }
 
-export default function ItemsStore(props){
-	const [state, dispatch] = useReducer(itemReducer, {
+export default function GlobalStore(props){
+	const [state, dispatch] = useReducer(globalReducer, {
 		items: [],
 		items_length: 0,
 		collection: [],
@@ -22,6 +22,6 @@ export default function ItemsStore(props){
 	});
 
 	return (
-		<ItemsContext.Provider value={{state, dispatch}}>{props.children}</ItemsContext.Provider>
+		<GlobalContext.Provider value={{state, dispatch}}>{props.children}</GlobalContext.Provider>
 	);
 };
