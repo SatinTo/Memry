@@ -20,7 +20,7 @@ import React, { useState, useContext } from "react";
 import {folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
 import Indicator from "../../components/Indicator";
 import { Plugins } from '@capacitor/core';
-import { GlobalContext } from '../../context/ItemsStore'; 
+import { GlobalContext } from '../../context/GlobalStore'; 
 import RenderCollections from "../../components/RenderCollections";
 import { formatNumber } from "../../vanilla/NumberFormatter";
 

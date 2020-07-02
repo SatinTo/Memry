@@ -19,7 +19,7 @@ import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
-import { GlobalContext } from "../context/ItemsStore";
+import { GlobalContext } from "../context/GlobalStore";
 import { PageRoutes } from "../vanilla/PageRoutes";
 import { formatNumber } from "../vanilla/NumberFormatter";
 import RenderItems from '../components/RenderItems';

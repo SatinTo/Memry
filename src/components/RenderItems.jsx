@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import { Plugins } from '@capacitor/core';
-import { GlobalContext } from "../context/ItemsStore";
+import { GlobalContext } from "../context/GlobalStore";
 import {
 	useIonViewWillEnter,
 	IonAlert,

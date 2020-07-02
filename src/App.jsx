@@ -30,7 +30,7 @@ import './theme/variables.css';
 /* Global CSS */
 import './global.css';
 import Completed from './pages/Completed';
-import GlobalStore from './context/ItemsStore';
+import GlobalStore from './context/GlobalStore';
 import { Plugins } from '@capacitor/core';
 const { SplashScreen } = Plugins;
 
