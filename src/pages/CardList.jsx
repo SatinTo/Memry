@@ -102,25 +102,25 @@ const CardList = (props) => {
 
 	return (
 		<IonPage>
+			<IonHeader>
+				<IonToolbar>
+					<IonFabButton slot="start" style={{paddingLeft: "5px", "--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}} routerLink={PageRoutes.collections}>
+						<IonIcon 
+							icon={arrowBackOutline}
+							style={{color: "#7D7D7D"}}
+						/>
+					</IonFabButton>
+					<div slot="secondary">
+						<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline} label={formatNumber(items_length)}/>
+						<ProgressBar label="MemPoints: 10/100"/>
+					</div>
+					
+					<IonFabButton slot="end" disabled={(items_length < 1 ?"true": "false")} style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}}>
+						<IonIcon icon={trashOutline} style={{color:"#575757"}} onClick={() => setPromptVisible(true)}/>
+					</IonFabButton>
+				</IonToolbar>
+			</IonHeader>
 			<IonContent scrollEvents={false}>
-				<IonHeader>
-					<IonToolbar>
-						<IonFabButton slot="start" style={{paddingLeft: "5px", "--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}} routerLink={PageRoutes.collections}>
-							<IonIcon 
-								icon={arrowBackOutline}
-								style={{color: "#7D7D7D"}}
-							/>
-						</IonFabButton>
-						<div slot="secondary">
-							<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline} label={formatNumber(items_length)}/>
-							<ProgressBar label="MemPoints: 10/100"/>
-						</div>
-						
-						<IonFabButton slot="end" disabled={(items_length < 1 ?"true": "false")} style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}}>
-							<IonIcon icon={trashOutline} style={{color:"#575757"}} onClick={() => setPromptVisible(true)}/>
-						</IonFabButton>
-					</IonToolbar>
-				</IonHeader>
 				<IonGrid>
 					<IonRow >
 						<RenderItems callBack={setToastState} collectionID={collectionID}/>
