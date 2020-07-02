@@ -30,7 +30,7 @@ import './theme/variables.css';
 /* Global CSS */
 import './global.css';
 import Completed from './pages/Completed';
-import ItemsStore from './context/ItemsStore';
+import GlobalStore from './context/ItemsStore';
 import { Plugins } from '@capacitor/core';
 const { SplashScreen } = Plugins;
 
@@ -43,7 +43,7 @@ setupConfig({
 });
 
 const App = () => (
-	<ItemsStore>
+	<GlobalStore>
 		<IonApp>
 			<IonReactRouter>
 				<IonRouterOutlet>
@@ -58,7 +58,7 @@ const App = () => (
 				</IonRouterOutlet>
 			</IonReactRouter>
 		</IonApp>
-	</ItemsStore>
+	</GlobalStore>
 );
 
 export default App;
