@@ -124,7 +124,6 @@ const Collections = () => {
 			<IonHeader>
 				<IonToolbar>
 					<div slot="start" >
-						<Indicator style={{backgroundColor: "#FDD9A2", color: "#D78203"}} icon={calendarOutline} label="10" />
 						<Indicator style={{backgroundColor: "#B0E7FF", color: "#236B8A"}} icon={folderOpenSharp} label={formatNumber(collection_length)} />
 					</div>
 					
