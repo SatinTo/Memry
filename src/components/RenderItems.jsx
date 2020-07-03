@@ -9,7 +9,7 @@ import {
 import Item from '../components/Item';
 const { Storage } = Plugins;
 
-const RenderItems = ({props, callBack, collectionID}) => {
+const RenderItems = ({collectionID}) => {
 	const context = useContext(GlobalContext);
 	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const {state: {items}, dispatch} = context;
@@ -56,12 +56,7 @@ const RenderItems = ({props, callBack, collectionID}) => {
 					const filteredItems = newItems.filter((e, index) => String(index) !== String(cardID));
 					Storage.set({key: collectionID, value: JSON.stringify(filteredItems)});
 
-					dispatch({type: "SET_ITEMS", value: filteredItems});
-
-					callBack({
-						visible: true,
-						message: "The Item is successfully removed."
-					});
+					dispatch({type: "SET_ITEMS", value: filteredItems, show_toast: true, toast_message: "All Items are successfully removed!"});
 					setPromptVisible(false);
 				}
 			}

@@ -57,7 +57,7 @@ const Collections = () => {
 					title.replace(/\s/g, "");
 					
 					if (title.length < 1){
-						setToastState({ visible: true, message: "Oooppss! The title should not be empty."});
+						dispatch({ type: "SHOW_TOAST", value: "Oooppss! The title should not be empty."})
 						return false;
 					}
 

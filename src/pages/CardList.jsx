@@ -13,7 +13,6 @@ import {
 	IonFabButton,
 	IonAlert,
 	IonFooter,
-	IonToast
 } from "@ionic/react";
 import React, {useState, useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} from 'ionicons/icons';
@@ -89,12 +88,7 @@ const CardList = (props) => {
 					const oldItems = Storage.get({ key: collectionID });
 					const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : oldItems.value;
 					
-					dispatch({type: "SET_ITEMS", value: newItemsJson});
-
-					setToastState({
-						visible: true,
-						message: "All Items are successfully removed!"
-					});
+					dispatch({type: "SET_ITEMS", value: newItemsJson, show_toast: true, toast_message: "All Items are successfully removed!"});
 				}
 			}
 		]
@@ -123,7 +117,8 @@ const CardList = (props) => {
 			<IonContent scrollEvents={false}>
 				<IonGrid>
 					<IonRow >
-						<RenderItems callBack={setToastState} collectionID={collectionID}/>
+						<RenderItems collectionID={collectionID}/>
+
 						{/* Add New Card Button */}
 						<IonCol size="6">
 							<IonCard style={{boxShadow: "none", margin: 0, paddingBottom: "152%"}} onClick={() => {history.push(`${PageRoutes.setup_card}/${collectionID}`)}}>
@@ -165,12 +160,6 @@ const CardList = (props) => {
 				</IonToolbar>
 			</IonFooter>
 			<IonAlert {...promptProps} />
-			<IonToast
-				isOpen={toastState.visible}
-				onDidDismiss={() => setToastState({visible: false, message: null})}
-				message={toastState.message}
-				duration={500}
-			/>
 		</IonPage>
 	);
 };
