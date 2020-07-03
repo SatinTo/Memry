@@ -6,7 +6,7 @@ import { useIonViewWillEnter, IonActionSheet, IonAlert } from '@ionic/react';
 
 const { Storage } = Plugins;
 
-const RenderCollections = ({ callBack }) => {
+const RenderCollections = () => {
 	const context = useContext(GlobalContext);
 	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const [showPrompt, setShowPrompt] = useState(false);
@@ -50,9 +50,7 @@ const RenderCollections = ({ callBack }) => {
 					const filteredCollections = newCollectionJSON.filter((e, i) => String(i) !== String(showActionSheet.id));
 					Storage.remove({key: showActionSheet.id});
 					Storage.set({key: 'collections', value: JSON.stringify(filteredCollections)});
-					dispatch({type: "SET_COLLECTION", value: filteredCollections});
-
-					callBack({ visible: true, message: "Collection is successfully removed."});
+					dispatch({type: "SET_COLLECTION", value: filteredCollections, toast_visible: true, toast_message: "Collection is successfully removed."});
 				}
 			}
 		]
@@ -95,9 +93,7 @@ const RenderCollections = ({ callBack }) => {
 					}
 
 					await Storage.set({ key: 'collections', value: JSON.stringify(updatedCollections)});
-					dispatch({ type: "SET_COLLECTION", value: updatedCollections});
-
-					callBack({ visible: true, message: "Collection is successfully saved."});
+					dispatch({ type: "SET_COLLECTION", value: updatedCollections, toast_visible: true, toast_message: "Collection is successfully saved."});
 				}
 			}
 		]

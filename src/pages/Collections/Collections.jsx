@@ -14,7 +14,6 @@ import {
 	IonItem,
 	IonPopover,
 	IonList,
-	IonToast
 } from "@ionic/react";
 import React, { useState, useContext } from "react";
 import {folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
@@ -74,8 +73,7 @@ const Collections = () => {
 						value: JSON.stringify(newCollections)
 					});
 
-					dispatch({ type: "SET_COLLECTION", value: newCollections})
-					setToastState({ visible: true, message: "New Collection is successfully added."})
+					dispatch({ type: "SET_COLLECTION", value: newCollections, toast_visible: true, toast_message: "New Collection is successfully added."});
 				}
 			}
 		]
@@ -101,9 +99,7 @@ const Collections = () => {
 					const collections =  Storage.get({key: 'collections'});
 					const newCollectionJSON = (collections.value === "undefined" || !collections.hasOwnProperty || !collections.value) ? [] : collections.value
 
-					dispatch({type: "SET_COLLECTION", value: newCollectionJSON});
-
-					setToastState({visible: true, message: "All Collections are successfully removed."});
+					dispatch({type: "SET_COLLECTION", value: newCollectionJSON, toast_visible: true, toast_message: "All Collections are successfully removed."});
 					setShowpopover({event: null, status: false});
 				}
 			}
@@ -149,7 +145,7 @@ const Collections = () => {
 			<IonContent scrollEvents={false}>
 				<div style={{padding: "0 20px"}}>
 					<IonRow>
-						<RenderCollections callBack={setToastState} />
+						<RenderCollections />
 						{/* Add Button */}
 						<IonCol size="12">
 							<div style={{boxShadow: "none", paddingBottom: "50%", height: 0, border: "4px dashed #B0E7FF", borderRadius: "10px", position: "relative"}}>
@@ -189,13 +185,6 @@ const Collections = () => {
 
 			<IonAlert {...alertProps}/>
 			<IonAlert {...promptProps}/>
-
-			<IonToast
-				isOpen={toastState.visible}
-				onDidDismiss={() => setToastState({visible: false, message: null})}
-				message={toastState.message}
-				duration={500}
-			/>
 		</IonPage>
 	);
 };
