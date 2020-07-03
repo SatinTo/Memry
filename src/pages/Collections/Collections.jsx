@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import {folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
 import Indicator from "../../components/Indicator";
 import { GlobalContext } from '../../context/GlobalStore'; 
-import RenderCollections from "../../components/RenderCollections";
+import RenderCollections from "../../components/RenderCollections/RenderCollections";
 import { formatNumber } from "../../vanilla/NumberFormatter";
 import useNewCollectionPrompt from "./useNewCollectionPrompt";
 import useClearCollectionPrompt from "./useClearCollectionPrompt";
