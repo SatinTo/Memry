@@ -11,24 +11,24 @@ function globalReducer(state, action) {
 			return Object.assign({}, state, {
 				items: value_param,
 				items_length: value_param.length,
-				show_toast: action.show_toast,
+				toast_visible: action.toast_visible,
 				toast_message:  action.toast_message
 			});
 		case "SET_COLLECTION":
 			return Object.assign({}, state, {
 				collection: action.value,
 				collection_length: action.value.length,
-				show_toast: action.show_toast,
+				toast_visible: action.toast_visible,
 				toast_message:  action.toast_message
 			});
 		case "SHOW_TOAST":
 			return Object.assign({}, state, {
-				show_toast: true,
+				toast_visible: true,
 				toast_message: action.value
 			})
 		case "HIDE_TOAST":
 			return Object.assign({}, state, {
-				show_toast: false,
+				toast_visible: false,
 				toast_message: null
 			})
 		default:
@@ -42,7 +42,7 @@ export default function GlobalStore(props){
 		items_length: 0,
 		collection: [],
 		collection_length: 0,
-		show_toast: false,
+		toast_visible: false,
 		toast_message: null
 	});
 
@@ -50,7 +50,7 @@ export default function GlobalStore(props){
 		<GlobalContext.Provider value={{state, dispatch}}>
 			{props.children}
 			<IonToast
-				isOpen={state.show_toast}
+				isOpen={state.toast_visible}
 				onDidDismiss={() => dispatch({type: "HIDE_TOAST"})}
 				message={state.toast_message}
 				duration={500}

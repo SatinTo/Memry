@@ -56,7 +56,7 @@ const RenderItems = ({collectionID}) => {
 					const filteredItems = newItems.filter((e, index) => String(index) !== String(cardID));
 					Storage.set({key: collectionID, value: JSON.stringify(filteredItems)});
 
-					dispatch({type: "SET_ITEMS", value: filteredItems, show_toast: true, toast_message: "All Items are successfully removed!"});
+					dispatch({type: "SET_ITEMS", value: filteredItems, toast_visible: true, toast_message: "All Items are successfully removed!"});
 					setPromptVisible(false);
 				}
 			}

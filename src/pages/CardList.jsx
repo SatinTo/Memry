@@ -88,7 +88,7 @@ const CardList = (props) => {
 					const oldItems = Storage.get({ key: collectionID });
 					const newItemsJson = (oldItems.value === "undefined" || !oldItems.hasOwnProperty || !oldItems.value) ? [] : oldItems.value;
 					
-					dispatch({type: "SET_ITEMS", value: newItemsJson, show_toast: true, toast_message: "All Items are successfully removed!"});
+					dispatch({type: "SET_ITEMS", value: newItemsJson, toast_visible: true, toast_message: "All Items are successfully removed!"});
 				}
 			}
 		]
