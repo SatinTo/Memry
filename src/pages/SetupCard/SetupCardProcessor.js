@@ -2,7 +2,7 @@ import { Plugins } from '@capacitor/core';
 import { PageRoutes } from '../../vanilla/PageRoutes';
 const { Storage } = Plugins;
 
-export function generateAlertProps({pageConfig, reducer}){
+export function generateAlertProps({pageConfig, reducer, dispatch}){
 	return {
 		isOpen: pageConfig.cardInputShown,
 		onDidDismiss: () => reducer({type: "HIDE_CARD_INPUT"}),
@@ -26,23 +26,22 @@ export function generateAlertProps({pageConfig, reducer}){
 				handler: (data) => {
 					if (pageConfig.cardFlipped) {
 						let answer = data.Answer;
-						answer.replace(/\s/g, "");
+						answer = answer.replace(/\s/g, "");
 
 						if (answer.length < 1){
-							reducer({type: "SHOW_TOAST", val: "Oooppss! The Answer field is empty."});
+							dispatch({type: "SHOW_TOAST", value: "Oooppss! The Answer field is empty."});
 							return;
 						}
-						reducer({type: "SET_BACK_CARD", val: data.Answer});
+						reducer({type: "SET_BACK_CARD", val: answer});
 					}else{
 						let question = data.Question;
-						question.replace(/\s/g, "");
+						question = question.replace(/\s/g, "");
 
 						if (question.length < 1){
-							console.log("");
-							reducer({type: "SHOW_TOAST", val: "Oooppss! The Question field is empty."});
+							dispatch({type: "SHOW_TOAST", value: "Oooppss! The Question field is empty."});
 							return;
 						}
-						reducer({type: "SET_FRONT_CARD", val: data.Question});
+						reducer({type: "SET_FRONT_CARD", val: question});
 					}
 				}
 			}
@@ -72,9 +71,8 @@ export function generatePromptProps({pageConfig, reducer, id, dispatch, collecti
 					
 					await Storage.set({key: collectionID, value: JSON.stringify(filteredItems)}); // Update the Storage by setting the filteredItems
 					
-					dispatch({type: "SET_ITEMS", value: filteredItems}); //  Update the ItemsStore context;
-
-					reducer({type: "SHOW_TOAST", val: "The Item is successfully removed!"});
+					//  Update the ItemsStore context
+					dispatch({type: "SET_ITEMS", value: filteredItems, toast_visible: true, toast_message: "The Item is successfully removed!"}); 
 					reducer({type: "GO_BACK_TO_CARD_LIST"});
 				}
 			}
@@ -87,12 +85,12 @@ export function generateCardProps({cardDetail, reducer, id, collectionID, dispat
 		onClick: async () => {
 		
 			if (!cardDetail.front){
-				reducer({type: "SHOW_TOAST", val: "The front card is empty. Do not forget."});
+				dispatch({type: "SHOW_TOAST", value: "The front card is empty. Do not forget."});
 				return;
 			}
 	
 			if (!cardDetail.back) {
-				reducer({type: "SHOW_TOAST", val: "The back card is empty. Do not forget."});
+				dispatch({type: "SHOW_TOAST", value: "The back card is empty. Do not forget."});
 				return;
 			}
 			
@@ -112,9 +110,7 @@ export function generateCardProps({cardDetail, reducer, id, collectionID, dispat
 	
 			await Storage.set({ key: collectionID, value: JSON.stringify(updatedItems) });
 	
-			dispatch({type: "SET_ITEMS", value: updatedItems});
-	
-			reducer({type: "SHOW_TOAST", val: "The Items are successfully saved."});
+			dispatch({type: "SET_ITEMS", value: updatedItems, toast_visible: true, toast_message: "The Items are successfully saved."});
 			reducer({type: "GO_BACK_TO_CARD_LIST"});
 		},
 		
@@ -178,16 +174,6 @@ export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, 
 			case "SET_CARD_TYPE":
 				setCardDetail(
 					Object.assign({}, cardDetail, {type: action.val})
-				);
-				break;
-			case "SHOW_TOAST":
-				setPageConfig(
-					Object.assign({}, pageConfig, {toast: {visible: true, message: action.val}})
-				);
-				break;
-			case "HIDE_TOAST":
-				setPageConfig(
-					Object.assign({}, pageConfig, {toast: {visible: false, message: null}})
 				);
 				break;
 			case "GO_BACK_TO_CARD_LIST":
