@@ -62,10 +62,6 @@ const CardList = (props) => {
 	const [isPromptVisible, setPromptVisible] = useState(false);
 	const {state: {items_length}, dispatch} = context;
 	const {collectionID} = props.match.params;
-	const [toastState, setToastState] = useState({
-		visible: false,
-		message: null
-	});
 
 	const promptProps = {
 		isOpen: isPromptVisible,

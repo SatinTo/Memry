@@ -29,7 +29,6 @@ const Collections = () => {
 	const [showPopover, setShowpopover] = useState({event: null, status: false});
 	const [isAlertVisible, setAlertVisible] = useState(false);
 	const [isPromptVisible, setPromptVisible] = useState(false);
-	const [toastState, setToastState] = useState({visible: false, message: null});
 	const {state: {collection_length}, dispatch} = useContext(GlobalContext);
 
 	const alertProps = {
