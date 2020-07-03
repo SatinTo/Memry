@@ -11,10 +11,9 @@ const { Storage } = Plugins;
 
 const Collections = () => {
 	const [showPopover, setShowpopover] = useState({event: null, status: false});
-	const [isPromptVisible, setPromptVisible] = useState(false);
 	const {state: {collection_length}, dispatch} = useContext(GlobalContext);
 
-	function showPrompt(){
+	function newCollection(){
 		return dispatch({
 			type: "SHOW_PROMPT",
 			header: "Collection Title",
@@ -51,31 +50,23 @@ const Collections = () => {
 		})
 	}
 
-	const promptProps = {
-		isOpen: isPromptVisible,
-		onDidDismiss: () => setPromptVisible(false),
-		header: "Remove All Collections",
-		message: "Are you sure you want to remove all collections?",
-		buttons: [
-			{
-				text: "Cancel",
-				role: 'cancel',
-				handler: () => setPromptVisible(false)
-			},
-			{
-				text: 'Okay',
-				handler: () => {
-					// Delete all Workspace
-					Storage.clear();
+	function clearCollection(){
+		return dispatch({
+			type: "SHOW_PROMPT",
+			header: "Remove All Collections",
+			message: "Are you sure you want to remove all collections?",
 
-					const collections =  Storage.get({key: 'collections'});
-					const newCollectionJSON = (collections.value === "undefined" || !collections.hasOwnProperty || !collections.value) ? [] : collections.value
+			onOkay: async (data) => {
+				// Delete all Workspace
+				Storage.clear();
 
-					dispatch({type: "SET_COLLECTION", value: newCollectionJSON, toast_visible: true, toast_message: "All Collections are successfully removed."});
-					setShowpopover({event: null, status: false});
-				}
+				const collections =  Storage.get({key: 'collections'});
+				const newCollectionJSON = (collections.value === "undefined" || !collections.hasOwnProperty || !collections.value) ? [] : collections.value
+
+				dispatch({type: "SET_COLLECTION", value: newCollectionJSON, toast_visible: true, toast_message: "All Collections are successfully removed."});
+				setShowpopover({event: null, status: false});
 			}
-		]
+		})
 	}
 
 	const popoverProps = {
@@ -122,7 +113,7 @@ const Collections = () => {
 						<IonCol size="12">
 							<div style={{boxShadow: "none", paddingBottom: "50%", height: 0, border: "4px dashed #B0E7FF", borderRadius: "10px", position: "relative"}}>
 								<div style={{ borderRadius: "10px", display: "inline-block", margin: "auto", height: "inherit"}}>
-									<IonCardContent className="container" style={{paddingLeft: 0, paddingRight: 0}} onClick={showPrompt} >
+									<IonCardContent className="container" style={{paddingLeft: 0, paddingRight: 0}} onClick={newCollection} >
 										<IonCardTitle style={{fontSize: "12px", color: "#B0E7FF"}}>
 											<IonIcon icon={addSharp} style={{height: "40px", width: "40px"}}/>
 											<h1 style={{fontSize: "13px"}}>New Collection</h1>
@@ -141,7 +132,7 @@ const Collections = () => {
 						detail={false}
 						button
 						style={{"--background-activated": "#007EFF", "--color-activated": "#007EFF"}}
-						onClick={() => setPromptVisible(true)}
+						onClick={clearCollection}
 					>
 						<IonLabel style={{fontSize: "14px"}}>Reset Workspace</IonLabel>
 					</IonItem>
@@ -151,7 +142,6 @@ const Collections = () => {
 				</IonList>
 			</IonPopover>
 
-			<IonAlert {...promptProps}/>
 		</IonPage>
 	);
 };

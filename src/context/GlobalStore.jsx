@@ -38,6 +38,7 @@ function globalReducer(state, action) {
 				prompt_visible: true,
 				prompt_header: action.header,
 				prompt_inputs: action.inputs,
+				prompt_message: action.message,
 				prompt_buttons: [
 					state.prompt_cancel,
 					{
@@ -72,6 +73,7 @@ export default function GlobalStore(props){
 		// Global Prompt States:
 		prompt_visible: false,
 		prompt_header: null,
+		prompt_message: null,
 		prompt_inputs: [],
 		prompt_buttons: [],
 		// static Global Prompt States
