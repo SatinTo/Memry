@@ -136,12 +136,12 @@ const CardList = (props) => {
 					<div style={{textAlign: "center", paddingTop: "5px"}}>
 						<PlayButtons 
 							disabled={(items_length > 100 ? "false": "true")} 
-							style={{"--background" : (items_length > 100 ? "#FC6363" : "#fc636382")}} 
+							style={{"--background" : (items_length > 100 ? "#FC6363" : "rgba(252, 99, 99, 0.5)")}} 
 							label="Hell"
 						/>
 						<PlayButtons 
 							disabled={(items_length > 30 ? "false": "true")}
-							style={{"--background": (items_length > 30 ? "#FC8763": "#fc876382")}} 
+							style={{"--background": (items_length > 30 ? "#FC8763": "rgba(252, 135, 99, 0.5)")}} 
 							label="Hard"
 						/>
 						<PlayButtons 
