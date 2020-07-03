@@ -1,4 +1,4 @@
-import {IonContent, IonPage, IonToolbar, IonIcon, IonHeader, IonRow, IonCol, IonCardContent, IonCardTitle, IonFabButton, IonAlert, IonLabel, IonItem, IonPopover, IonList} from "@ionic/react";
+import {IonContent, IonPage, IonToolbar, IonIcon, IonHeader, IonRow, IonCol, IonCardContent, IonCardTitle, IonFabButton, IonLabel, IonItem, IonPopover, IonList} from "@ionic/react";
 import React, { useState, useContext } from "react";
 import {folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
 import Indicator from "../../components/Indicator";
@@ -9,12 +9,11 @@ import { formatNumber } from "../../vanilla/NumberFormatter";
 
 const { Storage } = Plugins;
 
-const Collections = () => {
-	const [showPopover, setShowpopover] = useState({event: null, status: false});
-	const {state: {collection_length}, dispatch} = useContext(GlobalContext);
-
-	function newCollection(){
-		return dispatch({
+const useNewCollectionPrompt = () => {
+	const {dispatch} = useContext(GlobalContext);
+	
+	return function(){
+		dispatch({
 			type: "SHOW_PROMPT",
 			header: "Collection Title",
 			inputs: [{
@@ -31,32 +30,36 @@ const Collections = () => {
 					dispatch({ type: "SHOW_TOAST", value: "Oooppss! The title should not be empty."})
 					return false;
 				}
-
+	
 				const collections = await Storage.get({ key: 'collections' });
 				const collectionsJson = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : JSON.parse(collections.value);
-
+	
 				const newCollections = [
 					...collectionsJson,
 					title
 				];
-
+	
 				await Storage.set({
 					key: 'collections',
 					value: JSON.stringify(newCollections)
 				});
-
+	
 				dispatch({ type: "SET_COLLECTION", value: newCollections, toast_visible: true, toast_message: "New Collection is successfully added."});
 			}
 		})
 	}
+}
 
-	function clearCollection(){
+const useClearCollectionPrompt = (setShowpopover) => {
+	const {dispatch} = useContext(GlobalContext);
+
+	return 	function (){
 		return dispatch({
 			type: "SHOW_PROMPT",
 			header: "Remove All Collections",
 			message: "Are you sure you want to remove all collections?",
 
-			onOkay: async (data) => {
+			onOkay: async () => {
 				// Delete all Workspace
 				Storage.clear();
 
@@ -68,6 +71,14 @@ const Collections = () => {
 			}
 		})
 	}
+}
+
+const Collections = () => {
+	const [showPopover, setShowpopover] = useState({event: null, status: false});
+	const {state: {collection_length}} = useContext(GlobalContext);
+
+	const newCollection = useNewCollectionPrompt();
+	const clearCollection = useClearCollectionPrompt(setShowpopover);
 
 	const popoverProps = {
 		isOpen: showPopover.status,
