@@ -1,18 +1,4 @@
-import { 
-	IonContent,
-	IonPage, 
-	IonToolbar, 
-	IonIcon, 
-	IonCardTitle, 
-	IonButtons, 
-	IonBackButton, 
-	IonAlert, 
-	useIonViewWillEnter, 
-	IonHeader, 
-	IonRippleEffect, 
-	// IonSelect,IonSelectOption,
-} from '@ionic/react';
-
+import { IonContent,IonPage, IonToolbar,  IonIcon, IonCardTitle, IonButtons, IonBackButton, IonAlert, useIonViewWillEnter, IonHeader, IonRippleEffect} from '@ionic/react';
 import React, {useState, useContext} from 'react';
 import {arrowBackOutline, trashOutline} from 'ionicons/icons';
 import { GlobalContext } from "../../context/GlobalStore";
