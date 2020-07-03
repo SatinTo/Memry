@@ -8,6 +8,8 @@ function globalReducer(state, action) {
 			return Object.assign({}, state, {items: action.value, items_length: action.value.length});
 		case "SET_COLLECTION":
 			return Object.assign({}, state, {collection: action.value, collection_length: action.value.length});
+		case "SHOW_TOAST":
+			return Object.assign({}, state, {show_toast: true, toast_message: action.value})
 		default:
 			return state;
 	}
@@ -18,7 +20,9 @@ export default function GlobalStore(props){
 		items: [],
 		items_length: 0,
 		collection: [],
-		collection_length: 0
+		collection_length: 0,
+		show_toast: false,
+		toast_message: null
 	});
 
 	return (
