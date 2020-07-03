@@ -2,36 +2,11 @@ import {IonContent, IonPage, IonToolbar, IonIcon, IonHeader, IonRow, IonCol, Ion
 import React, { useState, useContext } from "react";
 import {folderOpenSharp, settingsOutline,addSharp} from 'ionicons/icons';
 import Indicator from "../../components/Indicator";
-import { Plugins } from '@capacitor/core';
 import { GlobalContext } from '../../context/GlobalStore'; 
 import RenderCollections from "../../components/RenderCollections";
 import { formatNumber } from "../../vanilla/NumberFormatter";
 import useNewCollectionPrompt from "./useNewCollectionPrompt";
-
-const { Storage } = Plugins;
-
-const useClearCollectionPrompt = (setShowpopover) => {
-	const {dispatch} = useContext(GlobalContext);
-
-	return 	function (){
-		return dispatch({
-			type: "SHOW_PROMPT",
-			header: "Remove All Collections",
-			message: "Are you sure you want to remove all collections?",
-
-			onOkay: async () => {
-				// Delete all Workspace
-				Storage.clear();
-
-				const collections =  Storage.get({key: 'collections'});
-				const newCollectionJSON = (collections.value === "undefined" || !collections.hasOwnProperty || !collections.value) ? [] : collections.value
-
-				dispatch({type: "SET_COLLECTION", value: newCollectionJSON, toast_visible: true, toast_message: "All Collections are successfully removed."});
-				setShowpopover({event: null, status: false});
-			}
-		})
-	}
-}
+import useClearCollectionPrompt from "./useClearCollectionPrompt";
 
 const Collections = () => {
 	const [showPopover, setShowpopover] = useState({event: null, status: false});

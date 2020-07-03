@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalStore';
-import { Storage } from '@capacitor/core';
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
+
 
 const useNewCollectionPrompt = () => {
 	const {dispatch} = useContext(GlobalContext);
