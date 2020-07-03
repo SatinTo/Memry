@@ -25,12 +25,33 @@ function globalReducer(state, action) {
 			return Object.assign({}, state, {
 				toast_visible: true,
 				toast_message: action.value
-			})
+			});
 		case "HIDE_TOAST":
 			return Object.assign({}, state, {
 				toast_visible: false,
 				toast_message: null
-			})
+			});
+
+		case "SHOW_PROMPT":
+			return Object.assign({}, state, {
+				prompt_visible: true,
+				prompt_header: action.header,
+				prompt_inputs: action.inputs,
+				prompt_buttons: [
+					state.prompt_cancel,
+					{
+						text: 'Ok',
+						handler: action.onOkay
+					}
+				]	
+			});
+		case "HIDE_PROMPT":
+			return Object.assign({}, state, {
+				prompt_visible: false,
+				prompt_header: null,
+				prompt_inputs: [],
+				prompt_buttons: []	
+			});
 		default:
 			return state;
 	}
@@ -38,12 +59,27 @@ function globalReducer(state, action) {
 
 export default function GlobalStore(props){
 	const [state, dispatch] = useReducer(globalReducer, {
-		items: [],
-		items_length: 0,
+		// Collection States:
 		collection: [],
 		collection_length: 0,
+		// Card Item States:
+		items: [],
+		items_length: 0,
+		// Global Toast States:
 		toast_visible: false,
-		toast_message: null
+		toast_message: null,
+		// Global Prompt States:
+		prompt_visible: false,
+		prompt_header: null,
+		prompt_inputs: [],
+		prompt_buttons: [],
+		// static Global Prompt States
+		prompt_cancel: {
+			text: 'Cancel',
+			role: 'cancel',
+			cssClass: 'secondary',
+			handler: () => dispatch({type: "HIDE_PROMPT"})
+		}
 	});
 
 	return (
