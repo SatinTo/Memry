@@ -1,5 +1,6 @@
 import React, {createContext, useReducer} from 'react';
 import { IonToast } from '@ionic/react';
+import GlobalPrompt from '../components/GlobalPrompt';
 
 export const GlobalContext = createContext({});
 
@@ -91,6 +92,7 @@ export default function GlobalStore(props){
 				message={state.toast_message}
 				duration={500}
 			/>
+			<GlobalPrompt />
 		</GlobalContext.Provider>
 	);
 };
