@@ -8,18 +8,8 @@ import { formatNumber } from "../../vanilla/NumberFormatter";
 import RenderItems from '../../components/RenderItems/RenderItems';
 import Indicator from "../../components/Indicator";
 import useClearCardsPrompt from "./useClearCardsPrompt";
+import ProgressBar from "./ProgressBar";
 
-const ProgressBar = ({label}) => {
-	return (
-		<div style={{ display: "flex", backgroundColor: "#E5E5E5", marginRight: "10px",marginLeft: "3px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "150px", height: "23px", float: "right"}}>
-			<div style={{marginTop: "2px"}}>
-				<IonIcon icon={addSharp} style={{width: "18px", height: "18px", float: "left"}}/>
-				<span style={{fontSize:"10px", lineHeight: "18px", float: "left"}}>{label}</span>
-			</div>
-			<div style={{position: "absolute", backgroundColor: "#DD6363", width: "50%", height: "23px", borderRadius: "5px 15px 15px 5px", zIndex: "-1"}}></div>
-		</div>
-	);
-}
 
 const PlayButtons = ({label, style, disabled, onClick}) => {
 	let customCSS = {width: "80px", height: "34px", "--border-radius": "50px", margin: "0 5px", padding: "0", display: "inline-block"};
