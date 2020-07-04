@@ -4,7 +4,7 @@ import { IonApp, IonRouterOutlet, setupConfig } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import {PageRoutes} from "./vanilla/PageRoutes";
 import Play from './pages/Play';
-import CardList from './pages/CardList';
+import CardList from './pages/CardList/';
 import SetupCard from './pages/SetupCard/';
 import Collections from './pages/Collections/';
 
