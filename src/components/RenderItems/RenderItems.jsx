@@ -1,12 +1,12 @@
 import React, {useContext, useState} from "react";
 import { Plugins } from '@capacitor/core';
-import { GlobalContext } from "../context/GlobalStore";
+import { GlobalContext } from "../../context/GlobalStore";
 import {
 	useIonViewWillEnter,
 	IonAlert,
 	IonActionSheet,
 } from '@ionic/react';
-import Item from '../components/Item';
+import Item from '../Item';
 const { Storage } = Plugins;
 
 const RenderItems = ({collectionID}) => {

@@ -21,7 +21,7 @@ import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalStore";
 import { PageRoutes } from "../vanilla/PageRoutes";
 import { formatNumber } from "../vanilla/NumberFormatter";
-import RenderItems from '../components/RenderItems';
+import RenderItems from '../components/RenderItems/RenderItems';
 import Indicator from "../components/Indicator";
 const { Storage } = Plugins;
 
