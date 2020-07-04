@@ -3,17 +3,16 @@ import { Plugins } from '@capacitor/core';
 import { GlobalContext } from "../../context/GlobalStore";
 import {
 	useIonViewWillEnter,
-	IonAlert,
 	IonActionSheet,
 } from '@ionic/react';
 import Item from '../Item';
+import useRemoveCardPrompt from "./useRemoveCardPrompt";
 const { Storage } = Plugins;
 
 const RenderItems = ({collectionID}) => {
 	const context = useContext(GlobalContext);
 	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const {state: {items}, dispatch} = context;
-	const [isPromptVisible, setPromptVisible] = useState(false);
 	const [flipped, setFlip] = useState({});
 
 	// Get the Items from localStorage
@@ -30,37 +29,10 @@ const RenderItems = ({collectionID}) => {
 		});
 	})
 
+	const deleteCard = useRemoveCardPrompt(showActionSheet.id, collectionID);
+
 	if (items.length < 1) {
 		return <></>;
-	}
-	
-	const alertProps = {
-		isOpen: isPromptVisible,
-		onDidDismiss: () => setPromptVisible(false),
-		header: "Delete Card",
-		message: "Are you sure you want to remove this card?",
-		buttons: [
-			{
-				text: 'Cancel',
-				role: 'cancel',
-				cssClass: 'secondary',
-				handler: () => setPromptVisible(false)
-			},
-			{
-				text: 'Okay',
-				handler: async () => {
-					const cardID = showActionSheet.id;
-					const oldItems =  await Storage.get({ key: collectionID});
-					const newItems = (oldItems.value ? JSON.parse(oldItems.value) : []);
-
-					const filteredItems = newItems.filter((e, index) => String(index) !== String(cardID));
-					Storage.set({key: collectionID, value: JSON.stringify(filteredItems)});
-
-					dispatch({type: "SET_ITEMS", value: filteredItems, toast_visible: true, toast_message: "All Items are successfully removed!"});
-					setPromptVisible(false);
-				}
-			}
-		]
 	}
 
 	return <>
@@ -68,7 +40,6 @@ const RenderItems = ({collectionID}) => {
 			return <Item key={index} data={data} id={index} callBack={setShowActionSheet} collectionID={collectionID} flipped={flipped[index]}/>
 		})}
 
-		<IonAlert {...alertProps}/>
 		<IonActionSheet 
 			isOpen={showActionSheet.status}
 			onDidDismiss={() => setShowActionSheet({status: false, collectionID: null})}
@@ -76,7 +47,7 @@ const RenderItems = ({collectionID}) => {
 				{
 					text: 'Delete',
 					role: 'destructive',
-					handler: () => setPromptVisible(true)
+					handler:  deleteCard
 				},
 				{
 					text: 'Flip',
