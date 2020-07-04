@@ -44,9 +44,11 @@ const SetupCard = (props) => {
 
 	useIonViewWillEnter(() => {
 		if (!updateMode)
-			reducer({type: "RESET_CARD"});
+			setCardDetail(DEFAULT_CARD_STATE);
 
-		reducer({type: "UNFLIP_CARD"});
+		setPageConfig(
+			Object.assign({}, pageConfig, {cardFlipped: false})
+		);
 
 		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
@@ -54,24 +56,30 @@ const SetupCard = (props) => {
 			if (!oldItemsJSON || !oldItemsJSON.hasOwnProperty(id))
 				return;
 
-			reducer({type: "SET_CARD_DETAILS", val: oldItemsJSON[id]});
+			setCardDetail(
+				Object.assign({}, cardDetail, oldItemsJSON[id])
+			);
 		});
 	});
 
 	const setAnsQuest = useSetAnswerQuestionPrompt(pageConfig.cardFlipped, function(input_data){
 		if (pageConfig.cardFlipped) {
-			reducer({type: "SET_BACK_CARD", val: input_data});
+			setCardDetail(
+				Object.assign({}, cardDetail, {back: input_data})
+			);
 			return;
 		}
 
-		reducer({type: "SET_FRONT_CARD", val: input_data});
+		setCardDetail(
+			Object.assign({}, cardDetail, {front: input_data})
+		);
 	});
 
 	const removeCard = useRemoveCardPrompt(id, collectionID, function(){
 		props.history.push(`${PageRoutes.card_list}/${collectionID}`);
 	});
 
-	const createCardProps = generateCardProps({cardDetail, reducer, id, collectionID, dispatch});
+	const createCardProps = generateCardProps({cardDetail, id, collectionID, dispatch, history: props.history});
 
 	return (
 	<IonPage >
@@ -108,7 +116,11 @@ const SetupCard = (props) => {
 					okText="Select it!"
 					value={cardDetail.type}
 					placeholder="Select One"
-					onIonChange={e => reducer({type: "SET_CARD_TYPE", val: e.detail.value})}
+					onIonChange={e => 
+						setCardDetail(
+							Object.assign({}, cardDetail, {type: e.detail.value})
+						);
+					}
 				>
 					<IonSelectOption value={RATE_YOUR_SELF} >Rate-yourself</IonSelectOption>
 					<IonSelectOption value={TYPE_THE_ANSWER}>Type-the-answer</IonSelectOption>
@@ -119,7 +131,7 @@ const SetupCard = (props) => {
 			
 			{
 				(cardDetail.type === TYPE_THE_ANSWER) ?
-					<Card.TypeTheAnswer {...{pageConfig, reducer, updateMode, cardDetail, createCardProps}} />
+					<Card.TypeTheAnswer {...{pageConfig, updateMode, cardDetail, createCardProps}} />
 				:
 					<>
 						<Card.RateYourself onClick={setAnsQuest} {...{pageConfig, updateMode, cardDetail, createCardProps}}  />

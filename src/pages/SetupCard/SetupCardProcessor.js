@@ -2,7 +2,7 @@ import { Plugins } from '@capacitor/core';
 import { PageRoutes } from '../../vanilla/PageRoutes';
 const { Storage } = Plugins;
 
-export function generateCardProps({cardDetail, reducer, id, collectionID, dispatch}) {
+export function generateCardProps({cardDetail, id, collectionID, dispatch, history}) {
 	return {
 		onClick: async () => {
 		
@@ -32,16 +32,15 @@ export function generateCardProps({cardDetail, reducer, id, collectionID, dispat
 	
 			await Storage.set({ key: collectionID, value: JSON.stringify(updatedItems) });
 	
-			dispatch({type: "SET_ITEMS", value: updatedItems, toast_visible: true, toast_message: "The Items are successfully saved."});
-			reducer({type: "GO_BACK_TO_CARD_LIST"});
+			dispatch({type: "SET_ITEMS", value: updatedItems, toast_visible: true, toast_message: "The item is successfully saved"});
+			history.push(`${PageRoutes.card_list}/${collectionID}`);
 		},
 		
 		style: {float: "right", marginRight: "7px"}
 	}
 }
 
-
-export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, setCardDetail, cardDetail, props, collectionID}){
+export function generateReducer({setPageConfig, pageConfig}){
 
 	return function (action){
 		switch(action.type){
@@ -49,37 +48,6 @@ export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, 
 				setPageConfig(
 					Object.assign({}, pageConfig, {cardFlipped: !pageConfig.cardFlipped})
 				);
-				break;
-			case "UNFLIP_CARD":
-				setPageConfig(
-					Object.assign({}, pageConfig, {cardFlipped: false})
-				);
-				break;
-			case "RESET_CARD":
-				setCardDetail(DEFAULT_CARD_STATE);
-				break;
-			case "SET_CARD_DETAILS":
-				setCardDetail(
-					Object.assign({}, cardDetail, action.val)
-				);
-				break;
-			case "SET_FRONT_CARD":
-				setCardDetail(
-					Object.assign({}, cardDetail, {front: action.val})
-				);
-				break;
-			case "SET_BACK_CARD":
-				setCardDetail(
-					Object.assign({}, cardDetail, {back: action.val})
-				);
-				break;
-			case "SET_CARD_TYPE":
-				setCardDetail(
-					Object.assign({}, cardDetail, {type: action.val})
-				);
-				break;
-			case "GO_BACK_TO_CARD_LIST":
-				props.history.push(`${PageRoutes.card_list}/${collectionID}`);
 				break;
 			default:
 				return;
