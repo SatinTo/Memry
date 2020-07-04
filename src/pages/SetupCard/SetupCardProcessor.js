@@ -2,37 +2,6 @@ import { Plugins } from '@capacitor/core';
 import { PageRoutes } from '../../vanilla/PageRoutes';
 const { Storage } = Plugins;
 
-export function generatePromptProps({pageConfig, reducer, id, dispatch, collectionID}){
-	return {
-		isOpen: pageConfig.confirmDeleteShown,
-		onDidDismiss: () => reducer({type: "HIDE_DELETE_CONFIRMATION"}),
-		header: 'Delete Card',
-		message: 'Are you sure you want to remove this Card?',
-		buttons: [
-			{
-				text: 'Cancel',
-				role: 'cancel',
-				cssClass: 'secondary',
-				handler: () => reducer({type: "HIDE_DELETE_CONFIRMATION"})
-			},
-			{
-				text: 'Okay',
-				handler: async () => {
-					const oldItems = await Storage.get({ key: collectionID});
-					const newItemsJson = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty)? [] : JSON.parse(oldItems.value);
-					const filteredItems = newItemsJson.filter((element, index) => String(index) !== String(id));
-					
-					await Storage.set({key: collectionID, value: JSON.stringify(filteredItems)}); // Update the Storage by setting the filteredItems
-					
-					//  Update the ItemsStore context
-					dispatch({type: "SET_ITEMS", value: filteredItems, toast_visible: true, toast_message: "The Item is successfully removed!"}); 
-					reducer({type: "GO_BACK_TO_CARD_LIST"});
-				}
-			}
-		]
-	};
-}
-
 export function generateCardProps({cardDetail, reducer, id, collectionID, dispatch}) {
 	return {
 		onClick: async () => {
@@ -84,26 +53,6 @@ export function generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, 
 			case "UNFLIP_CARD":
 				setPageConfig(
 					Object.assign({}, pageConfig, {cardFlipped: false})
-				);
-				break;
-			case "SHOW_CARD_INPUT":
-				setPageConfig(
-					Object.assign({}, pageConfig, {cardInputShown: true})
-				);
-				break;
-			case "HIDE_CARD_INPUT":
-				setPageConfig(
-					Object.assign({}, pageConfig, {cardInputShown: false})
-				);
-				break;
-			case "SHOW_DELETE_CONFIRMATION":
-				setPageConfig(
-					Object.assign({}, pageConfig, {confirmDeleteShown: true})
-				);
-				break;
-			case "HIDE_DELETE_CONFIRMATION":
-				setPageConfig(
-					Object.assign({}, pageConfig, {confirmDeleteShown: false})
 				);
 				break;
 			case "RESET_CARD":

@@ -6,7 +6,7 @@ import {
 	IonActionSheet,
 } from '@ionic/react';
 import Item from '../Item';
-import useRemoveCardPrompt from "./useRemoveCardPrompt";
+import useRemoveCardPrompt from "../useRemoveCardPrompt";
 const { Storage } = Plugins;
 
 const RenderItems = ({collectionID}) => {

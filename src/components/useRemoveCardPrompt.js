@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalStore';
+import { GlobalContext } from '../context/GlobalStore';
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
 
 
-const useRemoveCardPrompt = (targetId, collectionId) => {
+const useRemoveCardPrompt = (targetId, collectionId, onAfterOkay) => {
 	const {dispatch} = useContext(GlobalContext);
 
 	return function (){
@@ -25,8 +25,10 @@ const useRemoveCardPrompt = (targetId, collectionId) => {
 					type: "SET_ITEMS",
 					value: filteredItems,
 					toast_visible: true,
-					toast_message: "All Items are successfully removed!"
+					toast_message: "The Item is successfully removed!"
 				});
+
+				onAfterOkay();
 			}
 		})
 	}

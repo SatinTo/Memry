@@ -1,9 +1,9 @@
-import { IonContent,IonPage, IonToolbar,  IonIcon, IonCardTitle, IonButtons, IonBackButton, IonAlert, useIonViewWillEnter, IonHeader, IonRippleEffect} from '@ionic/react';
+import { IonContent,IonPage, IonToolbar,  IonIcon, IonCardTitle, IonButtons, IonBackButton, useIonViewWillEnter, IonHeader, IonRippleEffect} from '@ionic/react';
 import React, {useState, useContext} from 'react';
 import {arrowBackOutline, trashOutline} from 'ionicons/icons';
 import { GlobalContext } from "../../context/GlobalStore";
 import { Plugins } from '@capacitor/core';
-import { generateCardProps, generateReducer, generatePromptProps}  from "./SetupCardProcessor";
+import { generateCardProps, generateReducer}  from "./SetupCardProcessor";
 
 import './SetupCard.css';
 import '../Play.css';
@@ -11,6 +11,7 @@ import { PageRoutes } from '../../vanilla/PageRoutes';
 import Card from './Card';
 import useSetAnswerQuestionPrompt from './useSetAnswerQuestionPrompt';
 import ToolBar from './Toolbar';
+import useRemoveCardPrompt from '../../components/useRemoveCardPrompt';
 
 const { Storage } = Plugins;
 
@@ -66,7 +67,10 @@ const SetupCard = (props) => {
 		reducer({type: "SET_FRONT_CARD", val: input_data});
 	});
 
-	const promptProps = generatePromptProps({pageConfig, reducer, id, dispatch});
+	const removeCard = useRemoveCardPrompt(id, collectionID, function(){
+		props.history.push(`${PageRoutes.card_list}/${collectionID}`);
+	});
+
 	const createCardProps = generateCardProps({cardDetail, reducer, id, collectionID, dispatch});
 
 	return (
@@ -87,7 +91,7 @@ const SetupCard = (props) => {
 								slot="end"
 								className="ion-activatable"
 								style={{position: "relative", padding: "5px", marginRight: "5px"}} 
-								onClick={() => reducer({type: "SHOW_DELETE_CONFIRMATION"})}
+								onClick={removeCard}
 							>
 								<IonIcon icon={trashOutline} style={{color: "inherit", height: "20px", width: "20px"}} />
 								<IonRippleEffect type="unbounded"></IonRippleEffect>
@@ -125,8 +129,6 @@ const SetupCard = (props) => {
 			}
 
 		</IonContent>
-		
-		<IonAlert {...promptProps} />
 	</IonPage>
 	);
 };
