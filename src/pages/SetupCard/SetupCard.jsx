@@ -3,7 +3,7 @@ import React, {useState, useContext} from 'react';
 import {arrowBackOutline, trashOutline} from 'ionicons/icons';
 import { GlobalContext } from "../../context/GlobalStore";
 import { Plugins } from '@capacitor/core';
-import { generateCardProps, generateReducer}  from "./SetupCardProcessor";
+import { onCardSave}  from "./onCardSave";
 
 import './SetupCard.css';
 import '../Play.css';
@@ -39,8 +39,6 @@ const SetupCard = (props) => {
 		confirmDeleteShown: false,
 		cardInputShown: false
 	});
-
-	const reducer = generateReducer({setPageConfig, pageConfig, DEFAULT_CARD_STATE, setCardDetail, cardDetail, props, collectionID});
 
 	useIonViewWillEnter(() => {
 		if (!updateMode)
@@ -79,7 +77,7 @@ const SetupCard = (props) => {
 		props.history.push(`${PageRoutes.card_list}/${collectionID}`);
 	});
 
-	const createCardProps = generateCardProps({cardDetail, id, collectionID, dispatch, history: props.history});
+	const cardSaveHandler = onCardSave({cardDetail, id, collectionID, dispatch, history: props.history});
 
 	return (
 	<IonPage >
@@ -131,11 +129,11 @@ const SetupCard = (props) => {
 			
 			{
 				(cardDetail.type === TYPE_THE_ANSWER) ?
-					<Card.TypeTheAnswer {...{pageConfig, updateMode, cardDetail, createCardProps}} />
+					<Card.TypeTheAnswer {...{pageConfig, updateMode, cardDetail, createCardProps: cardSaveHandler}} />
 				:
 					<>
-						<Card.RateYourself onClick={setAnsQuest} {...{pageConfig, updateMode, cardDetail, createCardProps}}  />
-						<ToolBar disabled={!pageConfig.cardFlipped} misc={{pageConfig, reducer, createCardProps, updateMode}} />
+						<Card.RateYourself onClick={setAnsQuest} {...{pageConfig, updateMode, cardDetail}}  />
+						<ToolBar disabled={!pageConfig.cardFlipped} onSubmit={cardSaveHandler} misc={{pageConfig, setPageConfig, updateMode}} />
 					</>
 				
 			}

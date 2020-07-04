@@ -5,7 +5,7 @@ import ToolBar from './Toolbar';
 
 // Card Types
 const Card = {
-	RateYourself: ({pageConfig, onClick, updateMode, cardDetail, createCardProps}) => {
+	RateYourself: ({pageConfig, onClick, updateMode, cardDetail}) => {
 		return (<>
 			<IonCard style={{width: "68%", margin: "15px auto", boxShadow: "none"}}>
 				<div  
