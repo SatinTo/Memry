@@ -18,18 +18,17 @@ const { Storage } = Plugins;
 export const RATE_YOUR_SELF = 0;
 export const TYPE_THE_ANSWER = 1;
 
+const DEFAULT_CARD_STATE = {
+	front: null,
+	back: null,
+	type: RATE_YOUR_SELF
+};
+
 const SetupCard = (props) => {
 	// Native JS
-	const {id} = props.match.params;
-	const {collectionID} = props.match.params;
-	
+	const {id, collectionID} = props.match.params;
 	const updateMode = (typeof id !== "undefined");
-	const DEFAULT_CARD_STATE = {
-		front: null,
-		back: null,
-		type: RATE_YOUR_SELF
-	};
-
+	
 	// Hooks
 	const {dispatch} = useContext(GlobalContext);
 	const [cardDetail, setCardDetail] = useState(DEFAULT_CARD_STATE);
