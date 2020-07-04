@@ -37,10 +37,21 @@ const Play = () => {
 	useIonViewWillEnter(() => {
 		Storage.get({ key: "collectionID" }).then((id) => {
 			const collectionID = (!id.value || id.value === "undefined" || !id.hasOwnProperty) ? [] : JSON.parse(id.value);
+			
 			Storage.get({ key: collectionID }).then((oldItems) => {
 				const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+				
+				let CardItemsObject = Object.assign({}, oldItemsJSON); // Convert to object
+
+				// Limit the maximum number of items
+				var sliced = {};
+				for (var i=0; i<30; i++)
+					sliced[i] = CardItemsObject[i];
+					
+				CardItemsObject.length = 30;
+
 				// Put the items
-				setCardItems(shuffleArray(oldItemsJSON));
+				setCardItems(sliced);
 				setCurrentCardIndex(0); // Start from top
 				setFlip(false);
 			});
