@@ -1,6 +1,6 @@
 import { IonContent, IonPage, IonToolbar, IonCardTitle, IonIcon, IonRow, IonGrid, IonHeader, IonCol, IonCardContent, IonCard, IonFabButton, IonFooter } from "@ionic/react";
 import React, {useContext} from "react";
-import {albumsOutline, trashOutline, addSharp, arrowBackOutline, caretForward} from 'ionicons/icons';
+import {albumsOutline, trashOutline, addSharp, arrowBackOutline} from 'ionicons/icons';
 import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalStore";
 import { PageRoutes } from "../../vanilla/PageRoutes";
@@ -9,26 +9,7 @@ import RenderItems from '../../components/RenderItems/RenderItems';
 import Indicator from "../../components/Indicator";
 import useClearCardsPrompt from "./useClearCardsPrompt";
 import ProgressBar from "./ProgressBar";
-
-
-const PlayButtons = ({label, style, disabled, onClick}) => {
-	let customCSS = {width: "80px", height: "34px", "--border-radius": "50px", margin: "0 5px", padding: "0", display: "inline-block"};
-
-	Object.assign(customCSS, style); // Overwrite 
-
-	return (
-		<IonFabButton 
-			style={customCSS} 
-			disabled={disabled}
-			onClick={onClick}
-		>
-			<IonIcon icon={caretForward} style={{width: "20px", height: "20px"}}/>
-			<label htmlFor={label} style={{lineHeight: "15px", fontSize: "13px", fontWeight: "bold", paddingLeft: "5px"}}>
-				{label}
-			</label>
-		</IonFabButton>
-	);
-}
+import PlayButton from "./PlayButton";
 
 const CardList = (props) => {
 	const history = useHistory();
@@ -82,21 +63,20 @@ const CardList = (props) => {
 			<IonFooter>
 				<IonToolbar>
 					<div style={{textAlign: "center", paddingTop: "5px"}}>
-						<PlayButtons 
+						<PlayButton 
 							disabled={(items_length > 100 ? "false": "true")} 
 							style={{"--background" : (items_length > 100 ? "#FC6363" : "rgba(252, 99, 99, 0.5)")}} 
 							label="Hell"
 						/>
-						<PlayButtons 
+						<PlayButton 
 							disabled={(items_length > 30 ? "false": "true")}
 							style={{"--background": (items_length > 30 ? "#FC8763": "rgba(252, 135, 99, 0.5)")}} 
 							label="Hard"
 						/>
-						<PlayButtons 
+						<PlayButton 
 							style={{"--background": "#63FCC5"}} 
 							label="Easy" 
 							onClick = {() => {
-								// history.push(`${PagePath.play}/${collectionID}`);
 								history.push(`${PageRoutes.play}/${collectionID}/0`);
 							}}
 						/>
