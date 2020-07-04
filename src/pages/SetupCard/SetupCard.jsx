@@ -3,12 +3,14 @@ import React, {useState, useContext} from 'react';
 import {arrowBackOutline, trashOutline} from 'ionicons/icons';
 import { GlobalContext } from "../../context/GlobalStore";
 import { Plugins } from '@capacitor/core';
-import { generateCardProps, generateReducer, generatePromptProps, generateAlertProps}  from "./SetupCardProcessor";
+import { generateCardProps, generateReducer, generatePromptProps}  from "./SetupCardProcessor";
 
 import './SetupCard.css';
 import '../Play.css';
 import { PageRoutes } from '../../vanilla/PageRoutes';
 import Card from './Card';
+import useSetAnswerQuestionPrompt from './useSetAnswerQuestionPrompt';
+import ToolBar from './Toolbar';
 
 const { Storage } = Plugins;
 
@@ -55,8 +57,15 @@ const SetupCard = (props) => {
 		});
 	});
 
-	// Function to flip the card
-	const alertProps = generateAlertProps({pageConfig, reducer, dispatch});
+	const setAnsQuest = useSetAnswerQuestionPrompt(pageConfig.cardFlipped, function(input_data){
+		if (pageConfig.cardFlipped) {
+			reducer({type: "SET_BACK_CARD", val: input_data});
+			return;
+		}
+
+		reducer({type: "SET_FRONT_CARD", val: input_data});
+	});
+
 	const promptProps = generatePromptProps({pageConfig, reducer, id, dispatch});
 	const createCardProps = generateCardProps({cardDetail, reducer, id, collectionID, dispatch});
 
@@ -108,12 +117,15 @@ const SetupCard = (props) => {
 				(cardDetail.type === TYPE_THE_ANSWER) ?
 					<Card.TypeTheAnswer {...{pageConfig, reducer, updateMode, cardDetail, createCardProps}} />
 				:
-					<Card.RateYourself {...{pageConfig, reducer, updateMode, cardDetail, createCardProps}}  />
+					<>
+						<Card.RateYourself onClick={setAnsQuest} {...{pageConfig, updateMode, cardDetail, createCardProps}}  />
+						<ToolBar disabled={!pageConfig.cardFlipped} misc={{pageConfig, reducer, createCardProps, updateMode}} />
+					</>
+				
 			}
 
 		</IonContent>
 		
-		<IonAlert {...alertProps}/>
 		<IonAlert {...promptProps} />
 	</IonPage>
 	);

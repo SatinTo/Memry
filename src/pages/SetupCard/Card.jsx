@@ -5,13 +5,13 @@ import ToolBar from './Toolbar';
 
 // Card Types
 const Card = {
-	RateYourself: ({pageConfig, reducer, updateMode, cardDetail, createCardProps}) => {
+	RateYourself: ({pageConfig, onClick, updateMode, cardDetail, createCardProps}) => {
 		return (<>
 			<IonCard style={{width: "68%", margin: "15px auto", boxShadow: "none"}}>
 				<div  
 					style={{height: "0", paddingBottom: "158%"}} 
 					className={"card" + (pageConfig.cardFlipped ? " is-flipped" : "")} 
-					onClick={() => reducer({type: "SHOW_CARD_INPUT"})}
+					onClick={onClick}
 				>
 					<div className="card__face card__face--front">
 						<EllipsisButton callBack={()=>{}} itemID={0}/>
@@ -31,11 +31,10 @@ const Card = {
 					</div>
 				</div>
 			</IonCard>
-
-			<ToolBar disabled={!pageConfig.cardFlipped} misc={{pageConfig, reducer, createCardProps, updateMode}} />
 		</>)
 	},
 
+	// Note: Not UPDATED
 	TypeTheAnswer: ({pageConfig, reducer, updateMode, cardDetail, createCardProps}) => {
 		return (<>
 			<IonCard style={{width: "100%", margin: "15px auto", boxShadow: "none"}}>

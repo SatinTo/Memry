@@ -2,53 +2,6 @@ import { Plugins } from '@capacitor/core';
 import { PageRoutes } from '../../vanilla/PageRoutes';
 const { Storage } = Plugins;
 
-export function generateAlertProps({pageConfig, reducer, dispatch}){
-	return {
-		isOpen: pageConfig.cardInputShown,
-		onDidDismiss: () => reducer({type: "HIDE_CARD_INPUT"}),
-		header: (pageConfig.cardFlipped) ? "Answer!" : "Question!",
-		inputs: [
-			{
-				name: `${(pageConfig.cardFlipped) ? "Answer" : "Question"}`,
-				type: 'text',
-				placeholder: `Enter your ${(pageConfig.cardFlipped) ? "Answer" : "Question"} here...`
-			}
-		],
-		buttons: [
-			{
-				text: 'Cancel',
-				role: 'cancel',
-				cssClass: 'secondary',
-				handler: () => reducer({type: "HIDE_CARD_INPUT"})
-			},
-			{
-				text: 'Ok',
-				handler: (data) => {
-					if (pageConfig.cardFlipped) {
-						let answer = data.Answer;
-						answer = answer.replace(/\s/g, "");
-
-						if (answer.length < 1){
-							dispatch({type: "SHOW_TOAST", value: "Oooppss! The Answer field is empty."});
-							return;
-						}
-						reducer({type: "SET_BACK_CARD", val: answer});
-					}else{
-						let question = data.Question;
-						question = question.replace(/\s/g, "");
-
-						if (question.length < 1){
-							dispatch({type: "SHOW_TOAST", value: "Oooppss! The Question field is empty."});
-							return;
-						}
-						reducer({type: "SET_FRONT_CARD", val: question});
-					}
-				}
-			}
-		]
-	}
-}
-
 export function generatePromptProps({pageConfig, reducer, id, dispatch, collectionID}){
 	return {
 		isOpen: pageConfig.confirmDeleteShown,
