@@ -67,11 +67,17 @@ const CardList = (props) => {
 							disabled={(items_length > 100 ? "false": "true")} 
 							style={{"--background" : (items_length > 100 ? "#FC6363" : "rgba(252, 99, 99, 0.5)")}} 
 							label="Hell"
+							onClick = {() => {
+								history.push(`${PageRoutes.play}/${collectionID}/2`);
+							}}
 						/>
 						<PlayButton 
 							disabled={(items_length > 30 ? "false": "true")}
 							style={{"--background": (items_length > 30 ? "#FC8763": "rgba(252, 135, 99, 0.5)")}} 
 							label="Hard"
+							onClick = {() => {
+								history.push(`${PageRoutes.play}/${collectionID}/1`);
+							}}
 						/>
 						<PlayButton 
 							style={{"--background": "#63FCC5"}} 
