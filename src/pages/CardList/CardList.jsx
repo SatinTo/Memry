@@ -31,7 +31,7 @@ const CardList = (props) => {
 					</IonFabButton>
 					<div slot="secondary">
 						<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline} label={formatNumber(items_length)}/>
-						<ProgressBar label="MemPoints: 10/100"/>
+						<ProgressBar label="MemPoints: 10%"/>
 					</div>
 					
 					<IonFabButton slot="end" onClick={clearCards} disabled={(items_length < 1 ?"true": "false")} style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}}>
