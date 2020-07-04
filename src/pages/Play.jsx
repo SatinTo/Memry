@@ -19,6 +19,7 @@ import { Plugins } from '@capacitor/core';
 import shuffleArray from '../vanilla/shuffleArray';
 import { useHistory } from "react-router-dom";
 import './Play.css';
+import PlayProcessor from '../vanilla/PlayProcessor';
 
 const { Storage } = Plugins;
 
@@ -40,18 +41,12 @@ const Play = () => {
 			
 			Storage.get({ key: collectionID }).then((oldItems) => {
 				const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
-				
-				let CardItemsObject = Object.assign({}, oldItemsJSON); // Convert to object
 
-				// Limit the maximum number of items
-				var sliced = {};
-				for (var i=0; i<30; i++)
-					sliced[i] = CardItemsObject[i];
-					
-				CardItemsObject.length = 30;
+				const PlayProcessorC = new PlayProcessor(oldItemsJSON, 30);
+				const newCards = PlayProcessorC.getCards();
 
 				// Put the items
-				setCardItems(sliced);
+				setCardItems(newCards);
 				setCurrentCardIndex(0); // Start from top
 				setFlip(false);
 			});
