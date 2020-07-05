@@ -1,3 +1,4 @@
+import shuffleArray from "./shuffleArray";
 
 class PlayProcessor {
 
@@ -12,14 +13,22 @@ class PlayProcessor {
 	}
 
 	getCards() {
-		let cardItemsObject = Object.assign({}, this.cards); // Convert to object
+		let cardItemsObject = this.cards; // Convert to object
+
+		// Reformat for Preserve the id
+		for (let key in cardItemsObject) {
+			cardItemsObject[key]["id"] = key;
+		}
+
+		cardItemsObject = shuffleArray(cardItemsObject);
 
 		// Limit the maximum number of items
-		let slicedObject = {};
-		for (let i=0; i< this.max_card; i++)
+		let slicedObject = [];
+		slicedObject.length = this.max_card; // Predefine the length of the array
+
+		for (let i=0; i< this.max_card; i++){
 			slicedObject[i] = cardItemsObject[i];
-			
-		slicedObject.length = this.max_card;
+		}
 
 		this.cards = slicedObject;
 		return this.cards;
