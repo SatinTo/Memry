@@ -1,19 +1,5 @@
 import React, {useState} from 'react';
-import { 
-	IonContent,
-	IonFabButton,
-	IonPage,
-	IonToolbar,
-	IonCard,
-	IonIcon,
-	IonCardSubtitle,
-	IonCardTitle,
-	IonCardContent,
-	IonButtons,
-	IonBackButton,
-	useIonViewWillEnter
-} from '@ionic/react';
-
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, useIonViewWillEnter } from '@ionic/react';
 import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
 import { useHistory } from "react-router-dom";
@@ -75,7 +61,7 @@ const Play = () => {
 					<IonCardTitle style={{fontSize: "1.2em"}}>
 						Total Cards ({cardItems.length ? currentCardIndex+1 : 0}/{cardItems.length})
 					</IonCardTitle>
-					<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>Finish all cards or press back to reshuffle</IonCardSubtitle>
+					<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>I know you can do it. Get it done!</IonCardSubtitle>
 				</div>	
 			</IonToolbar>
 			<div className="container" style={{ paddingTop: "8vh"}}>
