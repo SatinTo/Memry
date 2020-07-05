@@ -1,7 +1,7 @@
 import { IonContent, IonPage, IonToolbar, IonCardTitle, IonIcon, IonRow, IonGrid, IonHeader, IonCol, IonCardContent, IonCard, IonFabButton, IonFooter } from "@ionic/react";
 import React, {useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline} from 'ionicons/icons';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalStore";
 import { PageRoutes } from "../../vanilla/PageRoutes";
 import { formatNumber } from "../../vanilla/NumberFormatter";
@@ -11,11 +11,11 @@ import useClearCardsPrompt from "./useClearCardsPrompt";
 import ProgressBar from "./ProgressBar";
 import PlayButton from "./PlayButton";
 
-const CardList = (props) => {
+const CardList = () => {
 	const history = useHistory();
 	const context = useContext(GlobalContext);
 	const {state: {items_length}} = context;
-	const {collectionID} = props.match.params;
+	const {collectionID} = useParams();
 
 	const clearCards = useClearCardsPrompt(collectionID);
 

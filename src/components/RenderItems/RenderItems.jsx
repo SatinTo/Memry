@@ -17,15 +17,12 @@ const RenderItems = ({collectionID}) => {
 
 	// Get the Items from localStorage
 	useIonViewWillEnter(() => {
-		Storage.get({ key: "collectionID" }).then((id) => {
-			const collectionID = (!id.value || id.value === "undefined" || !id.hasOwnProperty) ? [] : JSON.parse(id.value);
-			Storage.get({ key: collectionID }).then((oldItems) => {
-				const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
-				
-				if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
-					dispatch({type: "SET_ITEMS", value: oldItemsJSON});
-				}
-			});
+		Storage.get({ key: collectionID }).then((oldItems) => {
+			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
+			
+			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
+				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
+			}
 		});
 	})
 

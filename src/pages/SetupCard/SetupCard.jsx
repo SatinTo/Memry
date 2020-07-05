@@ -12,6 +12,7 @@ import Card from './Card';
 import useSetAnswerQuestionPrompt from './useSetAnswerQuestionPrompt';
 import ToolBar from './Toolbar';
 import useRemoveCardPrompt from '../../components/useRemoveCardPrompt';
+import { useParams, useHistory } from 'react-router';
 
 const { Storage } = Plugins;
 
@@ -24,9 +25,10 @@ const DEFAULT_CARD_STATE = {
 	type: RATE_YOUR_SELF
 };
 
-const SetupCard = (props) => {
+const SetupCard = () => {
 	// Native JS
-	const {id, collectionID} = props.match.params;
+	const {id, collectionID} = useParams();
+	const history = useHistory();
 	const updateMode = (typeof id !== "undefined");
 	
 	// Hooks
@@ -73,10 +75,10 @@ const SetupCard = (props) => {
 	});
 
 	const removeCard = useRemoveCardPrompt(id, collectionID, function(){
-		props.history.push(`${PageRoutes.card_list}/${collectionID}`);
+		history.push(`${PageRoutes.card_list}/${collectionID}`);
 	});
 
-	const cardSaveHandler = onCardSave({cardDetail, id, collectionID, dispatch, history: props.history});
+	const cardSaveHandler = onCardSave({cardDetail, id, collectionID, dispatch, history});
 
 	return (
 	<IonPage >

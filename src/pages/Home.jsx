@@ -6,9 +6,11 @@ import {
 	IonFooter
 } from "@ionic/react";
 import React from "react";
+import { useHistory } from "react-router";
 
-const Home = (props) => {
+const Home = () => {
 	const currentYear = new Date().getFullYear();
+	const history = useHistory();
 
 	return (
 		<IonPage>
@@ -20,7 +22,7 @@ const Home = (props) => {
 							<span 
 								style={{padding:"10px 20px"}} 
 								className="textButton" 
-								onClick={() => props.history.push("/play")}
+								onClick={() => history.push("/play")}
 							>
 								Play
 							</span>
@@ -28,7 +30,7 @@ const Home = (props) => {
 						<IonButton fill="outline">
 							<span 
 								className="textButton"
-								onClick={() => props.history.push("/setItems")}
+								onClick={() => history.push("/setItems")}
 								>
 								Set Items
 							</span>

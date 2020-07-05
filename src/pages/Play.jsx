@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, useIonViewWillEnter } from '@ionic/react';
 import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import './Play.css';
 import PlayProcessor from '../vanilla/PlayProcessor';
 
@@ -10,6 +10,7 @@ const { Storage } = Plugins;
 
 const Play = () => {
 	const history = useHistory();
+	const {collectionID, difficulty} = useParams();
 	const [flipped, setFlip] = useState(false);
 	const [currentCardIndex, setCurrentCardIndex] = useState(0);
 	const [cardItems, setCardItems] = useState([]);
@@ -21,26 +22,25 @@ const Play = () => {
 
 	// Makesure not to cache the items
 	useIonViewWillEnter(() => {
-		Storage.get({ key: "collectionID" }).then((id) => {
-			const collectionID = (!id.value || id.value === "undefined" || !id.hasOwnProperty) ? [] : JSON.parse(id.value);
-			
-			Storage.get({ key: collectionID }).then((oldItems) => {
-				const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
+		Storage.get({ key: collectionID }).then((oldItems) => {
+			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
 
-				const PlayProcessorC = new PlayProcessor(oldItemsJSON, 30);
-				const newCards = PlayProcessorC.getCards();
+			const PlayProcessorC = new PlayProcessor(oldItemsJSON, 30);
+			const newCards = PlayProcessorC.getCards();
 
-				// Put the items
-				setCardItems(newCards);
-				setCurrentCardIndex(0); // Start from top
-				setFlip(false);
-			});
+			// Put the items
+			setCardItems(newCards);
+			setCurrentCardIndex(0); // Start from top
+			setFlip(false);
 		});
 	});
 	
 	function propagate(){
 		const nextIndex = currentCardIndex+1;
 		
+		// TODO: Update the mempoints of the current card to 100
+		//console.log(cardItems[currentCardIndex].id);
+
 		if (nextIndex >= cardItems.length){
 			history.replace("/completed/" + cardItems.length)
 			return;
