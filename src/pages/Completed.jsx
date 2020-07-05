@@ -1,11 +1,10 @@
 import { IonContent, IonFabButton, IonPage, IonToolbar, IonIcon, IonTitle } from '@ionic/react';
 import React from 'react';
-import {shuffleOutline, exitOutline} from 'ionicons/icons';
+import {exitOutline} from 'ionicons/icons';
 import { useHistory, useParams } from 'react-router-dom';
 
 const Completed = () => {
 	const history = useHistory();
-	
 	let {count} = useParams();
 
 	return (
@@ -18,15 +17,12 @@ const Completed = () => {
 				<IonToolbar style={{lineHeight: "2.5em"}}>
 					<IonTitle style={{fontSize: "1.4em", lineHeight: "1.4em", padding: 0}}>Cards Completed</IonTitle>
 				</IonToolbar>
-				<div style={{color: "#aaaaaa"}}>You either reshuffle or exit</div>
+				<div style={{color: "#aaaaaa"}}>Job well done!</div>
 			</div>
 			<IonToolbar style={{ position: "absolute", bottom: 0 }}>
 				<div style={{width: "fit-content", margin: "20px auto"}}>
 					<IonFabButton style={{display: "inline-block", marginRight: 15}} onClick={() => history.replace("/home")}>
 						<IonIcon icon={exitOutline} style={{transform: "rotate(180deg)"}} />
-					</IonFabButton>
-					<IonFabButton color="success" style={{display: "inline-block"}} onClick={() => history.replace("/play")} >
-						<IonIcon icon={shuffleOutline} />
 					</IonFabButton>
 				</div>
 			</IonToolbar>
