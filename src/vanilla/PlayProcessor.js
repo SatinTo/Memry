@@ -20,7 +20,10 @@ class PlayProcessor {
 			cardItemsObject[key]["id"] = key;
 		}
 
-		cardItemsObject = shuffleArray(cardItemsObject);
+		//Short by lowest-highest mempoints - Prioritize those items that you are likely already forget
+		cardItemsObject.sort(function(a, b) {
+			return a.mp - b.mp;
+		});
 
 		// Limit the maximum number of items
 		let slicedObject = [];
@@ -30,11 +33,10 @@ class PlayProcessor {
 			slicedObject[i] = cardItemsObject[i];
 		}
 
-		this.cards = slicedObject;
+		this.cards = shuffleArray(slicedObject);
 		return this.cards;
 	}
 
-	
 }
 
 
