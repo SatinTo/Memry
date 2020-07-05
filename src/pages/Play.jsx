@@ -16,7 +16,6 @@ import {
 
 import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
-import shuffleArray from '../vanilla/shuffleArray';
 import { useHistory } from "react-router-dom";
 import './Play.css';
 import PlayProcessor from '../vanilla/PlayProcessor';
