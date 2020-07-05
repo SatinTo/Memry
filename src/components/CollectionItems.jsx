@@ -33,13 +33,6 @@ const CollectionItems = ({ id, data, callBack }) => {
 		newData = data;
 	}
 
-	const setColID = () => {
-		Storage.set({
-			key: 'collectionID',
-			value: JSON.stringify(id)
-		});
-	}
-
 	return (
 		<IonCol size="12">
 			<div 
@@ -52,7 +45,6 @@ const CollectionItems = ({ id, data, callBack }) => {
 				onMouseLeave = {handleButtonRelease}
 				onClick = {() => {
 					history.push(`${PageRoutes.card_list}/${id}`);
-					setColID();
 				}}
 			>
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
