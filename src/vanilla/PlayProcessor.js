@@ -21,7 +21,10 @@ class PlayProcessor {
 		}
 
 		//Short by lowest-highest mempoints - Prioritize those items that you are likely already forget
-		cardItemsObject.sort(function(a, b) {
+		cardItemsObject = cardItemsObject.sort(function(a, b) {
+			a.mp = a.mp || 0;
+			b.mp = b.mp || 0;
+			
 			return a.mp - b.mp;
 		});
 
