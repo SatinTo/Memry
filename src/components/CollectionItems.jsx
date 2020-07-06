@@ -11,9 +11,6 @@ import { useHistory } from "react-router-dom";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 import { formatNumber } from "../vanilla/NumberFormatter";
 import { PageRoutes } from "../vanilla/PageRoutes";
-import { Plugins } from '@capacitor/core';
-
-const { Storage } = Plugins;
 
 const CollectionItems = ({ id, data, callBack }) => {
 	const history = useHistory();

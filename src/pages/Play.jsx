@@ -25,6 +25,7 @@ const Play = () => {
 		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
 
+			// TODO: Change max item according to difficulty
 			const PlayProcessorC = new PlayProcessor(oldItemsJSON, 30);
 			const newCards = PlayProcessorC.getCards();
 
@@ -36,10 +37,21 @@ const Play = () => {
 	});
 	
 	function propagate(){
-		const nextIndex = currentCardIndex+1;
 		
-		// TODO: Update the mempoints of the current card to 100
-		//console.log(cardItems[currentCardIndex].id);
+		// Update the mempoints of the current card to 100
+		Storage.get({ key: collectionID }).then((oldItems) => {
+
+			if (!oldItems.value)
+				return;
+
+			const TARGET_CARD_INDEX = cardItems[currentCardIndex].id;
+			let CARD_ITEMS = JSON.parse(oldItems.value);
+			CARD_ITEMS[TARGET_CARD_INDEX]["mp"] = 100;
+
+			Storage.set({key: collectionID, value: JSON.stringify(CARD_ITEMS)});
+		});
+
+		const nextIndex = currentCardIndex+1;
 
 		if (nextIndex >= cardItems.length){
 			history.replace("/completed/" + cardItems.length)
