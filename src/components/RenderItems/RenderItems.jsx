@@ -4,6 +4,7 @@ import { GlobalContext } from "../../context/GlobalStore";
 import {
 	useIonViewWillEnter,
 	IonActionSheet,
+	useIonViewDidEnter,
 } from '@ionic/react';
 import Item from '../Item';
 import useRemoveCardPrompt from "../useRemoveCardPrompt";
@@ -16,7 +17,7 @@ const RenderItems = ({collectionID}) => {
 	const [flipped, setFlip] = useState({});
 
 	// Get the Items from localStorage
-	useIonViewWillEnter(() => {
+	useIonViewDidEnter(async () => {
 		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 			
