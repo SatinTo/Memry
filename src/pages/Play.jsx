@@ -25,8 +25,8 @@ const Play = () => {
 		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
 
-			// TODO: Change max item according to difficulty
-			const PlayProcessorC = new PlayProcessor(oldItemsJSON, 30);
+			// Change max item according to difficulty
+			const PlayProcessorC = new PlayProcessor(oldItemsJSON, (Number(difficulty)+1) * 3 * (Number(difficulty)+1));
 			const newCards = PlayProcessorC.getCards();
 
 			// Put the items
