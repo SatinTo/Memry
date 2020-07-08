@@ -20,8 +20,18 @@ class PlayProcessor {
 			cardItemsObject[key]["id"] = key;
 		}
 
+		// Short by lowest-highest last_review - Prioritize those items that you are not already reviewed
+		cardItemsObject = cardItemsObject.sort(function(a, b) {
+			// Fallback
+			a.last_review = a.last_review || 0;
+			b.last_review = b.last_review || 0;
+			
+			return a.last_review - b.last_review;
+		});
+
 		//Short by lowest-highest mempoints - Prioritize those items that you are likely already forget
 		cardItemsObject = cardItemsObject.sort(function(a, b) {
+			// Fallback
 			a.mp = a.mp || 0;
 			b.mp = b.mp || 0;
 			
