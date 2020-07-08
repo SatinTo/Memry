@@ -46,6 +46,7 @@ const Play = () => {
 
 			const TARGET_CARD_INDEX = cardItems[currentCardIndex].id;
 			let CARD_ITEMS = JSON.parse(oldItems.value);
+			CARD_ITEMS[TARGET_CARD_INDEX]["last_review"] = new Date().getTime();
 			CARD_ITEMS[TARGET_CARD_INDEX]["mp"] = 100;
 
 			Storage.set({key: collectionID, value: JSON.stringify(CARD_ITEMS)});
