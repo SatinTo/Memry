@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, useIonViewWillEnter } from '@ionic/react';
 import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import './Play.css';
 import PlayProcessor from '../vanilla/PlayProcessor';
+import Completed from '../components/Completed';
 
 const { Storage } = Plugins;
 
 const Play = () => {
-	const history = useHistory();
 	const {collectionID, difficulty} = useParams();
 	const [flipped, setFlip] = useState(false);
 	const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -54,15 +54,14 @@ const Play = () => {
 
 		const nextIndex = currentCardIndex+1;
 
-		if (nextIndex >= cardItems.length){
-			history.replace("/completed/" + cardItems.length)
-			return;
-		}
-
 		setCurrentCardIndex(nextIndex);
 		setFlip(false);
 	}
 	
+	if (currentCardIndex === cardItems.length){
+		return <IonPage><Completed count={cardItems.length} /></IonPage>;
+	}
+
 	return (
 	<IonPage>
 		<IonContent scrollEvents={false}>

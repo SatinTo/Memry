@@ -29,7 +29,6 @@ import './theme/variables.css';
 
 /* Global CSS */
 import './global.css';
-import Completed from './pages/Completed';
 import GlobalStore from './context/GlobalStore';
 import { Plugins } from '@capacitor/core';
 const { SplashScreen } = Plugins;
@@ -51,7 +50,6 @@ const App = () => (
 					<Route path={`${PageRoutes.play}/:collectionID/:difficulty`} component={Play} exact={true} />
 					<Route path={PageRoutes.card_list} component={CardList} exact={true} />
 					<Route path={`${PageRoutes.card_list}/:collectionID`} component={CardList} />
-					<Route path={`${PageRoutes.completed}/:count`} component={Completed} exact={true} />
 					<Route path={`${PageRoutes.setup_card}/:collectionID`} component={SetupCard} exact={true} />
 					<Route path={`${PageRoutes.setup_card}/:collectionID/:id`} component={SetupCard}/>
 					<Route exact path="/" render={() => <Redirect to={PageRoutes.collections} />} />

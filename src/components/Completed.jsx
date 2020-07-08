@@ -1,14 +1,12 @@
-import { IonContent, IonFabButton, IonPage, IonToolbar, IonIcon, IonTitle } from '@ionic/react';
+import { IonContent, IonFabButton, IonToolbar, IonIcon, IonTitle } from '@ionic/react';
 import React from 'react';
 import {exitOutline} from 'ionicons/icons';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-const Completed = () => {
+const Completed = ({count}) => {
 	const history = useHistory();
-	let {count} = useParams();
 
 	return (
-	<IonPage>
 		<IonContent scrollEvents={false}>
 			<div className="container">
 				<IonToolbar>
@@ -21,13 +19,12 @@ const Completed = () => {
 			</div>
 			<IonToolbar style={{ position: "absolute", bottom: 0 }}>
 				<div style={{width: "fit-content", margin: "20px auto"}}>
-					<IonFabButton style={{display: "inline-block", marginRight: 15}} onClick={() => history.replace("/home")}>
+					<IonFabButton style={{display: "inline-block", marginRight: 15}} onClick={() => history.goBack()}>
 						<IonIcon icon={exitOutline} style={{transform: "rotate(180deg)"}} />
 					</IonFabButton>
 				</div>
 			</IonToolbar>
 		</IonContent>
-	</IonPage>
 	);
 };
 
