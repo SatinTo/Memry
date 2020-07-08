@@ -51,14 +51,14 @@ const CollectionItems = ({ id, data, callBack }) => {
 						</IonCardTitle>
 					</IonCardContent>
 					<div style={{display: "flex", position: "absolute", width: "100%", bottom: "10px"}}>
-						<div style={{ display: "flex", padding: "1px", paddingRight: "20px", background: "#E5E5E5", marginLeft: "4px", borderRadius: "15px", marginTop: "4px", color:"#575757", position: "relative", zIndex: "2", width: "calc(100% - 45px)"}}>
+						<div style={{ display: "flex", padding: "1px", paddingRight: "20px", background: "#E5E5E5", marginLeft: "4px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "calc(100% - 100px)"}}>
 							<div style={{marginTop: "2px", marginLeft: "2px"}}>
-								<IonIcon icon={addSharp} style={{fontSize: "8px", float: "left", fontWeight: "bold"}}/>
-								<span style={{fontSize:"6px", lineHeight: "9px", float: "left"}}>MemPoints: 10/100</span>
+								<IonIcon icon={addSharp} style={{fontSize: "10px", float: "left", fontWeight: "bold"}}/>
+								<span style={{fontSize:"10px", lineHeight: "10px", float: "left"}}>MemPoints: 10%</span>
 							</div>
 							<div style={{position: "absolute", backgroundColor: "#DD6363", width: "50%", height: "88%", borderRadius: "5px", zIndex: "-1"}}></div>
 						</div>
-						<div style={{display: "flex", marginLeft: "auto", backgroundColor: "#B7B0FF", width: "30px", padding: "2px", borderRadius: "8px 0 0 8px", color: "#656290"}}>
+						<div style={{display: "flex", marginLeft: "auto", backgroundColor: "#B7B0FF", padding: "2px", borderRadius: "8px 0 0 8px", color: "#656290"}}>
 							<IonIcon icon={albumsOutline} style={{fontSize: "12px", paddingLeft: "4px"}} />
 							<span style={{fontSize:"10px", paddingLeft: "4px"}}>{formatNumber(12356)} </span>
 						</div>
