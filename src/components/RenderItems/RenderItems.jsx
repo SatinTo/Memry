@@ -7,16 +7,19 @@ import {
 } from '@ionic/react';
 import Item from '../Item';
 import useRemoveCardPrompt from "../useRemoveCardPrompt";
+import { useParams } from "react-router";
 const { Storage } = Plugins;
 
-const RenderItems = ({collectionID}) => {
+const RenderItems = () => {
 	const context = useContext(GlobalContext);
 	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
 	const {state: {items}, dispatch} = context;
 	const [flipped, setFlip] = useState({});
 
+	const {collectionID} = useParams();
+
 	// Get the Items from localStorage
-	useIonViewDidEnter(async () => {
+	useIonViewDidEnter(() => {
 		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 			
@@ -24,7 +27,7 @@ const RenderItems = ({collectionID}) => {
 				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
 			}
 		});
-	})
+	}, [collectionID])
 
 	const deleteCard = useRemoveCardPrompt(showActionSheet.id, collectionID);
 

@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonToolbar, IonCardTitle, IonIcon, IonRow, IonGrid, IonHeader, IonCol, IonCardContent, IonCard, IonFabButton, IonFooter } from "@ionic/react";
+import { IonContent, IonPage, IonToolbar, IonCardTitle, IonIcon, IonRow, IonGrid, IonHeader, IonCol, IonCardContent, IonCard, IonFabButton, IonFooter, useIonViewWillEnter } from "@ionic/react";
 import React, {useContext} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline} from 'ionicons/icons';
 import { useHistory, useParams } from "react-router-dom";
@@ -11,7 +11,7 @@ import useClearCardsPrompt from "./useClearCardsPrompt";
 import ProgressBar from "./ProgressBar";
 import PlayButton from "./PlayButton";
 
-const CardList = () => {
+const CardList = (props) => {
 	const history = useHistory();
 	const context = useContext(GlobalContext);
 	const {state: {items_length}} = context;

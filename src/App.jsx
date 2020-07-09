@@ -48,7 +48,6 @@ const App = () => (
 				<IonRouterOutlet>
 					<Route path={PageRoutes.collections} component={Collections} exact={true} />
 					<Route path={`${PageRoutes.play}/:collectionID/:difficulty`} component={Play} exact={true} />
-					<Route path={PageRoutes.card_list} component={CardList} exact={true} />
 					<Route path={`${PageRoutes.card_list}/:collectionID`} component={CardList} />
 					<Route path={`${PageRoutes.setup_card}/:collectionID`} component={SetupCard} exact={true} />
 					<Route path={`${PageRoutes.setup_card}/:collectionID/:id`} component={SetupCard}/>
