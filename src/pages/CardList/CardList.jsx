@@ -23,19 +23,25 @@ const CardList = () => {
 	const clearCards = useClearCardsPrompt(collectionID);
 
 	useIonViewDidEnter(() => {
-		Storage.get({key: "collections"}).then((collections) => {
-			let collectionsJSON = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty("value")) ? [] : JSON.parse(collections.value);
-
-			const Mempoints = collectionsJSON[collectionID]["mp"] || 0;
-			setMempoints(Mempoints);
-		})
-
 		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
 			
 			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
 				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
 
+				// Update the mempoints
+				let totalMempoints = 0;
+				for(let i in oldItemsJSON){
+					// TODO: Recalculate the mempoints
+
+					totalMempoints += oldItemsJSON[i]["mp"];
+				}
+
+				totalMempoints = totalMempoints/oldItemsJSON.length;
+
+				setMempoints(totalMempoints);
+
+				// TODO: Update the Storage Data
 			}
 		});
 
