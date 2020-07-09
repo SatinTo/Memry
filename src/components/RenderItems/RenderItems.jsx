@@ -4,6 +4,7 @@ import { GlobalContext } from "../../context/GlobalStore";
 import {
 	IonActionSheet,
 	useIonViewDidEnter,
+	useIonViewWillLeave,
 } from '@ionic/react';
 import Item from '../Item';
 import useRemoveCardPrompt from "../useRemoveCardPrompt";
@@ -28,6 +29,10 @@ const RenderItems = () => {
 			}
 		});
 	}, [collectionID])
+
+	useIonViewWillLeave( async () => {
+		dispatch({type: "SET_ITEMS", value: []}); // Clear the Cards
+	})
 
 	const deleteCard = useRemoveCardPrompt(showActionSheet.id, collectionID);
 
