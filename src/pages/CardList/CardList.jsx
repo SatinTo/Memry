@@ -19,6 +19,7 @@ const CardList = (props) => {
 
 	const clearCards = useClearCardsPrompt(collectionID);
 
+
 	return (
 		<IonPage>
 			<IonHeader>
@@ -42,7 +43,7 @@ const CardList = (props) => {
 			<IonContent scrollEvents={false}>
 				<IonGrid>
 					<IonRow >
-						<RenderItems collectionID={collectionID}/>
+						<RenderItems/>
 
 						{/* Add New Card Button */}
 						<IonCol size="6">
@@ -80,6 +81,7 @@ const CardList = (props) => {
 							}}
 						/>
 						<PlayButton 
+							disabled={(items_length > 0 ? "false": "true")}
 							style={{"--background": "#63FCC5"}} 
 							label="Easy" 
 							onClick = {() => {
