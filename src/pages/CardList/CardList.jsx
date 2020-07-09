@@ -1,5 +1,5 @@
-import { IonContent, IonPage, IonToolbar, IonCardTitle, IonIcon, IonRow, IonGrid, IonHeader, IonCol, IonCardContent, IonCard, IonFabButton, IonFooter, useIonViewWillEnter } from "@ionic/react";
-import React, {useContext} from "react";
+import { IonContent, IonPage, IonToolbar, IonCardTitle, IonIcon, IonRow, IonGrid, IonHeader, IonCol, IonCardContent, IonCard, IonFabButton, IonFooter, useIonViewWillEnter, useIonViewDidEnter } from "@ionic/react";
+import React, {useContext, useState} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline} from 'ionicons/icons';
 import { useHistory, useParams } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalStore";
@@ -10,15 +10,26 @@ import Indicator from "../../components/Indicator";
 import useClearCardsPrompt from "./useClearCardsPrompt";
 import ProgressBar from "./ProgressBar";
 import PlayButton from "./PlayButton";
+import { Plugins } from "@capacitor/core";
 
-const CardList = (props) => {
+const { Storage } = Plugins;
+
+const CardList = () => {
 	const history = useHistory();
 	const context = useContext(GlobalContext);
 	const {state: {items_length}} = context;
 	const {collectionID} = useParams();
-
+	const [mempoints, setMempoints] = useState(0);
 	const clearCards = useClearCardsPrompt(collectionID);
 
+	useIonViewDidEnter(() => {
+		Storage.get({key: "collections"}).then((collections) => {
+			let collectionsJSON = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty("value")) ? [] : JSON.parse(collections.value);
+
+			const Mempoints = collectionsJSON[collectionID]["mp"] || 0;
+			setMempoints(Mempoints);
+		})
+	}, [collectionID]);
 
 	return (
 		<IonPage>
@@ -32,7 +43,7 @@ const CardList = (props) => {
 					</IonFabButton>
 					<div slot="secondary">
 						<Indicator style={{backgroundColor: "#B7B0FF", color: "#656290"}} icon={albumsOutline} label={formatNumber(items_length)}/>
-						<ProgressBar label="MemPoints: 10%"/>
+						<ProgressBar label={`MemPoints: ${mempoints || 0}%`} percentage={mempoints} />
 					</div>
 					
 					<IonFabButton slot="end" onClick={clearCards} disabled={(items_length < 1 ?"true": "false")} style={{"--background": "none", boxShadow: "none", "--border-color": "none", "--box-shadow": "none", width: "25px", height:"25px", "--background-activated": "none"}}>
