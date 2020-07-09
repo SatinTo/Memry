@@ -35,6 +35,7 @@ const RenderCollections = () => {
 		{collection.map((data, index) => {
 			if (typeof data === "object" && data.hasOwnProperty("name"))
 				return <CollectionItems key={index} id={index} {...data} callBack={setShowActionSheet}/>
+			return "";
 		})}
 
 		<IonActionSheet

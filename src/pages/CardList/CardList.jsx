@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonToolbar, IonCardTitle, IonIcon, IonRow, IonGrid, IonHeader, IonCol, IonCardContent, IonCard, IonFabButton, IonFooter, useIonViewWillEnter, useIonViewDidEnter } from "@ionic/react";
+import { IonContent, IonPage, IonToolbar, IonCardTitle, IonIcon, IonRow, IonGrid, IonHeader, IonCol, IonCardContent, IonCard, IonFabButton, IonFooter, useIonViewDidEnter } from "@ionic/react";
 import React, {useContext, useState} from "react";
 import {albumsOutline, trashOutline, addSharp, arrowBackOutline} from 'ionicons/icons';
 import { useHistory, useParams } from "react-router-dom";
