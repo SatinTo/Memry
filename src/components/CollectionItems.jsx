@@ -5,15 +5,19 @@ import {
 	IonIcon,
 	IonRippleEffect
 } from "@ionic/react";
-import React from "react";
+import React, { useState } from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 import { formatNumber } from "../vanilla/NumberFormatter";
 import { PageRoutes } from "../vanilla/PageRoutes";
+import { Plugins } from "@capacitor/core";
+
+const { Storage } = Plugins;
 
 const CollectionItems = ({ id, name, mp, callBack }) => {
 	const history = useHistory();
+	const [totalCards, setTotalCards] = useState(0);
 	
 	let fontSize = 12;
 	let revisedName = name;
@@ -30,6 +34,13 @@ const CollectionItems = ({ id, name, mp, callBack }) => {
 		revisedName = name;
 	}
 
+	const collectionID = id;
+	Storage.get({ key: collectionID }).then((cards) => {
+		const cardsJSON = (!cards.value || cards.value === "undefined" || !cards.hasOwnProperty) ? [] : JSON.parse(cards.value);
+
+		setTotalCards(cardsJSON.length);
+	});
+	
 	return (
 		<IonCol size="12">
 			<div 
@@ -60,7 +71,7 @@ const CollectionItems = ({ id, name, mp, callBack }) => {
 						</div>
 						<div style={{display: "flex", marginLeft: "auto", backgroundColor: "#B7B0FF", padding: "2px", borderRadius: "8px 0 0 8px", color: "#656290"}}>
 							<IonIcon icon={albumsOutline} style={{fontSize: "12px", paddingLeft: "4px"}} />
-							<span style={{fontSize:"10px", paddingLeft: "4px"}}>{formatNumber(12356)} </span>
+							<span style={{fontSize:"10px", paddingLeft: "4px"}}>{formatNumber(totalCards)} </span>
 						</div>
 					</div>
 				</div>
