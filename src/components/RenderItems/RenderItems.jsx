@@ -1,15 +1,12 @@
 import React, {useContext, useState} from "react";
-import { Plugins } from '@capacitor/core';
 import { GlobalContext } from "../../context/GlobalStore";
 import {
 	IonActionSheet,
-	useIonViewDidEnter,
 	useIonViewWillLeave,
 } from '@ionic/react';
 import Item from '../Item';
 import useRemoveCardPrompt from "../useRemoveCardPrompt";
 import { useParams } from "react-router";
-const { Storage } = Plugins;
 
 const RenderItems = () => {
 	const context = useContext(GlobalContext);
@@ -18,17 +15,6 @@ const RenderItems = () => {
 	const [flipped, setFlip] = useState({});
 
 	const {collectionID} = useParams();
-
-	// Get the Items from localStorage
-	useIonViewDidEnter(() => {
-		Storage.get({ key: collectionID }).then((oldItems) => {
-			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
-			
-			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
-				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
-			}
-		});
-	}, [collectionID])
 
 	useIonViewWillLeave( async () => {
 		dispatch({type: "SET_ITEMS", value: []}); // Clear the Cards

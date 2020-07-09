@@ -17,7 +17,7 @@ const { Storage } = Plugins;
 const CardList = () => {
 	const history = useHistory();
 	const context = useContext(GlobalContext);
-	const {state: {items_length}} = context;
+	const {state: {items_length, items}, dispatch} = context;
 	const {collectionID} = useParams();
 	const [mempoints, setMempoints] = useState(0);
 	const clearCards = useClearCardsPrompt(collectionID);
@@ -29,6 +29,16 @@ const CardList = () => {
 			const Mempoints = collectionsJSON[collectionID]["mp"] || 0;
 			setMempoints(Mempoints);
 		})
+
+		Storage.get({ key: collectionID }).then((oldItems) => {
+			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
+			
+			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
+				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
+
+			}
+		});
+
 	}, [collectionID]);
 
 	return (
