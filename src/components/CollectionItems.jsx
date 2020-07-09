@@ -12,22 +12,22 @@ import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 import { formatNumber } from "../vanilla/NumberFormatter";
 import { PageRoutes } from "../vanilla/PageRoutes";
 
-const CollectionItems = ({ id, data, callBack }) => {
+const CollectionItems = ({ id, name, callBack }) => {
 	const history = useHistory();
 	
 	let fontSize = 12;
-	let newData = data;
+	let revisedName = name;
 
-	if (data.length > 13 && data.length <= 15){
+	if (name.length > 13 && name.length <= 15){
 		fontSize = fontSize - 1;
-	} else if (data.length === 16) {
+	} else if (name.length === 16) {
 		fontSize = fontSize - 2;
-	} else if (data.length > 16) {
+	} else if (name.length > 16) {
 		fontSize = fontSize - 2;
-		newData = data.substr(0, 12) + "...";
+		revisedName = name.substr(0, 12) + "...";
 	} else {
 		fontSize = 12;
-		newData = data;
+		revisedName = name;
 	}
 
 	return (
@@ -47,7 +47,7 @@ const CollectionItems = ({ id, data, callBack }) => {
 				<div style={{display: "inline-block", margin: "auto", height: "inherit"}}>
 					<IonCardContent className="container">
 						<IonCardTitle style={{fontSize: fontSize, color: "#236B8A"}}>
-							{newData}
+							{revisedName}
 						</IonCardTitle>
 					</IonCardContent>
 					<div style={{display: "flex", position: "absolute", width: "100%", bottom: "10px"}}>

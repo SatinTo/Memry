@@ -15,8 +15,7 @@ const RenderCollections = () => {
 
 	useIonViewWillEnter(() => {
 		Storage.get({key: "collections"}).then((collections) => {
-			const collectionsJSON = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : JSON.parse(collections.value);
-
+			let collectionsJSON = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty("value")) ? [] : JSON.parse(collections.value);
 
 			if (collection.length < 1 || JSON.stringify(collectionsJSON) !== JSON.stringify(collection)) {
 				dispatch({ type: "SET_COLLECTION", value: collectionsJSON });
@@ -34,7 +33,8 @@ const RenderCollections = () => {
 
 	return <>
 		{collection.map((data, index) => {
-			return <CollectionItems key={index} data={data} id={index} callBack={setShowActionSheet}/>
+			if (typeof data === "object" && data.hasOwnProperty("name"))
+				return <CollectionItems key={index} id={index} {...data} callBack={setShowActionSheet}/>
 		})}
 
 		<IonActionSheet

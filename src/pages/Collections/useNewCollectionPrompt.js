@@ -31,7 +31,7 @@ const useNewCollectionPrompt = () => {
 	
 				const newCollections = [
 					...collectionsJson,
-					title
+					{name: title}
 				];
 	
 				await Storage.set({

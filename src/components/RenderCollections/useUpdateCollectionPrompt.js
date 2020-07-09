@@ -30,7 +30,7 @@ const useUpdateCollectionPrompt = (targetId) => {
 				let updatedCollections;
 
 				if ( collectionID !== "undefined") {
-					collectionJSON[collectionID] = newCollectionTitle;
+					collectionJSON[collectionID].name = newCollectionTitle;
 					updatedCollections = collectionJSON;
 				}
 
