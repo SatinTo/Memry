@@ -12,7 +12,7 @@ import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 import { formatNumber } from "../vanilla/NumberFormatter";
 import { PageRoutes } from "../vanilla/PageRoutes";
 
-const CollectionItems = ({ id, name, callBack }) => {
+const CollectionItems = ({ id, name, mp, callBack }) => {
 	const history = useHistory();
 	
 	let fontSize = 12;
@@ -54,9 +54,9 @@ const CollectionItems = ({ id, name, callBack }) => {
 						<div style={{ display: "flex", padding: "1px", paddingRight: "20px", background: "#E5E5E5", marginLeft: "4px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "calc(100% - 100px)"}}>
 							<div style={{marginTop: "2px", marginLeft: "2px"}}>
 								<IonIcon icon={addSharp} style={{fontSize: "10px", float: "left", fontWeight: "bold"}}/>
-								<span style={{fontSize:"10px", lineHeight: "10px", float: "left"}}>MemPoints: 10%</span>
+								<span style={{fontSize:"10px", lineHeight: "10px", float: "left"}}>MemPoints: {mp ||0}% </span>
 							</div>
-							<div style={{position: "absolute", backgroundColor: "#DD6363", width: "50%", height: "88%", borderRadius: "5px", zIndex: "-1"}}></div>
+							<div style={{position: "absolute", backgroundColor: "#DD6363", width: `${(mp || 0) < 10 ? "15px" : mp + "%"}`, height: "88%", borderRadius: "5px", zIndex: "-1"}}></div>
 						</div>
 						<div style={{display: "flex", marginLeft: "auto", backgroundColor: "#B7B0FF", padding: "2px", borderRadius: "8px 0 0 8px", color: "#656290"}}>
 							<IonIcon icon={albumsOutline} style={{fontSize: "12px", paddingLeft: "4px"}} />
