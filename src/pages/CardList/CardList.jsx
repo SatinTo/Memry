@@ -41,7 +41,17 @@ const CardList = () => {
 
 				setMempoints(totalMempoints);
 
-				// TODO: Update the Storage Data
+				// Update the Storage Data
+				Storage.get({ key: 'collections' }).then(async (collections) => {
+					let collectionsJson = (!collections.value || collections.value === "undefined" || !collections.hasOwnProperty) ? [] : JSON.parse(collections.value);
+				
+					collectionsJson[collectionID]["mp"] = totalMempoints;
+		
+					await Storage.set({
+						key: 'collections',
+						value: JSON.stringify(collectionsJson)
+					});
+				});
 			}
 		});
 
