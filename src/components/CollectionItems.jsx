@@ -3,21 +3,20 @@ import {
 	IonCol,
 	IonCardTitle,
 	IonIcon,
-	IonRippleEffect
+	IonRippleEffect,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 import { formatNumber } from "../vanilla/NumberFormatter";
 import { PageRoutes } from "../vanilla/PageRoutes";
-import { Plugins } from "@capacitor/core";
+import MemPointsProcessor from "../vanilla/MemPointsProcessor";
 
-const { Storage } = Plugins;
-
-const CollectionItems = ({ id, name, mp, callBack }) => {
+const CollectionItems = ({ id, name, callBack }) => {
 	const history = useHistory();
 	const [totalCards, setTotalCards] = useState(0);
+	const [mempoints, setMempoints] = useState(0);
 	
 	let fontSize = 12;
 	let revisedName = name;
@@ -35,12 +34,17 @@ const CollectionItems = ({ id, name, mp, callBack }) => {
 	}
 
 	const collectionID = id;
-	Storage.get({ key: collectionID }).then((cards) => {
-		const cardsJSON = (!cards.value || cards.value === "undefined" || !cards.hasOwnProperty) ? [] : JSON.parse(cards.value);
 
-		setTotalCards(cardsJSON.length);
-	});
-	
+	useEffect(() => {
+		MemPointsProcessor.refreshMempoints(collectionID, function (cardItemsJSON, totalMempoints) {
+			setTotalCards(cardItemsJSON.length);
+
+			// Update the mempoints of this card
+			setMempoints(totalMempoints);
+		});
+
+	}, [collectionID]);
+
 	return (
 		<IonCol size="12">
 			<div 
@@ -65,9 +69,9 @@ const CollectionItems = ({ id, name, mp, callBack }) => {
 						<div style={{ display: "flex", padding: "1px", paddingRight: "20px", background: "#E5E5E5", marginLeft: "4px", borderRadius: "15px", color:"#575757", position: "relative", zIndex: "2", width: "calc(100% - 100px)"}}>
 							<div style={{marginTop: "2px", marginLeft: "2px"}}>
 								<IonIcon icon={addSharp} style={{fontSize: "10px", float: "left", fontWeight: "bold"}}/>
-								<span style={{fontSize:"10px", lineHeight: "10px", float: "left"}}>MemPoints: {mp ||0}% </span>
+								<span style={{fontSize:"10px", lineHeight: "10px", float: "left"}}>MemPoints: {mempoints ||0}% </span>
 							</div>
-							<div style={{position: "absolute", backgroundColor: "#DD6363", width: `${(mp || 0) < 10 ? "15px" : mp + "%"}`, height: "88%", borderRadius: "5px", zIndex: "-1"}}></div>
+							<div style={{position: "absolute", backgroundColor: "#DD6363", width: `${(mempoints || 0) < 10 ? "15px" : mempoints + "%"}`, height: "88%", borderRadius: "5px", zIndex: "-1"}}></div>
 						</div>
 						<div style={{display: "flex", marginLeft: "auto", backgroundColor: "#B7B0FF", padding: "2px", borderRadius: "8px 0 0 8px", color: "#656290"}}>
 							<IonIcon icon={albumsOutline} style={{fontSize: "12px", paddingLeft: "4px"}} />

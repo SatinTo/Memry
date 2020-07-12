@@ -9,9 +9,8 @@ import useUpdateCollectionPrompt from './useUpdateCollectionPrompt';
 const { Storage } = Plugins;
 
 const RenderCollections = () => {
-	const context = useContext(GlobalContext);
 	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
-	const {state: {collection}, dispatch} = context;
+	const {state: {collection}, dispatch} = useContext(GlobalContext);
 
 	useIonViewWillEnter(() => {
 		Storage.get({key: "collections"}).then((collections) => {
