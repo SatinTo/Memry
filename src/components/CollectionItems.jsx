@@ -5,16 +5,19 @@ import {
 	IonIcon,
 	IonRippleEffect,
 } from "@ionic/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { addSharp, albumsOutline} from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { handleButtonRelease, handleButtonPress } from "../vanilla/mouseHold";
 import { formatNumber } from "../vanilla/NumberFormatter";
 import { PageRoutes } from "../vanilla/PageRoutes";
 import MemPointsProcessor from "../vanilla/MemPointsProcessor";
+import { GlobalContext } from "../context/GlobalStore";
 
 const CollectionItems = ({ id, name, callBack }) => {
 	const history = useHistory();
+	const {state: {items}} = useContext(GlobalContext);
+
 	const [totalCards, setTotalCards] = useState(0);
 	const [mempoints, setMempoints] = useState(0);
 	
@@ -43,7 +46,7 @@ const CollectionItems = ({ id, name, callBack }) => {
 			setMempoints(totalMempoints);
 		});
 
-	}, [collectionID]);
+	}, [collectionID, items]); // Reexecute when collectionID changes or the item lists
 
 	return (
 		<IonCol size="12">
