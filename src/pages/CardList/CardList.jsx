@@ -23,21 +23,59 @@ const CardList = () => {
 	const clearCards = useClearCardsPrompt(collectionID);
 
 	useIonViewDidEnter(() => {
-		Storage.get({ key: collectionID }).then((oldItems) => {
-			const oldItemsJSON = (!oldItems.value || oldItems.value === "undefined" || !oldItems.hasOwnProperty) ? [] : JSON.parse(oldItems.value);
+		Storage.get({ key: collectionID }).then((cardItems) => {
+			let cardItemsJSON = (!cardItems.value || cardItems.value === "undefined" || !cardItems.hasOwnProperty) ? [] : JSON.parse(cardItems.value);
 			
-			if (items.length < 1 || JSON.stringify(oldItemsJSON) !== JSON.stringify(items)) {
-				dispatch({type: "SET_ITEMS", value: oldItemsJSON});
+			if (items.length < 1 || JSON.stringify(cardItemsJSON) !== JSON.stringify(items)) {
+				dispatch({type: "SET_ITEMS", value: cardItemsJSON});
 
 				// Update the mempoints
 				let totalMempoints = 0;
-				for(let i in oldItemsJSON){
-					// TODO: Recalculate the mempoints
+				const today = new Date();
 
-					totalMempoints += oldItemsJSON[i]["mp"];
+				for(let i in cardItemsJSON){
+					let mempoints_left = cardItemsJSON[i]["mp"];
+					let updateMempointFlag = false; // Change to true to update mp on this item
+
+					if (cardItemsJSON[i].hasOwnProperty("last_review")){
+						// Recalculate the mempoints
+						const endDate = new Date(cardItemsJSON[i]["last_review"]); // 2017-05-29T00:00:00Z
+						const diff =  today - endDate; 
+
+						const hours_past   = Math.floor(diff / 3.6e6);
+						let remaining_mp = 100 - (3.125 * hours_past);
+
+						// Constraint to minimum 0
+						if (remaining_mp < 1){ remaining_mp = 0; }
+
+						if (mempoints_left !== remaining_mp){
+							// Trigger the flag
+							updateMempointFlag = mempoints_left !== remaining_mp;
+							
+							// Replace
+							mempoints_left = remaining_mp;
+						}
+					} else{
+						if (mempoints_left !== 0){
+							mempoints_left = 0;
+							updateMempointFlag = true;
+						}
+					}
+
+					// Update the mp on this card item
+					if (updateMempointFlag){
+						cardItemsJSON[i]["mp"] = mempoints_left;
+						
+						Storage.set({
+							key: collectionID,
+							value: JSON.stringify(cardItemsJSON)
+						});
+					}
+
+					totalMempoints += mempoints_left;
 				}
 
-				totalMempoints = totalMempoints/oldItemsJSON.length;
+				totalMempoints = totalMempoints/cardItemsJSON.length;
 
 				setMempoints(totalMempoints);
 
@@ -47,7 +85,7 @@ const CardList = () => {
 				
 					collectionsJson[collectionID]["mp"] = totalMempoints;
 		
-					await Storage.set({
+					Storage.set({
 						key: 'collections',
 						value: JSON.stringify(collectionsJson)
 					});
