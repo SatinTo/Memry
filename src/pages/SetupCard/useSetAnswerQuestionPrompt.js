@@ -26,7 +26,7 @@ const useSetAnswerQuestionPrompt = (card_is_flipped, callback) => {
 					return;
 				}
 
-				callback(inputData);
+				callback(data[SIDE_TYPE]);
 			}
 		})
 	}
