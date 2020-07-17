@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonCard, IonCardContent, IonTextarea, IonCardTitle } from '@ionic/react';
-import EllipsisButton from '../../components/EllipsisButton';
+// import EllipsisButton from '../../components/EllipsisButton';
 import ToolBar from './Toolbar';
 
 // Card Types
@@ -14,7 +14,7 @@ const Card = {
 					onClick={onClick}
 				>
 					<div className="card__face card__face--front">
-						<EllipsisButton callBack={()=>{}} itemID={0}/>
+						{/* <EllipsisButton callBack={()=>{}} itemID={0}/> */}
 						<IonCardContent className="container">
 							<IonCardTitle style={{color: "#656290"}}>
 								{(updateMode || cardDetail.front !== null) ? cardDetail.front : <i>Put Question!</i>}
@@ -22,7 +22,7 @@ const Card = {
 						</IonCardContent>
 					</div>
 					<div className="card__face card__face--back">
-						<EllipsisButton callBack={()=>{}} itemID={0}/>
+						{/* <EllipsisButton callBack={()=>{}} itemID={0}/> */}
 						<IonCardContent className="container">
 							<IonCardTitle style={{color: "#3D746D"}}>
 								{(updateMode || cardDetail.back !== null) ? cardDetail.back : <i>Put Answer!</i>}
@@ -44,7 +44,7 @@ const Card = {
 					onClick={() => reducer({type: "SHOW_CARD_INPUT"})}
 				>
 					<div className="card__face">
-						<EllipsisButton callBack={()=>{}} itemID={0}/>
+						{/* <EllipsisButton callBack={()=>{}} itemID={0}/> */}
 						<IonCardContent className="container">
 							<IonCardTitle style={{color: "#656290"}}>
 								{(updateMode || cardDetail.front !== null) ? cardDetail.front : <i>Put Question!</i>}
