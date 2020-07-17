@@ -28,7 +28,8 @@ const useRemoveCardPrompt = (targetId, collectionId, onAfterOkay) => {
 					toast_message: "The Item is successfully removed!"
 				});
 
-				onAfterOkay();
+				if (typeof onAfterOkay === "function")
+					onAfterOkay();
 			}
 		})
 	}
