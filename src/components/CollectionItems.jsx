@@ -53,9 +53,9 @@ const CollectionItems = ({ id, name, callBack }) => {
 			<div 
 				className="ion-activatable ripple-parent" 
 				style={{boxShadow: "none", paddingBottom: "56%", height: 0, backgroundColor: "#B0E7FF", borderRadius: "10px", position: "relative"}}
-				onTouchStart = {() => handleButtonPress(callBack, id)}
+				onTouchStart = {() => handleButtonPress(callBack, id, name)}
 				onTouchEnd = {handleButtonRelease}
-				onMouseDown={() => handleButtonPress(callBack)}
+				onMouseDown={() => handleButtonPress(callBack, id, name)}
 				onMouseUp= {handleButtonRelease}
 				onMouseLeave = {handleButtonRelease}
 				onClick = {() => {

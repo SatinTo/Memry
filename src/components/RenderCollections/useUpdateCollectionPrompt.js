@@ -3,7 +3,7 @@ import { GlobalContext } from '../../context/GlobalStore';
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
 
-const useUpdateCollectionPrompt = (targetId) => {
+const useUpdateCollectionPrompt = (targetId, oldValue) => {
 	const {dispatch} = useContext(GlobalContext);
 
 	return function (){
@@ -14,7 +14,8 @@ const useUpdateCollectionPrompt = (targetId) => {
 				{
 					name: 'title',
 					type: 'text',
-					placeholder: 'Enter your collection title here...'
+					placeholder: 'Enter your collection title here...',
+					value: oldValue,
 				}
 			],
 

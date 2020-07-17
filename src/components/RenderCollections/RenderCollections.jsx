@@ -9,7 +9,7 @@ import useUpdateCollectionPrompt from './useUpdateCollectionPrompt';
 const { Storage } = Plugins;
 
 const RenderCollections = () => {
-	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null});
+	const [showActionSheet, setShowActionSheet] = useState({status: false, id: null, value: ""});
 	const {state: {collection}, dispatch} = useContext(GlobalContext);
 
 	useIonViewWillEnter(() => {
@@ -24,7 +24,7 @@ const RenderCollections = () => {
 	});
 
 	const removeCollection = useRemoveCollectionPrompt(showActionSheet.id);
-	const updateCollection = useUpdateCollectionPrompt(showActionSheet.id);
+	const updateCollection = useUpdateCollectionPrompt(showActionSheet.id, showActionSheet.value);
 
 	if (collection.length < 1) {
 		return <></>
