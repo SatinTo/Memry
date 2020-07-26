@@ -1,29 +1,16 @@
 import React, {useState} from 'react';
-import { 
-	IonContent,
-	IonFabButton,
-	IonPage,
-	IonToolbar,
-	IonCard,
-	IonIcon,
-	IonCardSubtitle,
-	IonCardTitle,
-	IonCardContent,
-	IonButtons,
-	IonBackButton,
-	useIonViewWillEnter
-} from '@ionic/react';
-
+import { IonContent, IonFabButton, IonPage, IonToolbar, IonCard, IonIcon, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton, useIonViewWillEnter } from '@ionic/react';
 import {arrowBackOutline, refreshOutline, checkmarkDoneOutline} from 'ionicons/icons';
 import { Plugins } from '@capacitor/core';
-import shuffleArray from '../vanilla/shuffleArray';
-import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import './Play.css';
+import PlayProcessor from '../vanilla/PlayProcessor';
+import Completed from '../components/Completed';
 
 const { Storage } = Plugins;
 
 const Play = () => {
-	const history = useHistory();
+	const {collectionID, difficulty} = useParams();
 	const [flipped, setFlip] = useState(false);
 	const [currentCardIndex, setCurrentCardIndex] = useState(0);
 	const [cardItems, setCardItems] = useState([]);
@@ -35,28 +22,46 @@ const Play = () => {
 
 	// Makesure not to cache the items
 	useIonViewWillEnter(() => {
-		Storage.get({ key: 'items' }).then((oldItems) => {
+		Storage.get({ key: collectionID }).then((oldItems) => {
 			const oldItemsJSON = (!oldItems.value) ? [] : JSON.parse(oldItems.value);
 
+			// Change max item according to difficulty
+			const PlayProcessorC = new PlayProcessor(oldItemsJSON, (Number(difficulty)+1) * 3 * (Number(difficulty)+1));
+			const newCards = PlayProcessorC.getCards();
+
 			// Put the items
-			setCardItems(shuffleArray(oldItemsJSON));
+			setCardItems(newCards);
 			setCurrentCardIndex(0); // Start from top
 			setFlip(false);
 		});
 	});
 	
 	function propagate(){
-		const nextIndex = currentCardIndex+1;
 		
-		if (nextIndex >= cardItems.length){
-			history.replace("/completed/" + cardItems.length)
-			return;
-		}
+		// Update the mempoints of the current card to 100
+		Storage.get({ key: collectionID }).then((oldItems) => {
+
+			if (!oldItems.value)
+				return;
+
+			const TARGET_CARD_INDEX = cardItems[currentCardIndex].id;
+			let CARD_ITEMS = JSON.parse(oldItems.value);
+			CARD_ITEMS[TARGET_CARD_INDEX]["last_review"] = new Date().getTime();
+			CARD_ITEMS[TARGET_CARD_INDEX]["mp"] = 100;
+
+			Storage.set({key: collectionID, value: JSON.stringify(CARD_ITEMS)});
+		});
+
+		const nextIndex = currentCardIndex+1;
 
 		setCurrentCardIndex(nextIndex);
 		setFlip(false);
 	}
 	
+	if (currentCardIndex === cardItems.length){
+		return <IonPage><Completed count={cardItems.length} /></IonPage>;
+	}
+
 	return (
 	<IonPage>
 		<IonContent scrollEvents={false}>
@@ -68,7 +73,7 @@ const Play = () => {
 					<IonCardTitle style={{fontSize: "1.2em"}}>
 						Total Cards ({cardItems.length ? currentCardIndex+1 : 0}/{cardItems.length})
 					</IonCardTitle>
-					<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>Finish all cards or press back to reshuffle</IonCardSubtitle>
+					<IonCardSubtitle style={{fontWeight: "normal", textTransform: "inherit"}}>I know you can do it. Get it done!</IonCardSubtitle>
 				</div>	
 			</IonToolbar>
 			<div className="container" style={{ paddingTop: "8vh"}}>
@@ -88,7 +93,7 @@ const Play = () => {
 									<IonCardContent className="container">
 										<IonCardTitle>{cardItems[currentCardIndex].back}</IonCardTitle>
 									</IonCardContent>
-								</div>	
+								</div>
 							</div>
 						</IonCard>
 						<IonToolbar>

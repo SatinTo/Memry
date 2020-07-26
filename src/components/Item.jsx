@@ -3,48 +3,55 @@ import {
 	IonCardContent,
 	IonCard,
 	IonCol,
-	IonIcon,
-	IonFabButton,
-	IonRippleEffect
+	IonRippleEffect,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import {ellipsisVertical, refreshOutline} from 'ionicons/icons';
- 
-// import '../pages/Play.css';
+import { PageRoutes } from "../vanilla/PageRoutes";
+import { handleButtonPress, handleButtonRelease } from "../vanilla/mouseHold";
 
-const Item = ({id, data}) => {
+const Item = ({id, data, callBack, collectionID, flipped}) => {
 	const history = useHistory();
-	const [flipped, setFlip] = useState(false);
-	
-	// Function to flip the card
-	function flipCard() {
-		setFlip(!flipped)
-	}
 
-	const frontFace = {
+	let fontSize = 12;
+	let newData = data.front;
+
+	if (newData.length > 13 && newData.length <= 15){
+		fontSize = fontSize - 1;
+	} else if (newData.length === 16) {
+		fontSize = fontSize - 2;
+	} else if (newData.length > 16) {
+		fontSize = fontSize - 2;
+		newData = newData.substr(0, 12) + "...";
+	} else {
+		fontSize = 12;
+		newData = data.front;
 	}
 
 	return (
 		<IonCol size="6">
-			{/*  */}
-			<IonCard className="ion-activatable ripple-parent" style={{boxShadow: "none", margin: 0}} onClick={() => {history.push("/crudCard/" + id )}}>
-				<div className={"card" + (flipped ? " is-flipped" : "")} style={{paddingBottom: "152%"}}>
-					{/* Fron Card */}
-					<div className="card__face card__face--front" style={frontFace}>
-						<div style={{float: "right", paddingTop: "7px"}} >
-							<IonIcon icon={ellipsisVertical} style={{height: "20px", width: "20px", color: "#000"}}/>
-						</div>
+			<IonCard
+				className="ion-activatable ripple-parent" 
+				style={{boxShadow: "none", margin: 0}}
+				onTouchStart = {() => handleButtonPress(callBack, id)}
+				onTouchEnd = {handleButtonRelease}
+				onMouseDown={() => handleButtonPress(callBack)}
+				onMouseUp= {handleButtonRelease}
+				onMouseLeave = {handleButtonRelease}
+				onClick={() => {history.push(`${PageRoutes.setup_card}/${collectionID}/${id}`)}}>
+				
+				<div 
+					className={"card" + (flipped ? " is-flipped" : "")} 
+					style={{paddingBottom: "152%"}}
+				>
+					<div className="card__face card__face--front">
 						<IonCardContent className="container">
-							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
-								{data.front}
+							<IonCardTitle style={{fontSize: fontSize, color: "#656290", lineHeight: "15px"}}>
+								{newData}
 							</IonCardTitle>
 						</IonCardContent>
 					</div>
-					<div className="card__face card__face--back" style={frontFace}>
-						<div style={{float: "right", paddingTop: "7px"}} >
-							<IonIcon icon={ellipsisVertical} style={{height: "20px", width: "20px", color: "#000"}}/>
-						</div>
+					<div className="card__face card__face--back">
 						<IonCardContent className="container">
 							<IonCardTitle style={{fontSize: "13px", color: "#656290", lineHeight: "15px"}}>
 								{data.back}
@@ -54,11 +61,6 @@ const Item = ({id, data}) => {
 				</div>
 				<IonRippleEffect type="inbound"></IonRippleEffect>
 			</IonCard>
-			<div style={{position: "absolute", bottom: "9px", left: "9px"}}>
-				<IonFabButton style={{width: "20px", height:"20px", "--background": (flipped) ? "#b7b0ff" : "#97fff3"}} onClick={flipCard}>
-					<IonIcon icon={refreshOutline} style={{width: "12px", height:"12px"}} />
-				</IonFabButton>
-			</div>
 		</IonCol>
 	);
 }

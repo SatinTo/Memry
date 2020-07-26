@@ -1,8 +1,11 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "Memry",
-	"bundledWebRuntime": false,
-	"npmClient": "npm",
-	"webDir": "build",
-	"cordova": {}
+  "appId": "com.datosanalyticos.memry",
+  "appName": "Memry",
+  "bundledWebRuntime": true,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {},
+  "android": {
+    "webContentsDebuggingEnabled": true
+  }
 }

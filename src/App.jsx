@@ -2,11 +2,11 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupConfig } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
+import {PageRoutes} from "./vanilla/PageRoutes";
 import Play from './pages/Play';
-import CardList from './pages/CardList';
-import CrudCard from './pages/CrudCard';
-import Collections from './pages/Collections';
+import CardList from './pages/CardList/';
+import SetupCard from './pages/SetupCard/';
+import Collections from './pages/Collections/';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -29,8 +29,12 @@ import './theme/variables.css';
 
 /* Global CSS */
 import './global.css';
-import Completed from './pages/Completed';
-import ItemsStore from './ItemsStore';
+import GlobalStore from './context/GlobalStore';
+import { Plugins } from '@capacitor/core';
+const { SplashScreen } = Plugins;
+
+// Hide the splash (you should do this on app launch)
+SplashScreen.hide();
 
 // Setup config
 setupConfig({
@@ -38,22 +42,20 @@ setupConfig({
 });
 
 const App = () => (
-	<ItemsStore>
+	<GlobalStore>
 		<IonApp>
 			<IonReactRouter>
 				<IonRouterOutlet>
-					<Route path="/home" component={Home} exact={true} />
-					<Route path="/play" component={Play} exact={true} />
-					<Route path="/setItems" component={CardList} exact={true} />
-					<Route path="/completed/:count" component={Completed} exact={true} />
-					<Route path="/crudCard" component={CrudCard} exact={true} />
-					<Route path="/collections" component={Collections} exact={true} />
-					<Route path="/crudCard/:id" component={CrudCard}/>
-					<Route exact path="/" render={() => <Redirect to="/home" />} />
+					<Route path={PageRoutes.collections} component={Collections} exact={true} />
+					<Route path={`${PageRoutes.play}/:collectionID/:difficulty`} component={Play} exact={true} />
+					<Route path={`${PageRoutes.card_list}/:collectionID`} component={CardList} />
+					<Route path={`${PageRoutes.setup_card}/:collectionID`} component={SetupCard} exact={true} />
+					<Route path={`${PageRoutes.setup_card}/:collectionID/:id`} component={SetupCard}/>
+					<Route exact path="/" render={() => <Redirect to={PageRoutes.collections} />} />
 				</IonRouterOutlet>
 			</IonReactRouter>
 		</IonApp>
-	</ItemsStore>
+	</GlobalStore>
 );
 
 export default App;
