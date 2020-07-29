@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Memry</string>
+    <string name="title_activity_main">Memry</string>
+    <string name="package_name">com.datosanalyticos.memry</string>
+    <string name="custom_url_scheme">com.datosanalyticos.memry</string>
+</resources>
