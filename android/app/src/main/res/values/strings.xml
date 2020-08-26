@@ -1,7 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Memry</string>
-    <string name="title_activity_main">Memry</string>
-    <string name="package_name">com.datosanalyticos.memry</string>
-    <string name="custom_url_scheme">com.datosanalyticos.memry</string>
+  <string name="app_name">Memry</string>
+  <string name="title_activity_main">Memry</string>
+  <string name="package_name">com.datosanalyticos.memry</string>
+  <string name="custom_url_scheme">com.datosanalyticos.memry</string>
+  <string name="ionic_app_id">9c59ac97</string>
+  <string name="ionic_channel_name">Master</string>
+  <string name="ionic_update_method">background</string>
+  <string name="ionic_max_versions">2</string>
+  <string name="ionic_min_background_duration">30</string>
+  <string name="ionic_update_api">https://api.ionicjs.com</string>
 </resources>
