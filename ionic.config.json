@@ -1,7 +1,8 @@
 {
-	"name": "Memry",
-	"integrations": {
-		"capacitor": {}
-	},
-	"type": "react"
+  "name": "Memry",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "9c59ac97"
 }
